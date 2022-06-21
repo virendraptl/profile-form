@@ -12,7 +12,10 @@
     <h2>Name:- {{ profileData?.name }}</h2>
     <h2>Email:- {{ profileData?.email }}</h2>
     <h2>Role:- {{ profileData?.role }}</h2>
-    <h2>Email verification Status:- {{ profileData?.isEmailVerified }}</h2>
+    <div class="row">
+      <h2>Email verification Status:- {{ profileData?.isEmailVerified }}</h2>
+      <button class="listbtn" mat-raised-button type="button" routerLink="/users" [disabled]="!profileData.isEmailVerified">Users List</button>
+    </div>
     <h2>Company Name:- {{ profileData?._org.name }}</h2>
   </div>
 </div>

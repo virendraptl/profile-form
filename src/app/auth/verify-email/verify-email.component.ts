@@ -1,22 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ProfileDataService } from 'src/app/profile-data.service';
+import { HttpService } from 'src/app/services/http/http.service';
 
 @Component({
   selector: 'app-verify-email',
   templateUrl: './verify-email.component.html',
-  styleUrls: ['./verify-email.component.css']
+  styleUrls: ['./verify-email.component.css'],
 })
 export class VerifyEmailComponent implements OnInit {
-
-  isVerified:boolean;
+  isVerified: boolean;
   verifyError: boolean;
-  resendBtn:boolean;
-  errorMessage:string | undefined;;
+  resendBtn: boolean;
+  errorMessage: string | undefined;
 
-  token:string;
+  token: string;
 
-  constructor(private activatedRoute: ActivatedRoute, private http: ProfileDataService) { }
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private http: HttpService
+  ) {}
 
   ngOnInit() {
     this.errorMessage = '';
@@ -47,8 +49,7 @@ export class VerifyEmailComponent implements OnInit {
   //   );
   //   this.resendBtn = false;
   // }
-
-  }
+}
 
   // get queryparams from url
   // https://www.angularjswiki.com/angular/get-query-parameters-in-angular/

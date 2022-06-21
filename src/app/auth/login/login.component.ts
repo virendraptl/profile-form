@@ -1,8 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ProfileDataService } from 'src/app/profile-data.service';
-// import * as alertyfy from 'alertifyjs';
+import { HttpService } from 'src/app/services/http/http.service';
+import { LocalStorageService } from 'src/app/services/local-storage/local-storage.service';
 
 @Component({
   selector: 'app-login',
@@ -17,12 +17,13 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private http: ProfileDataService,
-    private router: Router
+    private http: HttpService,
+    private router: Router,
+    private lstore: LocalStorageService
   ) {}
 
   ngOnInit(): void {
-    let checkToken = localStorage.getItem('token');
+    let checkToken = this.lstore.getToken();
     if (checkToken) {
       this.router.navigate(['/user/my-profile']);
     }
@@ -39,11 +40,13 @@ export class LoginComponent implements OnInit {
 
   submitForm() {
     console.log(this.loginForm.value);
-    this.http.post('login', this.loginForm.value).subscribe({
+    this.http.post('auth/login', this.loginForm.value).subscribe({
       next: (data) => {
         console.log(data);
-        localStorage.setItem('profileData', JSON.stringify(data));
-        localStorage.setItem('token', data['token']);
+        // localStorage.setItem('profileData', JSON.stringify(data));
+        // localStorage.setItem('token', data['token']);
+        this.lstore.setToken(data['token']);
+        this.lstore.setData('profileData', data);
         this.router.navigate(['/user/my-profile']);
       },
       error: (error) => {
@@ -80,8 +83,6 @@ export class LoginComponent implements OnInit {
   registerbtn() {
     this.router.navigate(['/auth/register']);
   }
-
-
 }
 
 // error handling reference

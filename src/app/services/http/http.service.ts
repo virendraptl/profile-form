@@ -3,7 +3,7 @@ import {
   HttpErrorResponse,
   HttpHeaders,
 } from '@angular/common/http';
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
@@ -11,64 +11,67 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root',
 })
-export class ProfileDataService implements OnInit {
+export class HttpService {
   emailVerifiedUrl = 'http://basic-api.ngminds.com/auth/verify-email?token=';
 
-  constructor(private http: HttpClient) {
-        console.log('service constructor running!!');
-
-   }
-  ngOnInit(): void {
-    console.log('service oninit running!!');
-  }
+  constructor(private http: HttpClient) { }
 
   post(url: string, data?: any) {
     return this.http
       .post(environment.apiUrl + url, data)
+      .pipe(catchError(this.handleError));
   }
 
   postSecured(url: string, token: any, data?: any) {
     const headers = this.setHeaders(token);
     return this.http
       .post(environment.apiUrl + url, data, { headers })
+      .pipe(catchError(this.handleError));
   }
 
   get(url: string) {
     return this.http
       .get(environment.apiUrl + url)
+      .pipe(catchError(this.handleError));
   }
 
   getSecured(url: string, token: any) {
     const headers = this.setHeaders(token);
     return this.http
       .get(environment.apiUrl + url, { headers })
+      .pipe(catchError(this.handleError));
   }
 
   delete(url) {
     return this.http
       .delete(environment.apiUrl + url)
+      .pipe(catchError(this.handleError));
   }
 
   deleteSecured(url: string, token: any) {
     const headers = this.setHeaders(token);
     return this.http
       .delete(environment.apiUrl + url, { headers })
+      .pipe(catchError(this.handleError));
   }
 
   put(url: string, data: any) {
     return this.http
       .put(environment.apiUrl + url, data)
+      .pipe(catchError(this.handleError));
   }
 
   putSecured(url: string, data: any, token: any) {
     const headers = this.setHeaders(token);
     return this.http
       .put(environment.apiUrl + url, data, { headers })
+      .pipe(catchError(this.handleError));
   }
 
   patch(url: string, data: any) {
     return this.http
       .patch(environment.apiUrl + url, data)
+      .pipe(catchError(this.handleError));
   }
 
   patchSecured(url: string, data: any, token: any) {
@@ -81,9 +84,18 @@ export class ProfileDataService implements OnInit {
     let data = '';
     return this.http
       .post<any>(finalUrl, data)
+      .pipe(catchError(this.handleError));
   }
 
-
+  handleError(error: HttpErrorResponse) {
+    let errorMessage: string = '';
+    if (error.status === 0) {
+      console.error('An error occurred:', error.error);
+    } else {
+      errorMessage = `${error.message}`;
+    }
+    return throwError(() => new Error(errorMessage));
+  }
 
   setHeaders(token) {
     return new HttpHeaders({
@@ -156,15 +168,3 @@ export class ProfileDataService implements OnInit {
 //       catchError(this.handleError<Hero[]>('searchHeroes', []))
 //     );
 // }
-
-// errorhandlr method
-// --------------------------
-  // handleError(error: HttpErrorResponse) {
-  //   let errorMessage: string = '';
-  //   if (error.status === 0) {
-  //     console.error('An error occurred:', error.error);
-  //   } else {
-  //     errorMessage = `${error.error.message}`;
-  //   }
-  //   return throwError(() => new Error(errorMessage));
-  // }

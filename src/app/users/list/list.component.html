@@ -1,0 +1,58 @@
+<div class="page">
+  <header>
+    <h1 class="header-title">Users List</h1>
+    <button routerLink="/user/my-profile" class="btn" mat-raised-button>
+      Back To Profile
+    </button>
+  </header>
+  <div *ngIf="">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </div>
+  <div class="table-block">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <!--- Note that these columns can be defined in any order.
+    The actual rendered columns are set as a property on the row definition" -->
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td
+          (click)="getDetails(element._id)"
+          mat-cell
+          *matCellDef="let element"
+        >
+          {{ element.name }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="role">
+        <th mat-header-cell *matHeaderCellDef>Role</th>
+        <td mat-cell *matCellDef="let element">{{ element.role }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="org">
+        <th mat-header-cell *matHeaderCellDef>Company</th>
+        <td mat-cell *matCellDef="let element">{{ element._org.name }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Verification Status</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.isEmailVerified }}
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+    <mat-paginator [length]="data?.totalResults"
+              [pageSize]="data?.limit"
+              [pageSizeOptions]="[5,10,15,20]"
+              (page)="changeTable($event)"
+              aria-label="Select page">
+</mat-paginator>
+
+  </div>
+</div>
+
+<!-- https://stackoverflow.com/questions/45318164/how-to-use-paginator-from-material-angular -->

@@ -8,15 +8,16 @@ import {
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, Observable, of, throwError } from 'rxjs';
+import { LocalStorageService } from '../local-storage/local-storage.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class InterceptorService implements HttpInterceptor {
-  allowLogout: string[] = ['self'];
+  allowLogout: string[] = ['self', 'users'];
   passIntercept: boolean = false;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private lstore: LocalStorageService) {}
 
   intercept(
     request: HttpRequest<any>,
@@ -28,7 +29,8 @@ export class InterceptorService implements HttpInterceptor {
       }
     });
 
-    let token = localStorage.getItem('token');
+    // let token = localStorage.getItem('token');
+    let token = this.lstore.getToken();
     if (token && this.passIntercept) {
       let clonedReq = request.clone({
         setHeaders: {
@@ -40,10 +42,9 @@ export class InterceptorService implements HttpInterceptor {
         catchError((err) => {
           if (err.status === 401 && this.passIntercept) {
             console.log('Forced logout because token is expired or invalid!!!');
-            localStorage.removeItem('token');
-            localStorage.removeItem('profileData');
-            this.router.navigate(['/auth/login']);
+            this.lstore.logout();
           }
+          console.log(err);
           const error = err.error.message || err.statusText;
           return throwError(() => new Error(error));
         })

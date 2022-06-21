@@ -1,35 +1,36 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ProfileDataService } from '../../profile-data.service';
+import { HttpService } from 'src/app/services/http/http.service';
+import { LocalStorageService } from 'src/app/services/local-storage/local-storage.service';
+
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent implements OnInit {
+  tempToken: string;
+  profileData: any;
 
-  tempToken:string;
-  profileData:any;
-
-  constructor(private http: ProfileDataService, private router: Router) { }
+  constructor(
+    private http: HttpService,
+    private router: Router,
+    private lstore: LocalStorageService
+  ) {}
 
   ngOnInit(): void {
-    this.http.get('self').subscribe(
-      {next:(res:any)=>{
+    this.http.get('auth/self').subscribe({
+      next: (res: any) => {
         this.profileData = res;
-        console.log('profile data from service:- ',this.profileData);
-        }
-      }
-    );
+        console.log('profile data from service:- ', this.profileData);
+      },
+    });
   }
 
-  logout(){
-    localStorage.removeItem('token');
-    localStorage.removeItem('profileData');
-    this.router.navigate(['/auth/login'])
+  logout() {
+    this.lstore.logout();
   }
-
 }
 
 

@@ -1,22 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ProfileDataService } from '../../profile-data.service';
-
+import { HttpService } from 'src/app/services/http/http.service';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent implements OnInit {
-
   registerForm: FormGroup;
-  errorMessage:string | undefined;
-  isRegistered:boolean;
+  errorMessage: string | undefined;
+  isRegistered: boolean;
 
-
-  constructor(private fb: FormBuilder, private http:ProfileDataService, private router: Router) { }
+  constructor(
+    private fb: FormBuilder,
+    private http: HttpService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.isRegistered = false;
@@ -24,32 +25,34 @@ export class RegisterComponent implements OnInit {
     this.createForm();
   }
 
-  createForm(){
+  createForm() {
     this.registerForm = this.fb.group({
-      name: ['',[Validators.required]],
-      company: ['',[Validators.required]],
+      name: ['', [Validators.required]],
+      company: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['',[Validators.required]]
-    })
+      password: ['', [Validators.required]],
+    });
   }
 
-  submitForm(){
-    console.log(this.registerForm.value)
-    this.http.post('register',this.registerForm.value).subscribe(
-      {next:(data)=>{
-      console.log(data);
-      console.log('Token is: ', data['token']);
-      this.http.postSecured('send-verification-email',data['token']).subscribe(
-        ()=> {console.log('Request sent')}
-      );
-      this.isRegistered = !this.isRegistered;
+  submitForm() {
+    console.log(this.registerForm.value);
+    this.http.post('auth/register', this.registerForm.value).subscribe({
+      next: (data) => {
+        console.log(data);
+        console.log('Token is: ', data['token']);
+        this.http
+          .postSecured('auth/send-verification-email', data['token'])
+          .subscribe(() => {
+            console.log('Request sent');
+          });
+        this.isRegistered = !this.isRegistered;
       },
-     error:(error)=>{
-      console.log('Error in register is: ', error.message);
-      this.errorMessage = error.message;
-      this.registerForm.markAsPristine();
-      }}
-    )
+      error: (error) => {
+        console.log('Error in register is: ', error.message);
+        this.errorMessage = error.message;
+        this.registerForm.markAsPristine();
+      },
+    });
   }
 
   getEmailErrorMessage() {
@@ -62,32 +65,31 @@ export class RegisterComponent implements OnInit {
   getNameErrorMessage() {
     if (this.name.hasError('required')) {
       return 'Name field can not be empty';
-    }else return '';
+    } else return '';
   }
   getCompanyErrorMessage() {
     if (this.company.hasError('required')) {
       return 'Company field can not be empty';
-    }else return '';
+    } else return '';
   }
   getPasswordErrorMessage() {
     if (this.password.hasError('required')) {
       return 'Password field can not be empty';
-    }else return '';
+    } else return '';
   }
 
   get email() {
-    return this.registerForm.get('email')
+    return this.registerForm.get('email');
   }
   get name() {
-    return this.registerForm.get('name')
+    return this.registerForm.get('name');
   }
   get company() {
-    return this.registerForm.get('company')
+    return this.registerForm.get('company');
   }
   get password() {
-    return this.registerForm.get('password')
+    return this.registerForm.get('password');
   }
-
 }
 
 // company: "Rvmp Inc"

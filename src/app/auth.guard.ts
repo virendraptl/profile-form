@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
 import {  CanActivate, Router } from '@angular/router';
-import { ProfileDataService } from './profile-data.service';
+import { HttpService } from './services/http/http.service';
+
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  constructor(private http: ProfileDataService, private router: Router){}
+  constructor(private http: HttpService, private router: Router) {}
 
-
-  canActivate():boolean {
-    if(!!localStorage.getItem('token')){
+  canActivate(): boolean {
+    if (!!localStorage.getItem('token')) {
       return true;
-    }else{
+    } else {
       this.router.navigate(['auth/login']);
       return false;
     }
@@ -26,5 +26,4 @@ export class AuthGuard implements CanActivate {
   //     return true;
   //   }
   // }
-  
 }

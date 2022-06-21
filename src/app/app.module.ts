@@ -6,14 +6,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-
-
 import { AuthGuard } from './auth.guard';
-
-
-import { AuthModule } from './auth/auth.module';
-import { UserModule } from './user/user.module';
-import { InterceptorService } from './interceptor.service';
+import { InterceptorService } from './services/interceptor/interceptor.service';
+import { ListComponent } from './users/list/list.component';
+import { DetailsComponent } from './users/details/details.component';
+import { CreateComponent } from './users/create/create.component';
 
 
 
@@ -21,7 +18,7 @@ import { InterceptorService } from './interceptor.service';
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
