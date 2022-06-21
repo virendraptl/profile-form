@@ -1,0 +1,46 @@
+<div class="page">
+  <div class="banner">
+    <form [formGroup]="loginForm" (ngSubmit)="submitForm()">
+      <h2 class="title">Login Here</h2>
+      <p>
+        <mat-form-field class="block-height" appearance="outline">
+          <mat-label>Email</mat-label>
+          <input formControlName="email" matInput placeholder="Enter Email" />
+          <mat-error *ngIf="email.invalid">{{
+            getEmailErrorMessage()
+          }}</mat-error>
+
+          <!-- <mat-hint>Hint</mat-hint> -->
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field class="block-height" appearance="outline">
+          <mat-label>Password</mat-label>
+          <input
+            type="password"
+            formControlName="password"
+            matInput
+            placeholder="Enter Password"
+          />
+          <mat-error *ngIf="password.invalid">{{
+            getPasswordErrorMessage()
+          }}</mat-error>
+          <!-- <mat-hint>Hint</mat-hint> -->
+        </mat-form-field>
+      </p>
+      <button [disabled]="loginForm.invalid" class="btn" mat-raised-button>
+        Login
+      </button>
+      <mat-error
+        class="errorMessage"
+        *ngIf="errorMessage && loginForm.pristine"
+        >{{ errorMessage }}</mat-error
+      >
+      <div class="no-acc-block">
+        <div class="registerbtn" (click)="registerbtn()">
+          Don't have an account?
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

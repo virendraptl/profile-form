@@ -1,0 +1,18 @@
+<div class="page">
+  <header>
+    <h2>Profile</h2>
+    <button (click)="logout()" class="btn" mat-raised-button color="warn">
+      Log Out
+    </button>
+  </header>
+  <div *ngIf="!profileData">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </div>
+  <div *ngIf="profileData" class="profile-block">
+    <h2>Name:- {{ profileData?.name }}</h2>
+    <h2>Email:- {{ profileData?.email }}</h2>
+    <h2>Role:- {{ profileData?.role }}</h2>
+    <h2>Email verification Status:- {{ profileData?.isEmailVerified }}</h2>
+    <h2>Company Name:- {{ profileData?._org.name }}</h2>
+  </div>
+</div>

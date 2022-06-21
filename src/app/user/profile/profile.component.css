@@ -1,0 +1,40 @@
+/* header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 46%, rgb(65, 139, 189) 100%);
+    color: rgb(238, 242, 248);
+}
+
+.btn{
+    color: white;
+    font-weight: bolder;
+    height: 40px;
+} */
+
+
+header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 46%, rgb(65, 139, 189) 100%);
+    color: rgb(238, 242, 248);
+    /* background-color: white; */
+    
+}
+
+.btn{
+    color: white;
+    font-weight: bolder;
+    height: 40px;
+}
+
+.profile-block{
+    padding: 50px;
+}

@@ -1,0 +1,18 @@
+<!-- {{token}} -->
+<div class="page">
+  <div class="banner">
+    <div *ngIf="!isVerified; else postVerified">
+      <h1>Checking for email verification...</h1>
+    </div>
+    <ng-template #postVerified>
+      <h1>Email verification successful!</h1>
+    </ng-template>
+    <div *ngIf="!isVerified && !errorMessage">
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
+    <div *ngIf="errorMessage">
+      <h1 class="error-msg">{{ errorMessage }}</h1>
+    </div>
+    <h4><a routerLink="/auth/login">Click here</a> to go to login page</h4>
+  </div>
+</div>
