@@ -1,1 +1,92 @@
-<p>create works!</p>
+<div class="page">
+  <header>
+    <h2 class="header-title">Add New User</h2>
+    <button routerLink="/users" class="backbtn" mat-raised-button>
+      Back To List
+    </button>
+  </header>
+  <div *ngIf="">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </div>
+  <div class="form-block">
+    <div *ngIf="!isRegistered; else postRegister" class="banner">
+      <form class="form-block" [formGroup]="registerForm" (ngSubmit)="submitForm()">
+        <p>
+          <mat-form-field class="block-height" appearance="outline">
+            <mat-label>Full Name</mat-label>
+            <input
+              formControlName="name"
+              matInput
+              placeholder="Enter Full Name"
+            />
+            <mat-error *ngIf="name.invalid">{{
+              getNameErrorMessage()
+            }}</mat-error>
+            <!-- <mat-hint>Hint</mat-hint> -->
+          </mat-form-field>
+        </p>
+        <p>
+          <mat-form-field class="block-height" appearance="outline">
+            <mat-label>Role</mat-label>
+            <input
+              formControlName="role"
+              matInput
+              placeholder="User"
+              value="user"
+            />
+            <!-- <mat-hint>Hint</mat-hint> -->
+          </mat-form-field>
+        </p>
+        <p>
+          <mat-form-field class="block-height" appearance="outline">
+            <mat-label>Email</mat-label>
+            <input formControlName="email" matInput placeholder="Enter Email" />
+            <mat-error *ngIf="email.invalid">{{
+              getEmailErrorMessage()
+            }}</mat-error>
+
+            <!-- <mat-hint>Hint</mat-hint> -->
+          </mat-form-field>
+        </p>
+        <p>
+          <mat-form-field class="block-height" appearance="outline">
+            <mat-label>Password</mat-label>
+            <input
+              type="password"
+              formControlName="password"
+              matInput
+              placeholder="Enter Password"
+            />
+            <mat-error *ngIf="password.invalid">{{
+              getPasswordErrorMessage()
+            }}</mat-error>
+            <!-- <mat-hint>Hint</mat-hint> -->
+          </mat-form-field>
+        </p>
+        <button [disabled]="registerForm.invalid" class="btn" mat-raised-button>
+          Register
+        </button>
+        <mat-error
+          class="errorMessage"
+          *ngIf="errorMessage && registerForm.pristine"
+          >{{ errorMessage }}</mat-error
+        >
+        <!-- <mat-error class="verifyMail" *ngIf="verifyMail">{{
+        verifyMail
+         }}</mat-error> -->
+      </form>
+    </div>
+    <ng-template #postRegister>
+      <div class="postbanner">
+        <h1>User Added Successfully</h1>
+        <h4><a routerLink="/users">Click here</a> to see the list</h4>
+        <button (click)="createAgain()" class="btn" mat-raised-button>
+          Create Another User
+        </button>
+        <!-- <h4><a
+           (click)="createAgain()">Click here</a> to create another user
+          </h4> -->
+      </div>
+    </ng-template>
+  </div>
+</div>

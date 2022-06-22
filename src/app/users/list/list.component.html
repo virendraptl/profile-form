@@ -1,14 +1,25 @@
 <div class="page">
   <header>
-    <h1 class="header-title">Users List</h1>
+    <h2 class="header-title">Users List</h2>
+    <button routerLink="/users/create" class="btn" mat-raised-button>
+      Add New User
+    </button>
     <button routerLink="/user/my-profile" class="btn" mat-raised-button>
       Back To Profile
     </button>
   </header>
-  <div *ngIf="">
+  <div *ngIf="loadFlag">
     <mat-progress-bar mode="indeterminate"></mat-progress-bar>
   </div>
-  <div class="table-block">
+  <div *ngIf="!loadFlag" class="table-block">
+    <mat-paginator
+      [length]="tempdata.totalResults"
+      [pageSize]="tempdata.limit"
+      [pageIndex]="tempdata.page - 1"
+      [pageSizeOptions]="[5, 10, 15, 20]"
+      (page)="changeTable($event)"
+    >
+    </mat-paginator>
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
       <!--- Note that these columns can be defined in any order.
     The actual rendered columns are set as a property on the row definition" -->
@@ -18,6 +29,7 @@
         <th mat-header-cell *matHeaderCellDef>Name</th>
         <td
           (click)="getDetails(element._id)"
+          class="name-cell"
           mat-cell
           *matCellDef="let element"
         >
@@ -42,16 +54,31 @@
         </td>
       </ng-container>
 
+      <ng-container matColumnDef="edit">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td title="edit"  mat-cell *matCellDef="let element">
+          <button class="dltbutton" routerLink="/users/update" mat-mini-fab color="primary" type="button"><mat-icon>edit</mat-icon></button>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="button">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td title="Delete"  mat-cell *matCellDef="let element">
+          <button (click)="openConfirmationDialog(element.name, element._id)" class="dltbutton" mat-mini-fab color="warn" type="button"><mat-icon>delete</mat-icon></button>
+        </td>
+      </ng-container>
+
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
-    <mat-paginator [length]="data?.totalResults"
-              [pageSize]="data?.limit"
-              [pageSizeOptions]="[5,10,15,20]"
-              (page)="changeTable($event)"
-              aria-label="Select page">
-</mat-paginator>
-
+    <mat-paginator
+      [length]="tempdata.totalResults"
+      [pageSize]="tempdata.limit"
+      [pageIndex]="tempdata.page - 1"
+      [pageSizeOptions]="[5, 10, 15, 20]"
+      (page)="changeTable($event)"
+    >
+    </mat-paginator>
   </div>
 </div>
 

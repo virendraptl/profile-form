@@ -1,0 +1,58 @@
+.page{
+  width: 100vw;
+  height: 100vh;
+  box-sizing: border-box;
+}
+
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    90deg,
+    #020024 0%,
+    rgba(9, 9, 121, 1) 46%,
+    rgb(65, 139, 189) 100%
+  );
+  color: rgb(238, 242, 248);
+  /* background-color: white; */
+}
+
+.header-title{
+    margin-left: 0;
+    font-size: 40px;
+    margin: 20px 20px;
+}
+
+.btn {
+  color: #020224;
+  font-weight: bolder;
+  height: 40px;
+}
+
+.info-block{
+  margin: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.card{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 50%;
+  /* justify-content: space-around; */
+}
+
+.avatar-block{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}

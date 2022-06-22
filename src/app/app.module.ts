@@ -8,32 +8,46 @@ import { AppComponent } from './app.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthGuard } from './auth.guard';
 import { InterceptorService } from './services/interceptor/interceptor.service';
-import { ListComponent } from './users/list/list.component';
-import { DetailsComponent } from './users/details/details.component';
-import { CreateComponent } from './users/create/create.component';
+import {
+  MatDialogActions,
+  MatDialogContent,
+  MatDialogModule,
+} from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ConfirmationDialogComponent } from './dialog/confirmation-dialog/confirmation-dialog/confirmation-dialog.component';
+import { MatButtonModule } from '@angular/material/button';
+
+
 
 
 
 
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent, ConfirmationDialogComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatButtonModule,
     // AuthModule,
     // UserModule,
   ],
-  providers: [AuthGuard,
+  providers: [
+    AuthGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: InterceptorService,
-      multi: true
-    }],
-  bootstrap: [AppComponent]
+      multi: true,
+    },
+  ],
+  bootstrap: [AppComponent],
+  entryComponents: [ConfirmationDialogComponent],
 })
-export class AppModule { }
+export class AppModule {}

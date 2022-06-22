@@ -1,1 +1,28 @@
-<p>details works!</p>
+<div class="page">
+  <header>
+    <h2 class="header-title">User Details</h2>
+    <button routerLink="/users" class="btn" mat-raised-button>
+      Back To List
+    </button>
+  </header>
+  <div *ngIf="loading">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </div>
+  <div *ngIf="!loading" class="info-block">
+    <mat-card class="card">
+      <div class="avatar-block">
+        <ngx-avatar [name]="currentData?.name" size="100"></ngx-avatar>
+      </div>
+      <h3>Name:- {{currentData?.name}}</h3>
+      <h3>email:- {{currentData?.email}}</h3>
+      <h3>Role:- {{currentData?.role}}</h3>
+      <h3>Organization:- {{currentData?._org.name}}</h3>
+      <h3>email:- {{currentData?._org.email}}</h3>
+      <h3>Verification Status:- {{currentData?.isEmailVerified}}</h3>
+    </mat-card>
+    <!-- <mat-card class="card">
+    </mat-card> -->
+  </div>
+</div>
+
+<!-- https://stackoverflow.com/questions/45318164/how-to-use-paginator-from-material-angular -->

@@ -14,9 +14,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { AvatarModule } from 'ngx-avatar';
+import { MatIconModule } from '@angular/material/icon';
+import { UpdateComponent } from './update/update.component';
+
+
 
 @NgModule({
-  declarations: [ListComponent, DetailsComponent, CreateComponent],
+  declarations: [ListComponent, DetailsComponent, CreateComponent, UpdateComponent],
   imports: [
     CommonModule,
     UsersRoutingModule,
@@ -29,6 +34,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     ReactiveFormsModule,
     MatTableModule,
     MatPaginatorModule,
+    AvatarModule,
+    MatIconModule,
   ],
 })
 export class UsersModule {}

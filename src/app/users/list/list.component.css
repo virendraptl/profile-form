@@ -1,3 +1,6 @@
+@import "~alertifyjs/build/css/alertify.min.css";
+@import "~alertifyjs/build/css/themes/bootstrap.rtl.min.css";
+
 .page{
   width: 100vw;
   height: 100vh;
@@ -24,13 +27,14 @@ header {
 .header-title{
     margin-left: 0;
     font-size: 40px;
-    margin: 20px 0;
+    margin: 20px 20px;
 }
 
 .btn {
   color: #020224;
   font-weight: bolder;
   height: 40px;
+  margin: 0 30px;
 }
 
 table {
@@ -43,4 +47,25 @@ table {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.dltbutton{
+  height: 30px;
+  width: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mat-row .mat-cell {
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
+}
+
+.mat-row:hover .mat-cell {
+  border-color: currentColor;
+}
+
+.name-cell{
+  cursor: pointer;
 }
