@@ -49,7 +49,7 @@ table {
   align-items: center;
 }
 
-.dltbutton{
+.updatebutton .dltbutton{
   height: 30px;
   width: 30px;
   display: flex;
@@ -69,3 +69,13 @@ table {
 .name-cell{
   cursor: pointer;
 }
+
+::ng-deep snack-bar-container.custom-class {
+  background: rgb(238, 242, 248);
+}
+
+::ng-deep .custom-class .mat-simple-snackbar {
+  color: #020224;
+}
+
+::ng-deep .custom-class .mat-simple-snackbar-action {   color: #020224; }

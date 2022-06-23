@@ -2,6 +2,7 @@ import {
   HttpClient,
   HttpErrorResponse,
   HttpHeaders,
+  HttpParams,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { throwError } from 'rxjs';
@@ -14,7 +15,7 @@ import { environment } from 'src/environments/environment';
 export class HttpService {
   emailVerifiedUrl = 'http://basic-api.ngminds.com/auth/verify-email?token=';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   post(url: string, data?: any) {
     return this.http
@@ -30,6 +31,38 @@ export class HttpService {
   }
 
   get(url: string) {
+    return this.http
+      .get(environment.apiUrl + url)
+      .pipe(catchError(this.handleError));
+  }
+
+  // get(url: string, querryArray?: any) {
+  //   console.log(querryArray);
+  //   if (querryArray) {
+  //     let params = new HttpParams();
+  //     for (let i = 0; i < querryArray.length; i + 2) {
+  //       params = params.append(querryArray[i], querryArray[i + 1]);
+  //     }
+  //     return this.http
+  //       .get(environment.apiUrl + url, { params: params })
+  //       .pipe(catchError(this.handleError));
+  //   }
+  //   return this.http
+  //     .get(environment.apiUrl + url)
+  //     .pipe(catchError(this.handleError));
+  // }
+
+  get2(url: string, querryArray?: any) {
+    console.log(querryArray);
+    if (querryArray) {
+      let params = new HttpParams();
+      for (let i = 0; i < querryArray.length; i + 2) {
+        params.set(querryArray[i], querryArray[i+1])
+      }
+      return this.http
+        .get(environment.apiUrl + url, { params: params })
+        .pipe(catchError(this.handleError));
+    }
     return this.http
       .get(environment.apiUrl + url)
       .pipe(catchError(this.handleError));

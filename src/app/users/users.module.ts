@@ -17,11 +17,18 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { AvatarModule } from 'ngx-avatar';
 import { MatIconModule } from '@angular/material/icon';
 import { UpdateComponent } from './update/update.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 
 
 
 @NgModule({
-  declarations: [ListComponent, DetailsComponent, CreateComponent, UpdateComponent],
+  declarations: [
+    ListComponent,
+    DetailsComponent,
+    CreateComponent,
+    UpdateComponent,
+  ],
   imports: [
     CommonModule,
     UsersRoutingModule,
@@ -36,6 +43,7 @@ import { UpdateComponent } from './update/update.component';
     MatPaginatorModule,
     AvatarModule,
     MatIconModule,
+    MatSnackBarModule,
   ],
 })
 export class UsersModule {}

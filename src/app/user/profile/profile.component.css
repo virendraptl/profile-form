@@ -48,14 +48,14 @@ header {
   align-items: center;
 }
 
-.listbtn{
-    margin: 20px 0 0 100px;
-    color: white;
-    background-color: #090979;
-    font-weight: bold;
+.listbtn {
+  margin: 20px 0 0 100px;
+  font-weight: bold;
 }
 
-h2 {
-  margin-top: 20px;
-  margin-bottom: 0;
+.header-title {
+  margin-left: 0;
+  font-size: 40px;
+  font-weight: bold;
+  margin: 0 30px;
 }

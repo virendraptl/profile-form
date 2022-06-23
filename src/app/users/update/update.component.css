@@ -31,6 +31,7 @@ header {
   color: #020224;
   font-weight: bolder;
   height: 40px;
+  margin: 0 30px;
 }
 
 
@@ -45,7 +46,7 @@ header {
     /* border: 2px solid grey; */
     border-radius: 20px;
     padding: 20px;
-    height: 510px;
+    height: 300px;
 }
 input{
     background-color: rgb(255, 255, 255);
@@ -69,7 +70,7 @@ input{
     color: white;
     background-color: #090979;
     font-weight: bold;
-    margin-bottom: 15px;
+    margin:0 15px 15px 15px;
 }
 
 .loginbtn{
@@ -99,7 +100,8 @@ input{
     text-align: center;
     /* border: 2px solid grey; */
     border-radius: 20px;
-    height: 510px;
+    height: 450px;
+    /* height: 70vh; */
 }
 
 p, .mat-form-field{

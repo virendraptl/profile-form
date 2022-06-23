@@ -1,4 +1,4 @@
-.page{
+.page {
   width: 100vw;
   height: 100vh;
   box-sizing: border-box;
@@ -21,37 +21,37 @@ header {
   /* background-color: white; */
 }
 
-.header-title{
-    margin-left: 0;
-    font-size: 40px;
-    margin: 20px 20px;
+.header-title {
+  margin-left: 0;
+  font-size: 40px;
+  margin: 20px 20px;
 }
 
 .backbtn {
   color: #020224;
   font-weight: bolder;
   height: 40px;
+  margin: 0 30px;
 }
 
-
-.postbanner{
-    color: #090979;
-    width: 500px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    background-color: rgb(243, 243, 243);
-    /* border: 2px solid grey; */
-    border-radius: 20px;
-    padding: 20px;
-    height: 510px;
+.postbanner {
+  color: #090979;
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  background-color: rgb(243, 243, 243);
+  /* border: 2px solid grey; */
+  border-radius: 20px;
+  padding: 20px;
+  height: 300px;
 }
-input{
-    background-color: rgb(255, 255, 255);
+input {
+  background-color: rgb(255, 255, 255);
 }
 
-.form-block{
+.form-block {
   display: flex;
   flex-direction: column;
   margin: 20px;
@@ -60,51 +60,50 @@ input{
   width: 100%;
 }
 
-.title{
-    font-size: 30px;
-    margin-top: 0;
-}
-
-.btn{
-    color: white;
-    background-color: #090979;
-    font-weight: bold;
-    margin-bottom: 15px;
-}
-
-.loginbtn{
-    /* margin: 15px; */
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.have-acc-block{
-    display: flex;
-    justify-content: center;
-}
-
-.errorMessage{
-    margin: 0 auto 10px auto;
-}
-
-.verifyMail{
-    margin: 0 auto 10px auto;
-    color: green;
-}
-
-.banner{
-    width: 500px;
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    /* border: 2px solid grey; */
-    border-radius: 20px;
-    height: 510px;
-}
-
-p, .mat-form-field{
-  width: 100%;
+.title {
+  font-size: 30px;
   margin-top: 0;
 }
 
+.btn {
+  color: white;
+  background-color: #090979;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
 
+.loginbtn {
+  /* margin: 15px; */
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.have-acc-block {
+  display: flex;
+  justify-content: center;
+}
+
+.errorMessage {
+  margin: 0 auto 10px auto;
+}
+
+.verifyMail {
+  margin: 0 auto 10px auto;
+  color: green;
+}
+
+.banner {
+  width: 500px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  /* border: 2px solid grey; */
+  border-radius: 20px;
+  height: 450px;
+}
+
+p,
+.mat-form-field {
+  width: 100%;
+  margin-top: 0;
+}

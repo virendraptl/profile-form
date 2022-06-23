@@ -1,4 +1,4 @@
-.page{
+.page {
   width: 100vw;
   height: 100vh;
   box-sizing: border-box;
@@ -21,38 +21,53 @@ header {
   /* background-color: white; */
 }
 
-.header-title{
-    margin-left: 0;
-    font-size: 40px;
-    margin: 20px 20px;
+.header-title {
+  margin-left: 0;
+  font-size: 40px;
+  margin: 20px 20px;
 }
 
 .btn {
   color: #020224;
   font-weight: bolder;
   height: 40px;
+  margin: 0 30px;
 }
 
-.info-block{
-  margin: 20px;
-  padding: 20px;
+.info-block {
+  margin: 0 20px;
+  padding: 10px 20px;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
 }
 
-.card{
+.card {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 50%;
+  width: 300px;
   /* justify-content: space-around; */
 }
 
-.avatar-block{
+.avatar-block {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: 20px;
+}
+
+.updatebutton{
+  height: 30px;
+  width: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.update-btn{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
 }

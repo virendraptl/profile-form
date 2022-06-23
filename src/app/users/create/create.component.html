@@ -5,11 +5,11 @@
       Back To List
     </button>
   </header>
-  <div *ngIf="">
+  <div *ngIf="isLoading">
     <mat-progress-bar mode="indeterminate"></mat-progress-bar>
   </div>
   <div class="form-block">
-    <div *ngIf="!isRegistered; else postRegister" class="banner">
+    <mat-card *ngIf="!isRegistered; else postRegister" class="banner">
       <form class="form-block" [formGroup]="registerForm" (ngSubmit)="submitForm()">
         <p>
           <mat-form-field class="block-height" appearance="outline">
@@ -75,9 +75,9 @@
         verifyMail
          }}</mat-error> -->
       </form>
-    </div>
+    </mat-card>
     <ng-template #postRegister>
-      <div class="postbanner">
+      <mat-card class="postbanner">
         <h1>User Added Successfully</h1>
         <h4><a routerLink="/users">Click here</a> to see the list</h4>
         <button (click)="createAgain()" class="btn" mat-raised-button>
@@ -86,7 +86,7 @@
         <!-- <h4><a
            (click)="createAgain()">Click here</a> to create another user
           </h4> -->
-      </div>
+      </mat-card>
     </ng-template>
   </div>
 </div>

@@ -30,6 +30,7 @@
         <td
           (click)="getDetails(element._id)"
           class="name-cell"
+          title="click to see details"
           mat-cell
           *matCellDef="let element"
         >
@@ -57,7 +58,7 @@
       <ng-container matColumnDef="edit">
         <th mat-header-cell *matHeaderCellDef></th>
         <td title="edit"  mat-cell *matCellDef="let element">
-          <button class="dltbutton" routerLink="/users/update" mat-mini-fab color="primary" type="button"><mat-icon>edit</mat-icon></button>
+          <button class="updatebutton" (click)="updateDetails(element._id)" mat-mini-fab color="primary" type="button"><mat-icon>edit</mat-icon></button>
         </td>
       </ng-container>
 

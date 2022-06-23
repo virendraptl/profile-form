@@ -1,7 +1,11 @@
 <div class="page">
   <header>
-    <h2>Profile</h2>
-    <button (click)="logout()" class="btn" mat-raised-button color="warn">
+    <div>
+      <p class="header-title">Profile</p>
+    </div>
+    <!-- <h1>Profile</h1> -->
+    <button class="listbtn" mat-raised-button type="button" routerLink="/users" [disabled]="!profileData?.isEmailVerified">Users List</button>
+    <button (click)="logout()" class="listbtn" mat-raised-button color="warn">
       Log Out
     </button>
   </header>
@@ -14,7 +18,7 @@
     <h2>Role:- {{ profileData?.role }}</h2>
     <div class="row">
       <h2>Email verification Status:- {{ profileData?.isEmailVerified }}</h2>
-      <button class="listbtn" mat-raised-button type="button" routerLink="/users" [disabled]="!profileData.isEmailVerified">Users List</button>
+      <!-- <button class="listbtn" mat-raised-button type="button" routerLink="/users" [disabled]="!profileData.isEmailVerified">Users List</button> -->
     </div>
     <h2>Company Name:- {{ profileData?._org.name }}</h2>
   </div>

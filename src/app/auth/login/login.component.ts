@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
         // localStorage.setItem('profileData', JSON.stringify(data));
         // localStorage.setItem('token', data['token']);
         this.lstore.setToken(data['token']);
-        this.lstore.setData('profileData', data);
+        // this.lstore.setData('profileData', data);
         this.router.navigate(['/user/my-profile']);
       },
       error: (error) => {

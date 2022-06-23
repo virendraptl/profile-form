@@ -1,7 +1,8 @@
 <div class="page">
   <header>
     <h2 class="header-title">User Details</h2>
-    <button routerLink="/users" class="btn" mat-raised-button>
+    <!-- routerLink="/users"  -->
+    <button (click)="locationback()" class="btn" mat-raised-button>
       Back To List
     </button>
   </header>
@@ -10,6 +11,9 @@
   </div>
   <div *ngIf="!loading" class="info-block">
     <mat-card class="card">
+      <div class="update-btn">
+         <button title="Click to update" class="updatebutton" (click)="updateDetails()" mat-mini-fab color="primary" type="button"><mat-icon>edit</mat-icon></button>
+      </div>
       <div class="avatar-block">
         <ngx-avatar [name]="currentData?.name" size="100"></ngx-avatar>
       </div>

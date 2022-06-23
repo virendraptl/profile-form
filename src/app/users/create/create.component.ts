@@ -12,6 +12,7 @@ export class CreateComponent implements OnInit {
   registerForm: FormGroup;
   errorMessage: string | undefined;
   isRegistered: boolean;
+  isLoading:boolean = true;
 
   constructor(
     private fb: FormBuilder,
@@ -20,6 +21,7 @@ export class CreateComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.isRegistered = false;
 
     this.createForm();
@@ -33,6 +35,7 @@ export class CreateComponent implements OnInit {
       password: ['', [Validators.required]],
     });
     this.registerForm.controls['role'].disable();
+    this.isLoading = false;
   }
 
   submitForm() {
