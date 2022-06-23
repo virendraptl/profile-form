@@ -10,7 +10,7 @@
   </div>
   <div class="form-block">
     <mat-card *ngIf="!isRegistered; else postRegister" class="banner">
-      <form class="form-block" [formGroup]="registerForm" (ngSubmit)="submitForm()">
+      <form class="form-block" [formGroup]="createUserForm" (ngSubmit)="submitForm()">
         <p>
           <mat-form-field class="block-height" appearance="outline">
             <mat-label>Full Name</mat-label>
@@ -63,12 +63,12 @@
             <!-- <mat-hint>Hint</mat-hint> -->
           </mat-form-field>
         </p>
-        <button [disabled]="registerForm.invalid" class="btn" mat-raised-button>
+        <button [disabled]="createUserForm.invalid" class="btn" mat-raised-button>
           Register
         </button>
         <mat-error
           class="errorMessage"
-          *ngIf="errorMessage && registerForm.pristine"
+          *ngIf="errorMessage && createUserForm.pristine"
           >{{ errorMessage }}</mat-error
         >
         <!-- <mat-error class="verifyMail" *ngIf="verifyMail">{{

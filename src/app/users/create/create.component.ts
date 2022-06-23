@@ -9,7 +9,7 @@ import { HttpService } from 'src/app/services/http/http.service';
   styleUrls: ['./create.component.css'],
 })
 export class CreateComponent implements OnInit {
-  registerForm: FormGroup;
+  createUserForm: FormGroup;
   errorMessage: string | undefined;
   isRegistered: boolean;
   isLoading:boolean = true;
@@ -28,22 +28,22 @@ export class CreateComponent implements OnInit {
   }
 
   createForm() {
-    this.registerForm = this.fb.group({
+    this.createUserForm = this.fb.group({
       name: ['', [Validators.required]],
       role: ['user'],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
     });
-    this.registerForm.controls['role'].disable();
+    this.createUserForm.controls['role'].disable();
     this.isLoading = false;
   }
 
   submitForm() {
-    this.registerForm.controls['role'].enable();
+    this.createUserForm.controls['role'].enable();
 
-    console.log(this.registerForm.value);
+    console.log(this.createUserForm.value);
 
-    this.http.post('users', this.registerForm.value).subscribe({
+    this.http.post('users', this.createUserForm.value).subscribe({
       next: (data) => {
         console.log('new user created! ', data);
         // console.log('Token is: ', data['token']);
@@ -57,10 +57,10 @@ export class CreateComponent implements OnInit {
       error: (error) => {
         console.log('Error in register is: ', error.message);
         this.errorMessage = error.message;
-        this.registerForm.markAsPristine();
+        this.createUserForm.markAsPristine();
       },
     });
-    this.registerForm.controls['role'].disable();
+    this.createUserForm.controls['role'].disable();
   }
 
   getEmailErrorMessage() {
@@ -87,20 +87,20 @@ export class CreateComponent implements OnInit {
   }
 
   get email() {
-    return this.registerForm.get('email');
+    return this.createUserForm.get('email');
   }
   get name() {
-    return this.registerForm.get('name');
+    return this.createUserForm.get('name');
   }
   get company() {
-    return this.registerForm.get('company');
+    return this.createUserForm.get('company');
   }
   get password() {
-    return this.registerForm.get('password');
+    return this.createUserForm.get('password');
   }
 
   createAgain() {
-    this.registerForm.reset();
+    this.createUserForm.reset();
     this.isRegistered = !this.isRegistered;
   }
 }
