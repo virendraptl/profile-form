@@ -7,6 +7,7 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { catchError, Observable, of, throwError } from 'rxjs';
 import { LocalStorageService } from '../local-storage/local-storage.service';
 
@@ -17,7 +18,11 @@ export class InterceptorService implements HttpInterceptor {
   allowLogout: string[] = ['self', 'users'];
   passIntercept: boolean = false;
 
-  constructor(private router: Router, private lstore: LocalStorageService) {}
+  constructor(
+    private router: Router,
+    private lstore: LocalStorageService,
+    private toaster: ToastrService
+  ) {}
 
   intercept(
     request: HttpRequest<any>,
@@ -43,6 +48,7 @@ export class InterceptorService implements HttpInterceptor {
           if (err.status === 401 && this.passIntercept) {
             console.log('Forced logout because token is expired or invalid!!!');
             this.lstore.logout();
+            this.toasterError('Forced Logout: User Authentication Error');
           }
           console.log(err);
           const error = err.error.message || err.statusText;
@@ -57,6 +63,10 @@ export class InterceptorService implements HttpInterceptor {
         return throwError(() => new Error(error));
       })
     );
+  }
+
+  toasterError(message:string){
+    this.toaster.error(message)
   }
 }
 

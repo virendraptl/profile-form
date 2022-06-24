@@ -32,6 +32,7 @@ header {
   font-weight: bolder;
   height: 40px;
   margin: 0 30px;
+  border-radius: 100vmax;
 }
 
 .info-block {
@@ -64,10 +65,24 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 100vmax;
 }
 
 .update-btn{
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+  border-radius: 100vmax;
+}
+
+.logo-block{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo{
+  height: 50px;
+  width: 50px;
 }

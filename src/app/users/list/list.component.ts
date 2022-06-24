@@ -13,6 +13,7 @@ import { HttpService } from 'src/app/services/http/http.service';
 import { LocalStorageService } from 'src/app/services/local-storage/local-storage.service';
 import { TableDataService } from 'src/app/services/table-data/table-data.service';
 import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-list',
@@ -21,6 +22,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ListComponent implements OnInit {
   displayedColumns: string[] = [
+    'no',
     'name',
     'role',
     'org',
@@ -28,12 +30,15 @@ export class ListComponent implements OnInit {
     'edit',
     'button',
   ];
+  // noArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   dataSource = [];
   tempdata: any;
-  pageIndex: number;
-  pageSize: number;
+  pageIndex: number = 1;
+  pageSize: number = 10;
   tempUrl: string;
   loadFlag: boolean = true;
+
+  subscription: Subscription;
 
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
@@ -47,12 +52,18 @@ export class ListComponent implements OnInit {
     private storage: LocalStorageService,
     private table: TableDataService,
     private snackBar: MatSnackBar,
-    private toastr: ToastrService
+    private toastr: ToastrService,
   ) {}
 
   ngOnInit(): void {
     [this.pageIndex, this.pageSize] = this.table.getData();
     // console.log(this.pageIndex, this.pageSize);
+
+    this.subscription = this.table.getSub().subscribe((arr) => {
+      console.log('rxjs data received', arr);
+      // this.pageIndex = arr ? arr.index : 1;
+      // this.pageSize =  arr ? arr.size : 10;
+    });
     this.tempUrl = `users?page=${this.pageIndex}&&limit=${this.pageSize}`;
     this.rendertable(this.tempUrl);
   }
@@ -81,6 +92,7 @@ export class ListComponent implements OnInit {
     this.pageIndex = e.pageIndex + 1;
     this.pageSize = e.pageSize;
     this.table.setData(this.pageIndex, this.pageSize);
+    this.table.setSub({index: this.pageIndex, size: this.pageSize});
     this.tempUrl = `users?page=${this.pageIndex}&&limit=${this.pageSize}`;
     // console.log(this.tempUrl);
     this.rendertable(this.tempUrl);
@@ -105,9 +117,13 @@ export class ListComponent implements OnInit {
     this.http.delete(`users/${id}`).subscribe({
       next: (data) => {
         this.rendertable(this.tempUrl);
-        this.showSuccess(`User: ${name} deleted!`);
+        this.toasterSuccess(`User: ${name} deleted!`);
       },
     });
+  }
+
+  resetTableData(){
+    this.table.setData(1,10);
   }
 
   updateDetails(id: string) {
@@ -115,7 +131,7 @@ export class ListComponent implements OnInit {
     this.router.navigate([`/users/update/${id}`]);
   }
 
-  showSuccess(message) {
+  toasterSuccess(message) {
     this.toastr.success(message);
   }
 }

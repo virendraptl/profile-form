@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { TableDataService } from '../table-data/table-data.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LocalStorageService {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private table: TableDataService) {}
 
   setToken(token: string) {
     localStorage.setItem('token', token);
@@ -34,6 +35,8 @@ export class LocalStorageService {
   logout() {
     this.deletetoken();
     this.deleteData('profileData');
+    this.table.setData(1,10);
     this.router.navigate(['/auth/login']);
+    console.log('opened login pagess after 401 error');
   }
 }

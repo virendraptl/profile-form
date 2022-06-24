@@ -35,6 +35,7 @@ header {
   font-weight: bolder;
   height: 40px;
   margin: 0 30px;
+  border-radius: 100vmax;
 }
 
 table {
@@ -57,6 +58,11 @@ table {
   align-items: center;
 }
 
+.bold{
+  font-weight: 600;
+  color: #020224;
+}
+
 .mat-row .mat-cell {
   border-bottom: 1px solid transparent;
   border-top: 1px solid transparent;
@@ -70,7 +76,28 @@ table {
   cursor: pointer;
 }
 
-::ng-deep snack-bar-container.custom-class {
+.mat-header-row{
+  background-color: rgb(250, 249, 255);
+  font-weight: bold;
+  font-size: larger;
+}
+
+.logo-block{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo{
+  height: 50px;
+  width: 50px;
+}
+
+
+
+
+/* ::ng-deep snack-bar-container.custom-class {
   background: rgb(238, 242, 248);
 }
 
@@ -78,4 +105,4 @@ table {
   color: #020224;
 }
 
-::ng-deep .custom-class .mat-simple-snackbar-action {   color: #020224; }
+::ng-deep .custom-class .mat-simple-snackbar-action {   color: #020224; } */

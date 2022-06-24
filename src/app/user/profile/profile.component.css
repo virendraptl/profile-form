@@ -15,7 +15,7 @@
     height: 40px;
 } */
 
-header {
+/* header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -29,6 +29,22 @@ header {
     rgb(65, 139, 189) 100%
   );
   color: rgb(238, 242, 248);
+} */
+
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    90deg,
+    #020024 0%,
+    rgba(9, 9, 121, 1) 46%,
+    rgb(65, 139, 189) 100%
+  );
+  color: rgb(238, 242, 248);
   /* background-color: white; */
 }
 
@@ -36,6 +52,7 @@ header {
   color: white;
   font-weight: bolder;
   height: 40px;
+  border-radius: 100vmax;
 }
 
 .profile-block {
@@ -49,13 +66,41 @@ header {
 }
 
 .listbtn {
-  margin: 20px 0 0 100px;
-  font-weight: bold;
+  color: #020224;
+  font-weight: bolder;
+  height: 40px;
+  margin: 0 30px;
+  border-radius: 100vmax;
 }
 
-.header-title {
+.logoutbtn{
+  font-weight: bolder;
+  height: 40px;
+  margin: 0 30px;
+  border-radius: 100vmax;
+}
+
+/* .header-title {
   margin-left: 0;
   font-size: 40px;
   font-weight: bold;
   margin: 0 30px;
+} */
+
+.header-title{
+    margin-left: 0;
+    font-size: 40px;
+    margin: 20px 20px;
+}
+
+.logo-block{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo{
+  height: 50px;
+  width: 50px;
 }

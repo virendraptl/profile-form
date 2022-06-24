@@ -36,7 +36,6 @@ export class DetailsComponent implements OnInit {
       error: (error) => {
         console.log(error);
         // this.location.back();
-        this.router.navigate(['/users']);
       },
     });
   }

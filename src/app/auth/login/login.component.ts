@@ -34,7 +34,14 @@ export class LoginComponent implements OnInit {
   createForm() {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]],
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(8),
+          Validators.pattern('^(?=.*[A-Za-z])(?=.*[0-9])([A-Za-z0-9]+)$'),
+        ],
+      ],
     });
   }
 
@@ -65,11 +72,18 @@ export class LoginComponent implements OnInit {
 
     return this.email.hasError('email') ? 'Not a valid email' : '';
   }
-
   getPasswordErrorMessage() {
     if (this.password.hasError('required')) {
       return 'Password field can not be empty';
-    } else return '';
+    }
+
+    if (this.password.hasError('pattern')) {
+      return 'Password must have at least 1 number & 1 character';
+    }
+
+    return this.password.hasError('minlength')
+      ? 'Password must have at least 8 characters'
+      : '';
   }
 
   get email() {

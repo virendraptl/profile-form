@@ -1,7 +1,15 @@
 <div class="page">
   <div class="banner">
     <form [formGroup]="loginForm" (ngSubmit)="submitForm()">
-      <h2 class="title">Login Here</h2>
+      <!-- <h2 class="title">Login Here</h2> -->
+      <div class="logo-block">
+        <img
+          class="logo"
+          src="../../../assets/images/logo/am-logo.png"
+          alt="am-logo"
+        />
+        <h3 class="header-title">Login Here</h3>
+      </div>
       <p>
         <mat-form-field class="block-height" appearance="outline">
           <mat-label>Email</mat-label>

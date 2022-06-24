@@ -32,7 +32,14 @@ export class CreateComponent implements OnInit {
       name: ['', [Validators.required]],
       role: ['user'],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]],
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(8),
+          Validators.pattern('^(?=.*[A-Za-z])(?=.*[0-9])([A-Za-z0-9]+)$'),
+        ],
+      ],
     });
     this.createUserForm.controls['role'].disable();
     this.isLoading = false;
@@ -83,7 +90,15 @@ export class CreateComponent implements OnInit {
   getPasswordErrorMessage() {
     if (this.password.hasError('required')) {
       return 'Password field can not be empty';
-    } else return '';
+    }
+
+    if (this.password.hasError('pattern')) {
+      return 'Password must have at least 1 number & 1 character';
+    }
+
+    return this.password.hasError('minlength')
+      ? 'Password must have at least 8 characters'
+      : '';
   }
 
   get email() {

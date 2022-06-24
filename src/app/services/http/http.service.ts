@@ -20,20 +20,20 @@ export class HttpService {
   post(url: string, data?: any) {
     return this.http
       .post(environment.apiUrl + url, data)
-      .pipe(catchError(this.handleError));
+      // .pipe(catchError(this.handleError));
   }
 
   postSecured(url: string, token: any, data?: any) {
     const headers = this.setHeaders(token);
     return this.http
       .post(environment.apiUrl + url, data, { headers })
-      .pipe(catchError(this.handleError));
+      // .pipe(catchError(this.handleError));
   }
 
   get(url: string) {
     return this.http
       .get(environment.apiUrl + url)
-      .pipe(catchError(this.handleError));
+      // .pipe(catchError(this.handleError));
   }
 
   // get(url: string, querryArray?: any) {
@@ -61,50 +61,50 @@ export class HttpService {
       }
       return this.http
         .get(environment.apiUrl + url, { params: params })
-        .pipe(catchError(this.handleError));
+        // .pipe(catchError(this.handleError));
     }
     return this.http
       .get(environment.apiUrl + url)
-      .pipe(catchError(this.handleError));
+      // .pipe(catchError(this.handleError));
   }
 
   getSecured(url: string, token: any) {
     const headers = this.setHeaders(token);
     return this.http
       .get(environment.apiUrl + url, { headers })
-      .pipe(catchError(this.handleError));
+      // .pipe(catchError(this.handleError));
   }
 
   delete(url) {
     return this.http
       .delete(environment.apiUrl + url)
-      .pipe(catchError(this.handleError));
+      // .pipe(catchError(this.handleError));
   }
 
   deleteSecured(url: string, token: any) {
     const headers = this.setHeaders(token);
     return this.http
       .delete(environment.apiUrl + url, { headers })
-      .pipe(catchError(this.handleError));
+      // .pipe(catchError(this.handleError));
   }
 
   put(url: string, data: any) {
     return this.http
       .put(environment.apiUrl + url, data)
-      .pipe(catchError(this.handleError));
+      // .pipe(catchError(this.handleError));
   }
 
   putSecured(url: string, data: any, token: any) {
     const headers = this.setHeaders(token);
     return this.http
       .put(environment.apiUrl + url, data, { headers })
-      .pipe(catchError(this.handleError));
+      // .pipe(catchError(this.handleError));
   }
 
   patch(url: string, data: any) {
     return this.http
       .patch(environment.apiUrl + url, data)
-      .pipe(catchError(this.handleError));
+      // .pipe(catchError(this.handleError));
   }
 
   patchSecured(url: string, data: any, token: any) {
@@ -117,18 +117,18 @@ export class HttpService {
     let data = '';
     return this.http
       .post<any>(finalUrl, data)
-      .pipe(catchError(this.handleError));
+      // .pipe(catchError(this.handleError));
   }
 
-  handleError(error: HttpErrorResponse) {
-    let errorMessage: string = '';
-    if (error.status === 0) {
-      console.error('An error occurred:', error.error);
-    } else {
-      errorMessage = `${error.message}`;
-    }
-    return throwError(() => new Error(errorMessage));
-  }
+  // handleError(error: HttpErrorResponse) {
+  //   let errorMessage: string = '';
+  //   if (error.status === 0) {
+  //     console.error('An error occurred:', error.error);
+  //   } else {
+  //     errorMessage = `${error.message}`;
+  //   }
+  //   return throwError(() => new Error(errorMessage));
+  // }
 
   setHeaders(token) {
     return new HttpHeaders({

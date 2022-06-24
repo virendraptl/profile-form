@@ -1,20 +1,31 @@
 <div class="page">
   <header>
-    <h3 class="header-title">
+    <!-- <h3 class="header-title">
       Update User Info:- <span class="user-title">{{ currentData?.name }}</span>
-    </h3>
+    </h3> -->
+    <div class="logo-block">
+      <img
+        class="logo"
+        src="../../../assets/images/logo/am-logo.png"
+        alt="am-logo"
+      />
+      <h3 class="header-title">
+        Update User Info:-
+        <span class="user-title">{{ currentData?.name }}</span>
+      </h3>
+    </div>
     <button routerLink="/users" class="backbtn" mat-raised-button>
       Back To List
     </button>
   </header>
-  <div >
+  <div>
     <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
   </div>
   <div *ngIf="!isLoading" class="form-block">
     <mat-card *ngIf="isRegistered; else postRegister" class="banner">
       <form
         class="form-block"
-        [formGroup]="registerForm"
+        [formGroup]="updateUserForm"
         (ngSubmit)="submitForm()"
       >
         <p>
@@ -54,16 +65,25 @@
           </mat-form-field>
         </p>
         <div class="btns-block">
-          <button [disabled]="registerForm.invalid" class="btn" mat-raised-button>
+          <button
+            [disabled]="updateUserForm.invalid"
+            class="btn"
+            mat-raised-button
+          >
             Update
           </button>
-          <button type="button" (click)="createForm()" class="btn" mat-raised-button>
+          <button
+            type="button"
+            (click)="createForm()"
+            class="btn"
+            mat-raised-button
+          >
             Reset
           </button>
         </div>
         <mat-error
           class="errorMessage"
-          *ngIf="errorMessage && registerForm.pristine"
+          *ngIf="errorMessage && updateUserForm.pristine"
           >{{ errorMessage }}</mat-error
         >
         <!-- <mat-error class="verifyMail" *ngIf="verifyMail">{{
@@ -75,7 +95,8 @@
       <mat-card class="postbanner">
         <h1>User Updated Successfully</h1>
         <h4>
-          <a routerLink="/users/details">Click here</a> to see the details
+          <a [routerLink]="['/users/details', currentId]">Click here</a> to see
+          the details
         </h4>
         <h4><a routerLink="/users">Click here</a> to go back to the list</h4>
         <!-- <button (click)="createAgain()" class="btn" mat-raised-button>

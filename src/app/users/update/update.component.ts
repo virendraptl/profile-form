@@ -10,7 +10,7 @@ import { LocalStorageService } from 'src/app/services/local-storage/local-storag
   styleUrls: ['./update.component.css'],
 })
 export class UpdateComponent implements OnInit {
-  registerForm: FormGroup;
+  updateUserForm: FormGroup;
   errorMessage: string | undefined;
   isRegistered: boolean = true;
   isLoading: boolean = true;
@@ -40,18 +40,25 @@ export class UpdateComponent implements OnInit {
   }
 
   createForm() {
-    this.registerForm = this.fb.group({
+    this.updateUserForm = this.fb.group({
       name: [this.currentData.name, [Validators.required]],
       email: [this.currentData.email, [Validators.required, Validators.email]],
-      password: [this.currentData.password, [Validators.required]],
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(8),
+          Validators.pattern('^(?=.*[A-Za-z])(?=.*[0-9])([A-Za-z0-9]+)$'),
+        ],
+      ],
     });
     this.isLoading = false;
   }
 
   submitForm() {
-    console.log(this.registerForm.value);
+    console.log(this.updateUserForm.value);
 
-    this.http.patch(this.tempurl, this.registerForm.value).subscribe({
+    this.http.patch(this.tempurl, this.updateUserForm.value).subscribe({
       next: (data) => {
         console.log('User Data Updated! ', data);
 
@@ -60,7 +67,7 @@ export class UpdateComponent implements OnInit {
       error: (error) => {
         console.log('Error in register is: ', error.message);
         this.errorMessage = error.message;
-        this.registerForm.markAsPristine();
+        this.updateUserForm.markAsPristine();
       },
     });
   }
@@ -85,19 +92,27 @@ export class UpdateComponent implements OnInit {
   getPasswordErrorMessage() {
     if (this.password.hasError('required')) {
       return 'Password field can not be empty';
-    } else return '';
+    }
+
+    if (this.password.hasError('pattern')) {
+      return 'Password must have at least 1 number & 1 character';
+    }
+
+    return this.password.hasError('minlength')
+      ? 'Password must have at least 8 characters'
+      : '';
   }
 
   get email() {
-    return this.registerForm.get('email');
+    return this.updateUserForm.get('email');
   }
   get name() {
-    return this.registerForm.get('name');
+    return this.updateUserForm.get('name');
   }
   get company() {
-    return this.registerForm.get('company');
+    return this.updateUserForm.get('company');
   }
   get password() {
-    return this.registerForm.get('password');
+    return this.updateUserForm.get('password');
   }
 }
