@@ -53,12 +53,6 @@ export class CreateComponent implements OnInit {
     this.http.post('users', this.createUserForm.value).subscribe({
       next: (data) => {
         console.log('new user created! ', data);
-        // console.log('Token is: ', data['token']);
-        // this.http
-        //   .postSecured('auth/send-verification-email', data['token'])
-        //   .subscribe(() => {
-        //     console.log('Request sent');
-        //   });
         this.isRegistered = !this.isRegistered;
       },
       error: (error) => {

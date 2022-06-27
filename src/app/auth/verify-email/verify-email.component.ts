@@ -13,8 +13,6 @@ export class VerifyEmailComponent implements OnInit {
   resendBtn: boolean;
   errorMessage: string | undefined;
 
-  token: string;
-
   constructor(
     private activatedRoute: ActivatedRoute,
     private http: HttpService
@@ -24,17 +22,16 @@ export class VerifyEmailComponent implements OnInit {
     this.errorMessage = '';
     this.isVerified = false;
     this.verifyError = false;
+    
     this.activatedRoute.queryParams.subscribe((params) => {
-      console.log(params); // { token: "token-value" }
-      this.token = params['token'];
-      console.log(this.token); //token-value
-      this.http.emailVerify(this.token).subscribe({
+      let token = {
+        token: params['token']
+      }
+      this.http.post('auth/verify-email','',token).subscribe({
         next: () => {
-          console.log('Verification successful!');
           this.isVerified = true;
         },
         error: (error) => {
-          console.log('Error in email verification is: ', error);
           this.verifyError = true;
           this.errorMessage = error.message;
         },

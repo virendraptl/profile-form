@@ -1,19 +1,30 @@
 <div class="page">
   <header>
     <div class="logo-block">
-      <img class="logo" src="../../../assets/images/logo/am-logo.png" alt="am-logo">
+      <img
+        class="logo"
+        src="../../../assets/images/logo/am-logo.png"
+        alt="am-logo"
+      />
       <h2 class="header-title">Users List</h2>
     </div>
     <button routerLink="/users/create" class="btn" mat-raised-button>
       Add New User
     </button>
-    <button routerLink="/user/my-profile" (click)="resetTableData()" class="btn" mat-raised-button>
+    <button
+      routerLink="/user/my-profile"
+      (click)="resetTableData()"
+      class="btn"
+      mat-raised-button
+    >
       Back To Profile
     </button>
   </header>
+
   <div *ngIf="loadFlag">
     <mat-progress-bar mode="indeterminate"></mat-progress-bar>
   </div>
+
   <div *ngIf="!loadFlag" class="table-block">
     <mat-paginator
       [length]="tempdata.totalResults"
@@ -23,22 +34,21 @@
       (page)="changeTable($event)"
     >
     </mat-paginator>
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-      <!--- Note that these columns can be defined in any order.
-    The actual rendered columns are set as a property on the row definition" -->
 
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      
       <ng-container matColumnDef="no">
         <th mat-header-cell *matHeaderCellDef>Sr No</th>
         <td class="bold" mat-cell *matCellDef="let element; let i = index">
           {{ i + 1 + (pageIndex - 1) * pageSize }}
         </td>
       </ng-container>
-      <!-- Name Column -->
+
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef>Name</th>
         <td
-          (click)="getDetails(element._id)"
           class="name-cell bold"
+          [routerLink]="['/users/details', element._id]"
           title="click to see details"
           mat-cell
           *matCellDef="let element"
@@ -73,8 +83,8 @@
         <td title="edit" mat-cell *matCellDef="let element">
           <button
             class="updatebutton"
-            (click)="updateDetails(element._id)"
             mat-mini-fab
+            [routerLink]="['/users/update', element._id]"
             color="primary"
             type="button"
           >
@@ -105,6 +115,7 @@
       ></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
+
     <mat-paginator
       [length]="tempdata.totalResults"
       [pageSize]="tempdata.limit"

@@ -1,140 +1,103 @@
 import {
   HttpClient,
-  HttpErrorResponse,
   HttpHeaders,
-  HttpParams,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HttpService {
-  emailVerifiedUrl = 'http://basic-api.ngminds.com/auth/verify-email?token=';
 
   constructor(private http: HttpClient) {}
 
-  post(url: string, data?: any) {
-    return this.http
-      .post(environment.apiUrl + url, data)
-      // .pipe(catchError(this.handleError));
+  post(url: string, data: any, querryObj?: any) {
+    url = querryObj ? this.addQueries(url, querryObj) : url;
+    return this.http.post(environment.apiUrl + url, data);
   }
 
-  postSecured(url: string, token: any, data?: any) {
+  postSecured(url: string, token: any, data: any, querryObj?: any) {
+    url = querryObj ? this.addQueries(url, querryObj) : url;
     const headers = this.setHeaders(token);
-    return this.http
-      .post(environment.apiUrl + url, data, { headers })
-      // .pipe(catchError(this.handleError));
+    return this.http.post(environment.apiUrl + url, data, { headers });
   }
 
-  get(url: string) {
-    return this.http
-      .get(environment.apiUrl + url)
-      // .pipe(catchError(this.handleError));
+  get(url: string, querryObj?: any) {
+    url = querryObj ? this.addQueries(url, querryObj) : url;
+    return this.http.get(environment.apiUrl + url);
   }
 
-  // get(url: string, querryArray?: any) {
-  //   console.log(querryArray);
-  //   if (querryArray) {
-  //     let params = new HttpParams();
-  //     for (let i = 0; i < querryArray.length; i + 2) {
-  //       params = params.append(querryArray[i], querryArray[i + 1]);
-  //     }
-  //     return this.http
-  //       .get(environment.apiUrl + url, { params: params })
-  //       .pipe(catchError(this.handleError));
-  //   }
-  //   return this.http
-  //     .get(environment.apiUrl + url)
-  //     .pipe(catchError(this.handleError));
-  // }
-
-  get2(url: string, querryArray?: any) {
-    console.log(querryArray);
-    if (querryArray) {
-      let params = new HttpParams();
-      for (let i = 0; i < querryArray.length; i + 2) {
-        params.set(querryArray[i], querryArray[i+1])
-      }
-      return this.http
-        .get(environment.apiUrl + url, { params: params })
-        // .pipe(catchError(this.handleError));
-    }
-    return this.http
-      .get(environment.apiUrl + url)
-      // .pipe(catchError(this.handleError));
-  }
-
-  getSecured(url: string, token: any) {
+  getSecured(url: string, token: any, querryObj?: any) {
+    url = querryObj ? this.addQueries(url, querryObj) : url;
     const headers = this.setHeaders(token);
-    return this.http
-      .get(environment.apiUrl + url, { headers })
-      // .pipe(catchError(this.handleError));
+    return this.http.get(environment.apiUrl + url, { headers });
   }
 
-  delete(url) {
-    return this.http
-      .delete(environment.apiUrl + url)
-      // .pipe(catchError(this.handleError));
+  delete(url, querryObj?: any) {
+    url = querryObj ? this.addQueries(url, querryObj) : url;
+    return this.http.delete(environment.apiUrl + url);
   }
 
-  deleteSecured(url: string, token: any) {
+  deleteSecured(url: string, token: any, querryObj?: any) {
+    url = querryObj ? this.addQueries(url, querryObj) : url;
     const headers = this.setHeaders(token);
-    return this.http
-      .delete(environment.apiUrl + url, { headers })
-      // .pipe(catchError(this.handleError));
+    return this.http.delete(environment.apiUrl + url, { headers });
   }
 
-  put(url: string, data: any) {
-    return this.http
-      .put(environment.apiUrl + url, data)
-      // .pipe(catchError(this.handleError));
+  put(url: string, data: any, querryObj?: any) {
+    url = querryObj ? this.addQueries(url, querryObj) : url;
+    return this.http.put(environment.apiUrl + url, data);
   }
 
-  putSecured(url: string, data: any, token: any) {
+  putSecured(url: string, data: any, token: any, querryObj?: any) {
+    url = querryObj ? this.addQueries(url, querryObj) : url;
     const headers = this.setHeaders(token);
-    return this.http
-      .put(environment.apiUrl + url, data, { headers })
-      // .pipe(catchError(this.handleError));
+    return this.http.put(environment.apiUrl + url, data, { headers });
   }
 
-  patch(url: string, data: any) {
-    return this.http
-      .patch(environment.apiUrl + url, data)
-      // .pipe(catchError(this.handleError));
+  patch(url: string, data: any, querryObj?: any) {
+    url = querryObj ? this.addQueries(url, querryObj) : url;
+    return this.http.patch(environment.apiUrl + url, data);
   }
 
-  patchSecured(url: string, data: any, token: any) {
+  patchSecured(url: string, data: any, token: any, querryObj?: any) {
+    url = querryObj ? this.addQueries(url, querryObj) : url;
     const headers = this.setHeaders(token);
     return this.http.patch(environment.apiUrl + url, data, { headers });
   }
 
-  emailVerify(token: any) {
-    let finalUrl = this.emailVerifiedUrl + token;
-    let data = '';
-    return this.http
-      .post<any>(finalUrl, data)
-      // .pipe(catchError(this.handleError));
-  }
-
-  // handleError(error: HttpErrorResponse) {
-  //   let errorMessage: string = '';
-  //   if (error.status === 0) {
-  //     console.error('An error occurred:', error.error);
-  //   } else {
-  //     errorMessage = `${error.message}`;
-  //   }
-  //   return throwError(() => new Error(errorMessage));
-  // }
-
+/**
+ * It returns a new HttpHeaders object with the Content-Type and Authorization headers set
+ * @param token - The token that you want to send to the server.
+ * @returns A new HttpHeaders object with the content type and authorization headers.
+ */
   setHeaders(token) {
     return new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     });
+  }
+
+/**
+ * It takes a url and a query object and returns a url with the query object added to it
+ * @param url - The url to which you want to add the query parameters.
+ * @param querryObj - This is the object that contains the key-value pairs that you want to add to the
+ * URL.
+ * @returns The url with the querryObj added to it.
+ */
+  addQueries(url, querryObj) {
+    url += '?';
+    let i = 1;
+    let key: any, value: any;
+    for ([key, value] of Object.entries(querryObj)) {
+      url += `${key}=${encodeURIComponent(value)}`;
+      if (i !== Object.keys(querryObj).length) {
+        url += '&&';
+      }
+      i++;
+    }
+    return url;
   }
 }
 
@@ -200,4 +163,16 @@ export class HttpService {
 //     .pipe(
 //       catchError(this.handleError<Hero[]>('searchHeroes', []))
 //     );
+// }
+
+// Error handling
+// -----------------------------------------------------
+// handleError(error: HttpErrorResponse) {
+//   let errorMessage: string = '';
+//   if (error.status === 0) {
+//     console.error('An error occurred:', error.error);
+//   } else {
+//     errorMessage = `${error.message}`;
+//   }
+//   return throwError(() => new Error(errorMessage));
 // }

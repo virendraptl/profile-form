@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpService } from 'src/app/services/http/http.service';
 import { LocalStorageService } from 'src/app/services/local-storage/local-storage.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -12,6 +13,7 @@ import { LocalStorageService } from 'src/app/services/local-storage/local-storag
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   errorMessage: string | undefined;
+  
 
   @Output() tada = new EventEmitter();
 
@@ -19,15 +21,16 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private http: HttpService,
     private router: Router,
-    private lstore: LocalStorageService
+    private lstore: LocalStorageService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
     let checkToken = this.lstore.getToken();
     if (checkToken) {
       this.router.navigate(['/user/my-profile']);
+      this.toastr.info('User already logged in! Redirecting to profile page')
     }
-
     this.createForm();
   }
 
@@ -50,16 +53,12 @@ export class LoginComponent implements OnInit {
     this.http.post('auth/login', this.loginForm.value).subscribe({
       next: (data) => {
         console.log(data);
-        // localStorage.setItem('profileData', JSON.stringify(data));
-        // localStorage.setItem('token', data['token']);
         this.lstore.setToken(data['token']);
-        // this.lstore.setData('profileData', data);
         this.router.navigate(['/user/my-profile']);
       },
       error: (error) => {
         console.log('Error in login is: ', error.message);
         this.errorMessage = error.message;
-        // alertyfy.error(this.errorMessage);
         this.loginForm.markAsPristine();
       },
     });

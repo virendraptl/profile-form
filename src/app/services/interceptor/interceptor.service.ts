@@ -15,6 +15,7 @@ import { LocalStorageService } from '../local-storage/local-storage.service';
   providedIn: 'root',
 })
 export class InterceptorService implements HttpInterceptor {
+  // created an array containing URL keywords specific to logged-in state, to direct the intercept to add locally stored token as header and applying forced logout if token is expired or invalid
   allowLogout: string[] = ['self', 'users'];
   passIntercept: boolean = false;
 
@@ -34,7 +35,6 @@ export class InterceptorService implements HttpInterceptor {
       }
     });
 
-    // let token = localStorage.getItem('token');
     let token = this.lstore.getToken();
     if (token && this.passIntercept) {
       let clonedReq = request.clone({
@@ -65,8 +65,8 @@ export class InterceptorService implements HttpInterceptor {
     );
   }
 
-  toasterError(message:string){
-    this.toaster.error(message)
+  toasterError(message: string) {
+    this.toaster.error(message);
   }
 }
 

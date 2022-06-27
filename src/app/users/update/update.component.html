@@ -1,8 +1,5 @@
 <div class="page">
   <header>
-    <!-- <h3 class="header-title">
-      Update User Info:- <span class="user-title">{{ currentData?.name }}</span>
-    </h3> -->
     <div class="logo-block">
       <img
         class="logo"
@@ -86,9 +83,7 @@
           *ngIf="errorMessage && updateUserForm.pristine"
           >{{ errorMessage }}</mat-error
         >
-        <!-- <mat-error class="verifyMail" *ngIf="verifyMail">{{
-        verifyMail
-         }}</mat-error> -->
+
       </form>
     </mat-card>
     <ng-template #postRegister>
@@ -99,12 +94,7 @@
           the details
         </h4>
         <h4><a routerLink="/users">Click here</a> to go back to the list</h4>
-        <!-- <button (click)="createAgain()" class="btn" mat-raised-button>
-          Create Another User
-        </button> -->
-        <!-- <h4><a
-           (click)="createAgain()">Click here</a> to create another user
-          </h4> -->
+
       </mat-card>
     </ng-template>
   </div>

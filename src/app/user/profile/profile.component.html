@@ -1,11 +1,22 @@
 <div class="page">
   <header>
     <div class="logo-block">
-      <img class="logo" src="../../../assets/images/logo/am-logo.png" alt="am-logo">
+      <img
+        class="logo"
+        src="../../../assets/images/logo/am-logo.png"
+        alt="am-logo"
+      />
       <h2 class="header-title">Profile</h2>
     </div>
-    <!-- <h1>Profile</h1> -->
-    <button class="listbtn" mat-raised-button type="button" routerLink="/users" [disabled]="!profileData?.isEmailVerified">Users List</button>
+    <button
+      class="listbtn"
+      mat-raised-button
+      type="button"
+      routerLink="/users"
+      [disabled]="!profileData?.isEmailVerified"
+    >
+      Users List
+    </button>
     <button (click)="logout()" class="logoutbtn" mat-raised-button color="warn">
       Log Out
     </button>
@@ -17,8 +28,7 @@
     <h2>Name:- {{ profileData?.name }}</h2>
     <h2>Email:- {{ profileData?.email }}</h2>
     <h2>Role:- {{ profileData?.role }}</h2>
-      <h2>Email verification Status:- {{ profileData?.isEmailVerified }}</h2>
-      <!-- <button class="listbtn" mat-raised-button type="button" routerLink="/users" [disabled]="!profileData.isEmailVerified">Users List</button> -->
+    <h2>Email verification Status:- {{ profileData?.isEmailVerified }}</h2>
     <h2>Company Name:- {{ profileData?._org.name }}</h2>
   </div>
 </div>

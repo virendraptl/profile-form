@@ -29,11 +29,9 @@ export class UpdateComponent implements OnInit {
     this.currentId = this.activatedRoute.snapshot.paramMap.get('id');
     this.tempurl = `users/${this.currentId}`;
     console.log('User id for preload req: ', this.currentId);
-    // this.http.get(`users/${this.currentId}`).subscribe({
     this.http.get(this.tempurl).subscribe({
       next: (data) => {
         this.currentData = data;
-        // console.log('Form entries preload data: ', this.currentData);
         this.createForm();
       },
     });

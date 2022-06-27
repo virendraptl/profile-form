@@ -6,12 +6,8 @@ import { ProfileComponent } from './profile/profile.component';
 
 
 const routes: Routes = [
-    // { path:'my-profile', component: ProfileComponent},
     {
-      path:"",
-      children:[
-        { path:'my-profile', component: ProfileComponent, canActivate: [AuthGuard]},
-      ]
+      path:'my-profile', component: ProfileComponent, canActivate: [AuthGuard]
     }
 ];
 

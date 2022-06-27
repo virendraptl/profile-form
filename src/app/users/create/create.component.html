@@ -11,6 +11,7 @@
   <div *ngIf="isLoading">
     <mat-progress-bar mode="indeterminate"></mat-progress-bar>
   </div>
+
   <div class="form-block">
     <mat-card *ngIf="!isRegistered; else postRegister" class="banner">
       <form
@@ -29,9 +30,9 @@
             <mat-error *ngIf="name.invalid">{{
               getNameErrorMessage()
             }}</mat-error>
-            <!-- <mat-hint>Hint</mat-hint> -->
           </mat-form-field>
         </p>
+
         <p>
           <mat-form-field class="block-height" appearance="outline">
             <mat-label>Role</mat-label>
@@ -41,9 +42,9 @@
               placeholder="User"
               value="user"
             />
-            <!-- <mat-hint>Hint</mat-hint> -->
           </mat-form-field>
         </p>
+
         <p>
           <mat-form-field class="block-height" appearance="outline">
             <mat-label>Email</mat-label>
@@ -51,10 +52,9 @@
             <mat-error *ngIf="email.invalid">{{
               getEmailErrorMessage()
             }}</mat-error>
-
-            <!-- <mat-hint>Hint</mat-hint> -->
           </mat-form-field>
         </p>
+
         <p>
           <mat-form-field class="block-height" appearance="outline">
             <mat-label>Password</mat-label>
@@ -67,9 +67,9 @@
             <mat-error *ngIf="password.invalid">{{
               getPasswordErrorMessage()
             }}</mat-error>
-            <!-- <mat-hint>Hint</mat-hint> -->
           </mat-form-field>
         </p>
+
         <button
           [disabled]="createUserForm.invalid"
           class="btn"
@@ -77,16 +77,15 @@
         >
           Add
         </button>
+
         <mat-error
           class="errorMessage"
           *ngIf="errorMessage && createUserForm.pristine"
           >{{ errorMessage }}</mat-error
         >
-        <!-- <mat-error class="verifyMail" *ngIf="verifyMail">{{
-        verifyMail
-         }}</mat-error> -->
       </form>
     </mat-card>
+
     <ng-template #postRegister>
       <mat-card class="postbanner">
         <h1>User Added Successfully!</h1>
@@ -94,9 +93,6 @@
         <button (click)="createAgain()" class="new-user-btn" mat-raised-button>
           Create Another User
         </button>
-        <!-- <h4><a
-           (click)="createAgain()">Click here</a> to create another user
-          </h4> -->
       </mat-card>
     </ng-template>
   </div>

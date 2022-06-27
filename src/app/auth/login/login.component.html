@@ -1,7 +1,6 @@
 <div class="page">
   <div class="banner">
     <form [formGroup]="loginForm" (ngSubmit)="submitForm()">
-      <!-- <h2 class="title">Login Here</h2> -->
       <div class="logo-block">
         <img
           class="logo"
@@ -18,7 +17,6 @@
             getEmailErrorMessage()
           }}</mat-error>
 
-          <!-- <mat-hint>Hint</mat-hint> -->
         </mat-form-field>
       </p>
       <p>
@@ -30,10 +28,10 @@
             matInput
             placeholder="Enter Password"
           />
+          
           <mat-error *ngIf="password.invalid">{{
             getPasswordErrorMessage()
           }}</mat-error>
-          <!-- <mat-hint>Hint</mat-hint> -->
         </mat-form-field>
       </p>
       <button [disabled]="loginForm.invalid" class="btn" mat-raised-button>

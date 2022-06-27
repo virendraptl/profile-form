@@ -16,7 +16,6 @@ background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 46%, rgb(6
     justify-content: center;
     text-align: center;
     background-color: rgb(243, 243, 243);
-    /* border: 2px solid grey; */
     border-radius: 20px;
     padding: 20px;
     height: 330px;
@@ -30,5 +29,4 @@ background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 46%, rgb(6
     color: white;
     background-color: #090979;
     font-weight: bold;
-    /* margin-bottom: 15px; */
 }

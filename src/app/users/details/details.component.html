@@ -1,34 +1,46 @@
 <div class="page">
   <header>
     <div class="logo-block">
-      <img class="logo" src="../../../assets/images/logo/am-logo.png" alt="am-logo">
+      <img
+        class="logo"
+        src="../../../assets/images/logo/am-logo.png"
+        alt="am-logo"
+      />
       <h2 class="header-title">User Details</h2>
     </div>
-    <!-- routerLink="/users"  -->
-    <button (click)="locationback()" class="btn" mat-raised-button>
+    <button routerLink="/users" class="btn" mat-raised-button>
       Back To List
     </button>
   </header>
+
   <div *ngIf="loading">
     <mat-progress-bar mode="indeterminate"></mat-progress-bar>
   </div>
   <div *ngIf="!loading" class="info-block">
     <mat-card class="card">
       <div class="update-btn">
-         <button title="Click to update" class="updatebutton" (click)="updateDetails()" mat-mini-fab color="primary" type="button"><mat-icon>edit</mat-icon></button>
+        <button
+          title="Click to update"
+          class="updatebutton"
+          [routerLink]="['/users/update', currentId]"
+          mat-mini-fab
+          color="primary"
+          type="button"
+        >
+          <mat-icon>edit</mat-icon>
+        </button>
       </div>
       <div class="avatar-block">
         <ngx-avatar [name]="currentData?.name" size="100"></ngx-avatar>
       </div>
-      <h3>Name:- {{currentData?.name}}</h3>
-      <h3>email:- {{currentData?.email}}</h3>
-      <h3>Role:- {{currentData?.role}}</h3>
-      <h3>Organization:- {{currentData?._org.name}}</h3>
-      <h3>email:- {{currentData?._org.email}}</h3>
-      <h3>Verification Status:- {{currentData?.isEmailVerified}}</h3>
+      <h3>Name:- {{ currentData?.name }}</h3>
+      <h3>email:- {{ currentData?.email }}</h3>
+      <h3>Role:- {{ currentData?.role }}</h3>
+      <h3>Organization:- {{ currentData?._org.name }}</h3>
+      <h3>Org email:- {{ currentData?._org.email }}</h3>
+      <h3>Verification Status:- {{ currentData?.isEmailVerified }}</h3>
     </mat-card>
-    <!-- <mat-card class="card">
-    </mat-card> -->
+
   </div>
 </div>
 
