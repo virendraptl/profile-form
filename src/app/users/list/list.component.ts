@@ -27,12 +27,12 @@ export class ListComponent implements OnInit {
     'button',
   ];
   dataSource = [];
+  dataCopy = [];
   tempdata: any;
   pageIndex: number = 1;
   pageSize: number = 10;
   tempUrl: string = 'users';
   loadFlag: boolean = true;
-
 
   subscription: Subscription;
 
@@ -45,31 +45,37 @@ export class ListComponent implements OnInit {
     private http: HttpService,
     public dialog: MatDialog,
     private table: TableDataService,
-    private toastr: ToastrService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
     [this.pageIndex, this.pageSize] = this.table.getData();
+    // this.table.rxjsData.subscribe((res) => {
+    //   if (res) {
+    //     console.log('data from rxjs is: ', res.page, res.limit);
+    //   }
+    // });
     this.rendertable(this.tempUrl, this.pageIndex, this.pageSize);
   }
 
-/**
- * It takes in a url, a page index, and a page size, and then it makes a get request to the url with
- * the page index and page size as query parameters
- * @param url - the url to be called
- * @param tempindex - the current page number
- * @param tempsize - the number of rows per page
- */
+  /**
+   * It takes in a url, a page index, and a page size, and then it makes a get request to the url with
+   * the page index and page size as query parameters
+   * @param url - the url to be called
+   * @param tempindex - the current page number
+   * @param tempsize - the number of rows per page
+   */
   rendertable(url, tempindex, tempsize) {
     this.loadFlag = true;
     let querries = {
       page: tempindex,
-      limit: tempsize
-    }
-      this.http.get('users', querries).subscribe({
+      limit: tempsize,
+    };
+    this.http.get('users', querries).subscribe({
       next: (data) => {
         this.tempdata = data;
         this.dataSource = data['results'];
+        this.dataCopy = [...this.dataSource];
         this.loadFlag = false;
       },
     });
@@ -79,15 +85,16 @@ export class ListComponent implements OnInit {
     this.pageIndex = e.pageIndex + 1;
     this.pageSize = e.pageSize;
     this.table.setData(this.pageIndex, this.pageSize);
+    this.table.setRxjs({ page: this.pageIndex, limit: this.pageSize });
     this.rendertable(this.tempUrl, this.pageIndex, this.pageSize);
   }
 
-/**
- * The function opens a confirmation dialog box and if the user confirms, it calls the deleteUser()
- * function
- * @param {string} name - string - The name of the user to be deleted.
- * @param {string} id - The id of the user you want to delete.
- */
+  /**
+   * The function opens a confirmation dialog box and if the user confirms, it calls the deleteUser()
+   * function
+   * @param {string} name - string - The name of the user to be deleted.
+   * @param {string} id - The id of the user you want to delete.
+   */
   openConfirmationDialog(name: string, id: string) {
     this.dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       disableClose: false,
@@ -112,13 +119,21 @@ export class ListComponent implements OnInit {
     });
   }
 
-  resetTableData(){
-    this.table.setData(1,10);
+  resetTableData() {
+    this.table.setData(1, 10);
   }
-
 
   toasterSuccess(message) {
     this.toastr.success(message);
+  }
+
+  searchTable(event){
+    this.dataSource = [...this.dataCopy]
+    console.log(event.target.value);
+    let term = (event.target as HTMLInputElement).value;
+    if(term){
+      this.dataSource = this.dataSource.filter(obj => Object.values(obj).includes(term))
+    }
   }
 }
 
@@ -138,3 +153,6 @@ export class ListComponent implements OnInit {
 //     verticalPosition: this.verticalPosition,
 //   });
 // }
+
+// using modal to show content from other component
+// https://www.thecodehubs.com/open-modal-in-another-component-in-angular-13/

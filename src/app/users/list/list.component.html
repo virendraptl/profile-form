@@ -30,13 +30,25 @@
       [length]="tempdata.totalResults"
       [pageSize]="tempdata.limit"
       [pageIndex]="tempdata.page - 1"
-      [pageSizeOptions]="[5, 10, 15, 20]"
+      [pageSizeOptions]="[5, 10, 15, 20, tempdata.totalResults]"
       (page)="changeTable($event)"
     >
     </mat-paginator>
 
+    <mat-form-field>
+      <span matPrefix> </span>
+      <mat-label>Search</mat-label>
+      <input
+        autocomplete="off"
+        placeholder="Ex. Bruce Banner"
+        type="text"
+        matInput
+        (keyup)="searchTable($event)"
+      />
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-      
       <ng-container matColumnDef="no">
         <th mat-header-cell *matHeaderCellDef>Sr No</th>
         <td class="bold" mat-cell *matCellDef="let element; let i = index">
@@ -120,7 +132,7 @@
       [length]="tempdata.totalResults"
       [pageSize]="tempdata.limit"
       [pageIndex]="tempdata.page - 1"
-      [pageSizeOptions]="[5, 10, 15, 20]"
+      [pageSizeOptions]="[5, 10, 15, 20, tempdata.totalResults]"
       (page)="changeTable($event)"
     >
     </mat-paginator>

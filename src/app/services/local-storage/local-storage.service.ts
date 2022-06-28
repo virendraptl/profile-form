@@ -37,6 +37,6 @@ export class LocalStorageService {
     this.deleteData('profileData');
     this.table.setData(1,10);
     this.router.navigate(['/auth/login']);
-    console.log('opened login pagess after 401 error');
+    // console.log('opened login pagess after 401 error');
   }
 }

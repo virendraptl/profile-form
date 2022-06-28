@@ -15,19 +15,19 @@ export class VerifyEmailComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private http: HttpService
+    private http: HttpService,
   ) {}
 
   ngOnInit() {
     this.errorMessage = '';
     this.isVerified = false;
     this.verifyError = false;
-    
+
     this.activatedRoute.queryParams.subscribe((params) => {
       let token = {
-        token: params['token']
-      }
-      this.http.post('auth/verify-email','',token).subscribe({
+        token: params['token'],
+      };
+      this.http.post('auth/verify-email', '', token).subscribe({
         next: () => {
           this.isVerified = true;
         },

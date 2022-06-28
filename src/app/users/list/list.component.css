@@ -38,7 +38,7 @@ header {
   border-radius: 100vmax;
 }
 
-table {
+table, mat-form-field {
   width: 95%;
   margin: 20px
 }
@@ -93,6 +93,8 @@ table {
   height: 50px;
   width: 50px;
 }
+
+
 
 
 
