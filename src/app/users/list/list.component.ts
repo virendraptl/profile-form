@@ -31,8 +31,12 @@ export class ListComponent implements OnInit {
   tempdata: any;
   pageIndex: number = 1;
   pageSize: number = 10;
+  pageTotal: number;
   tempUrl: string = 'users';
   loadFlag: boolean = true;
+  filteredTable = [];
+  filteredIndex = [];
+  searchTerm: string = '';
 
   subscription: Subscription;
 
@@ -75,13 +79,19 @@ export class ListComponent implements OnInit {
       next: (data) => {
         this.tempdata = data;
         this.dataSource = data['results'];
+        this.pageTotal = data['totalResults'];
         this.dataCopy = [...this.dataSource];
         this.loadFlag = false;
+        if (this.table.getSearch()) {
+          this.searchTerm = this.table.getSearch();
+          this.searchResult(this.table.getSearch());
+        }
       },
     });
   }
 
   changeTable(e: PageEvent) {
+    this.filterReset();
     this.pageIndex = e.pageIndex + 1;
     this.pageSize = e.pageSize;
     this.table.setData(this.pageIndex, this.pageSize);
@@ -95,7 +105,7 @@ export class ListComponent implements OnInit {
    * @param {string} name - string - The name of the user to be deleted.
    * @param {string} id - The id of the user you want to delete.
    */
-  openConfirmationDialog(name: string, id: string) {
+  openConfirmationDialog(name: string, id: string, i: number) {
     this.dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       disableClose: false,
     });
@@ -104,16 +114,31 @@ export class ListComponent implements OnInit {
     this.dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         console.log(name, ' Deleted!!!');
-        this.deleteUser(id, name);
+        this.deleteUser(id, name, i);
       }
       this.dialogRef = null;
     });
   }
 
-  deleteUser(id: string, name: string) {
+  deleteUser(id: string, name: string, i: number) {
     this.http.delete(`users/${id}`).subscribe({
       next: (data) => {
-        this.rendertable(this.tempUrl, this.pageIndex, this.pageSize);
+        if (this.filteredTable.length == 0) {
+          this.rendertable(this.tempUrl, this.pageIndex, this.pageSize);
+        } else {
+          this.filteredIndex.forEach((value, index) => {
+            if (index >= i) {
+              value -= 1;
+              this.filteredIndex.splice(index, 1, value);
+            }
+            // console.log('index: ', index, ' value: ', value);
+            // console.log(this.filteredIndex);
+          });
+          this.filteredTable.splice(i, 1);
+          this.filteredIndex.splice(i, 1);
+          this.pageTotal -= 1;
+          this.dataSource = [...this.filteredTable];
+        }
         this.toasterSuccess(`User: ${name} deleted!`);
       },
     });
@@ -127,15 +152,60 @@ export class ListComponent implements OnInit {
     this.toastr.success(message);
   }
 
-  searchTable(event){
-    this.dataSource = [...this.dataCopy]
-    console.log(event.target.value);
-    let term = (event.target as HTMLInputElement).value;
-    if(term){
-      this.dataSource = this.dataSource.filter(obj => Object.values(obj).includes(term))
+  searchTable(event) {
+    let term = (event.target as HTMLInputElement).value.toLowerCase();
+    this.table.setSearch(term);
+    this.searchTerm = term;
+
+    this.searchResult(term);
+  }
+
+  searchResult(term: string) {
+    this.dataSource = [...this.dataCopy];
+    if (term && term !== '') {
+      this.filterReset();
+      this.dataSource.forEach((user, index) => {
+        if (user.name.toLowerCase().search(term) != -1) {
+          this.filteredTable.push(user);
+          this.filteredIndex.push(
+            index + 1 + (this.pageIndex - 1) * this.pageSize
+          );
+        }
+      });
+      this.dataSource = [...this.filteredTable];
+    } else {
+      this.filterReset();
     }
   }
+
+  filterReset() {
+    this.filteredTable = [];
+    this.filteredIndex = [];
+  }
 }
+
+// search filter custom pipe
+// import { Pipe, PipeTransform } from '@angular/core';
+
+// @Pipe({
+//   name: 'filterAll',
+// })
+// export class FilterPipe implements PipeTransform {
+//   transform(value: any, searchText: any): any {
+//     if (!searchText) {
+//       return value;
+//     }
+//     return value.filter((data) => this.matchValue(data, searchText));
+//   }
+
+//   matchValue(data, value) {
+//     return Object.keys(data)
+//       .map((key) => {
+//         return new RegExp(value, 'gi').test(data[key]);
+//       })
+//       .some((result) => result);
+//   }
+// }
 
 // Angular material dialog component
 // https://stackoverflow.com/questions/41684114/easy-way-to-make-a-confirmation-dialog-in-angular

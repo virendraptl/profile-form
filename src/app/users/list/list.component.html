@@ -30,12 +30,12 @@
       [length]="tempdata.totalResults"
       [pageSize]="tempdata.limit"
       [pageIndex]="tempdata.page - 1"
-      [pageSizeOptions]="[5, 10, 15, 20, tempdata.totalResults]"
+      [pageSizeOptions]="[5, 10, 15, 20, pageTotal]"
       (page)="changeTable($event)"
     >
     </mat-paginator>
 
-    <mat-form-field>
+    <mat-form-field class="search-block">
       <span matPrefix> </span>
       <mat-label>Search</mat-label>
       <input
@@ -43,6 +43,7 @@
         placeholder="Ex. Bruce Banner"
         type="text"
         matInput
+        [value]="searchTerm"
         (keyup)="searchTable($event)"
       />
       <mat-icon matSuffix>search</mat-icon>
@@ -52,7 +53,7 @@
       <ng-container matColumnDef="no">
         <th mat-header-cell *matHeaderCellDef>Sr No</th>
         <td class="bold" mat-cell *matCellDef="let element; let i = index">
-          {{ i + 1 + (pageIndex - 1) * pageSize }}
+          {{ (filteredTable.length == 0) ? i + 1 + (pageIndex - 1) * pageSize : filteredIndex[i] }}
         </td>
       </ng-container>
 
@@ -107,9 +108,9 @@
 
       <ng-container matColumnDef="button">
         <th mat-header-cell *matHeaderCellDef></th>
-        <td title="Delete" mat-cell *matCellDef="let element">
+        <td title="Delete" mat-cell *matCellDef="let element; let i = index">
           <button
-            (click)="openConfirmationDialog(element.name, element._id)"
+            (click)="openConfirmationDialog(element.name, element._id, i)"
             class="dltbutton"
             mat-mini-fab
             color="warn"
@@ -132,7 +133,7 @@
       [length]="tempdata.totalResults"
       [pageSize]="tempdata.limit"
       [pageIndex]="tempdata.page - 1"
-      [pageSizeOptions]="[5, 10, 15, 20, tempdata.totalResults]"
+      [pageSizeOptions]="[5, 10, 15, 20, pageTotal]"
       (page)="changeTable($event)"
     >
     </mat-paginator>
