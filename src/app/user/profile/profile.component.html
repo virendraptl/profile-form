@@ -8,7 +8,7 @@
       />
       <h2 class="header-title">Profile</h2>
     </div>
-    <button
+    <!-- <button
       class="listbtn"
       mat-raised-button
       type="button"
@@ -16,14 +16,40 @@
       [disabled]="!profileData?.isEmailVerified"
     >
       Users List
-    </button>
-    <button (click)="logout()" class="logoutbtn" mat-raised-button color="warn">
+    </button> -->
+    <!-- <button (click)="logout()" class="logoutbtn" mat-raised-button color="warn">
       Log Out
-    </button>
+    </button> -->
+    <div class="avatar-block">
+      <div [matMenuTriggerFor]="menu">
+        <ngx-avatar
+          bgColor="#8db0cc"
+          
+          fgColor="#fff"
+          [name]="profileData?.name"
+          size="50"
+          title="You"
+          [style]="avatarStyle"
+        ></ngx-avatar>
+      </div>
+      <mat-menu #menu="matMenu">
+        <button
+        *ngIf="profileData?.isEmailVerified"
+          routerLink="/users"
+          [disabled]="!profileData?.isEmailVerified"
+          mat-menu-item
+        >
+          <mat-icon>list</mat-icon> <span>Users List</span>
+        </button>
+        <button (click)="logout()" mat-menu-item>
+          <mat-icon>logout</mat-icon> <span>Logout</span>
+        </button>
+      </mat-menu>
+    </div>
   </header>
-  <div *ngIf="!profileData">
+  <ng-container *ngIf="!profileData">
     <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-  </div>
+  </ng-container>
   <div *ngIf="profileData" class="profile-block">
     <h2>Name:- {{ profileData?.name }}</h2>
     <h2>Email:- {{ profileData?.email }}</h2>

@@ -15,9 +15,9 @@
       Back To List
     </button>
   </header>
-  <div>
+  <ng-container>
     <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
-  </div>
+  </ng-container>
   <div *ngIf="!isLoading" class="form-block">
     <mat-card *ngIf="isRegistered; else postRegister" class="banner">
       <form
@@ -83,7 +83,6 @@
           *ngIf="errorMessage && updateUserForm.pristine"
           >{{ errorMessage }}</mat-error
         >
-
       </form>
     </mat-card>
     <ng-template #postRegister>
@@ -94,7 +93,6 @@
           the details
         </h4>
         <h4><a routerLink="/users">Click here</a> to go back to the list</h4>
-
       </mat-card>
     </ng-template>
   </div>

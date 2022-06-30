@@ -93,7 +93,7 @@ export class HttpService {
     for ([key, value] of Object.entries(querryObj)) {
       url += `${key}=${encodeURIComponent(value)}`;
       if (i !== Object.keys(querryObj).length) {
-        url += '&&';
+        url += '&';
       }
       i++;
     }

@@ -40,7 +40,13 @@ export class UpdateComponent implements OnInit {
   createForm() {
     this.updateUserForm = this.fb.group({
       name: [this.currentData.name, [Validators.required]],
-      email: [this.currentData.email, [Validators.required, Validators.email]],
+      email: [
+        this.currentData.email,
+        [
+          Validators.required,
+          Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+        ],
+      ],
       password: [
         '',
         [
@@ -75,7 +81,7 @@ export class UpdateComponent implements OnInit {
       return 'Email field can not be empty';
     }
 
-    return this.email.hasError('email') ? 'Not a valid email' : '';
+    return this.email.hasError('pattern') ? 'Not a valid email' : '';
   }
   getNameErrorMessage() {
     if (this.name.hasError('required')) {

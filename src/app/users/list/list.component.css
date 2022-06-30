@@ -98,6 +98,11 @@ table, mat-form-field {
   margin: 0;
 }
 
+.avatar-block{
+  font-weight: bolder;
+  margin: 0 30px;
+}
+
 
 
 

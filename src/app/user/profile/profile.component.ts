@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpService } from 'src/app/services/http/http.service';
 import { LocalStorageService } from 'src/app/services/local-storage/local-storage.service';
+import { TableDataService } from 'src/app/services/table-data/table-data.service';
 
 
 @Component({
@@ -12,17 +13,22 @@ import { LocalStorageService } from 'src/app/services/local-storage/local-storag
 export class ProfileComponent implements OnInit {
   tempToken: string;
   profileData: any;
+  avatarStyle = {
+    cursor: 'pointer'
+  }
 
   constructor(
     private http: HttpService,
     private router: Router,
-    private lstore: LocalStorageService
+    private lstore: LocalStorageService,
+    private table: TableDataService
   ) {}
 
   ngOnInit(): void {
     this.http.get('auth/self').subscribe({
       next: (res: any) => {
         this.profileData = res;
+        this.table.setLoggedUser(res.name);
         console.log('profile data from service:- ', this.profileData);
       },
     });

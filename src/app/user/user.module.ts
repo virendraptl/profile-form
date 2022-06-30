@@ -9,6 +9,11 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserRoutingModule } from './user-routing.module';
+import { AvatarModule } from 'ngx-avatar';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+
+
 
 
 @NgModule({
@@ -22,7 +27,10 @@ import { UserRoutingModule } from './user-routing.module';
     MatButtonModule,
     FormsModule,
     ReactiveFormsModule,
-    UserRoutingModule
-  ]
+    UserRoutingModule,
+    AvatarModule,
+    MatMenuModule,
+    MatIconModule,
+  ],
 })
-export class UserModule { }
+export class UserModule {}

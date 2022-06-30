@@ -6,6 +6,7 @@ import { BehaviorSubject, Observable, observable, Subject } from 'rxjs';
 })
 export class TableDataService {
   pageIndexSize = [1, 10];
+  loggedUser = '';
   searchTerm = '';
   rxjsData = new BehaviorSubject({page: 1, limit: 10});
   // rxjsData = new Subject();
@@ -31,6 +32,14 @@ export class TableDataService {
 
   getSearch(){
     return this.searchTerm;
+  }
+
+  setLoggedUser(name:string){
+    this.loggedUser = name;
+  }
+
+  getLoggedUser(){
+    return this.loggedUser;
   }
 
   setRxjs(data){

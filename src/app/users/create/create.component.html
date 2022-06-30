@@ -8,9 +8,9 @@
       Back To List
     </button>
   </header>
-  <div *ngIf="isLoading">
+  <ng-container *ngIf="isLoading">
     <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-  </div>
+  </ng-container>
 
   <div class="form-block">
     <mat-card *ngIf="!isRegistered; else postRegister" class="banner">

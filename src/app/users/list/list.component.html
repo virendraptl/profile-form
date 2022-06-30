@@ -8,22 +8,52 @@
       />
       <h2 class="header-title">Users List</h2>
     </div>
-    <button routerLink="/users/create" class="btn" mat-raised-button>
+    <!-- <button routerLink="/users/create" class="btn" mat-raised-button>
       Add New User
-    </button>
-    <button
+    </button> -->
+    <!-- <button
       routerLink="/user/my-profile"
       (click)="resetTableData()"
       class="btn"
       mat-raised-button
     >
       Back To Profile
-    </button>
+    </button> -->
+    <div class="avatar-block">
+      <div [matMenuTriggerFor]="menu">
+        <ngx-avatar
+          bgColor="#8db0cc"
+          fgColor="#fff"
+          [style]="avatarStyle"
+          [name]="loggedUser"
+          size="50"
+        ></ngx-avatar>
+      </div>
+      <mat-menu #menu="matMenu">
+        
+        <button
+          routerLink="/users/create"
+          mat-menu-item
+        >
+          <mat-icon>add-circle</mat-icon> <span>Add New User</span>
+        </button>
+        <button
+          routerLink="/user/my-profile"
+          (click)="resetTableData()"
+          mat-menu-item
+        >
+          <mat-icon>arrow_back</mat-icon> <span>Back to profile</span>
+        </button>
+        <button (click)="logout()" mat-menu-item>
+          <mat-icon>logout</mat-icon> <span>Logout</span>
+        </button>
+      </mat-menu>
+    </div>
   </header>
 
-  <div *ngIf="loadFlag">
+  <ng-container *ngIf="loadFlag">
     <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-  </div>
+  </ng-container>
 
   <div *ngIf="!loadFlag" class="table-block">
     <mat-paginator
@@ -53,7 +83,11 @@
       <ng-container matColumnDef="no">
         <th mat-header-cell *matHeaderCellDef>Sr No</th>
         <td class="bold" mat-cell *matCellDef="let element; let i = index">
-          {{ (filteredTable.length == 0) ? i + 1 + (pageIndex - 1) * pageSize : filteredIndex[i] }}
+          {{
+            filteredTable.length == 0
+              ? i + 1 + (pageIndex - 1) * pageSize
+              : filteredIndex[i]
+          }}
         </td>
       </ng-container>
 

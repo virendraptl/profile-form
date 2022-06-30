@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -18,8 +17,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConfirmationDialogComponent } from './dialog/confirmation-dialog/confirmation-dialog/confirmation-dialog.component';
 import { MatButtonModule } from '@angular/material/button';
 import { ToastrModule } from 'ngx-toastr';
-
-
+import {
+  GoogleLoginProvider,
+  SocialAuthServiceConfig,
+  SocialLoginModule,
+} from 'angularx-social-login';
 
 @NgModule({
   declarations: [AppComponent, ConfirmationDialogComponent],
@@ -30,6 +32,7 @@ import { ToastrModule } from 'ngx-toastr';
     HttpClientModule,
     MatDialogModule,
     MatFormFieldModule,
+    SocialLoginModule,
     FormsModule,
     ReactiveFormsModule,
     MatButtonModule,
@@ -44,6 +47,7 @@ import { ToastrModule } from 'ngx-toastr';
       useClass: InterceptorService,
       multi: true,
     },
+    
   ],
   bootstrap: [AppComponent],
   entryComponents: [ConfirmationDialogComponent],

@@ -50,7 +50,6 @@ header {
   flex-direction: column;
   justify-content: center;
   width: 300px;
-  /* justify-content: space-around; */
 }
 
 .avatar-block {

@@ -4,6 +4,12 @@ import { Router } from '@angular/router';
 import { HttpService } from 'src/app/services/http/http.service';
 import { LocalStorageService } from 'src/app/services/local-storage/local-storage.service';
 import { ToastrService } from 'ngx-toastr';
+import {
+  GoogleLoginProvider,
+  SocialAuthService,
+  SocialUser,
+} from 'angularx-social-login';
+import { UserInfo } from 'angular-oauth2-oidc';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +19,8 @@ import { ToastrService } from 'ngx-toastr';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   errorMessage: string | undefined;
-  
+  //  public user: SocialUser = new SocialUser
+  userInfo: UserInfo;
 
   @Output() tada = new EventEmitter();
 
@@ -22,21 +29,32 @@ export class LoginComponent implements OnInit {
     private http: HttpService,
     private router: Router,
     private lstore: LocalStorageService,
-    private toastr: ToastrService
-  ) {}
+    private toastr: ToastrService,
+  ) {
+    // this.authService.authState.subscribe(user => {
+    //   this.user = user;
+    //   console.log(user);
+    // })
+  }
 
   ngOnInit(): void {
     let checkToken = this.lstore.getToken();
     if (checkToken) {
       this.router.navigate(['/user/my-profile']);
-      this.toastr.info('User already logged in! Redirecting to profile page')
+      this.toastr.info('User already logged in! Redirecting to profile page');
     }
     this.createForm();
   }
 
   createForm() {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
+      email: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+        ],
+      ],
       password: [
         '',
         [
@@ -69,7 +87,7 @@ export class LoginComponent implements OnInit {
       return 'Email field can not be empty';
     }
 
-    return this.email.hasError('email') ? 'Not a valid email' : '';
+    return this.email.hasError('pattern') ? 'Not a valid email' : '';
   }
   getPasswordErrorMessage() {
     if (this.password.hasError('required')) {
@@ -96,6 +114,14 @@ export class LoginComponent implements OnInit {
   registerbtn() {
     this.router.navigate(['/auth/register']);
   }
+
+
+
+  // signInWithGoogle(): void {
+  //   this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then((data)=>{
+  //     console.log(data);
+  //   });
+  // }
 }
 
 // error handling reference
@@ -110,3 +136,9 @@ export class LoginComponent implements OnInit {
 // email: "king@north.com"
 // name: "Jon Snow"
 // password: "1212qwqw"
+
+// Client ID:  940446213899-5skej2ek1uklvdmm6v3qn8hds2llr5jo.apps.googleusercontent.com
+// Client Secret: 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
+
+// client id: 940446213899-2snutnjhuhs6kbql9ajjhrbeh28bus3c.apps.googleusercontent.com
+// secret: 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

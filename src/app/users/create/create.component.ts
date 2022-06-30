@@ -12,7 +12,7 @@ export class CreateComponent implements OnInit {
   createUserForm: FormGroup;
   errorMessage: string | undefined;
   isRegistered: boolean;
-  isLoading:boolean = true;
+  isLoading: boolean = true;
 
   constructor(
     private fb: FormBuilder,
@@ -31,7 +31,13 @@ export class CreateComponent implements OnInit {
     this.createUserForm = this.fb.group({
       name: ['', [Validators.required]],
       role: ['user'],
-      email: ['', [Validators.required, Validators.email]],
+      email: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+        ],
+      ],
       password: [
         '',
         [
@@ -69,7 +75,7 @@ export class CreateComponent implements OnInit {
       return 'Email field can not be empty';
     }
 
-    return this.email.hasError('email') ? 'Not a valid email' : '';
+    return this.email.hasError('pattern') ? 'Not a valid email' : '';
   }
   getNameErrorMessage() {
     if (this.name.hasError('required')) {

@@ -16,7 +16,6 @@
           <mat-error *ngIf="email.invalid">{{
             getEmailErrorMessage()
           }}</mat-error>
-
         </mat-form-field>
       </p>
       <p>
@@ -28,7 +27,7 @@
             matInput
             placeholder="Enter Password"
           />
-          
+
           <mat-error *ngIf="password.invalid">{{
             getPasswordErrorMessage()
           }}</mat-error>
@@ -37,13 +36,14 @@
       <button [disabled]="loginForm.invalid" class="btn" mat-raised-button>
         Login
       </button>
+
       <mat-error
         class="errorMessage"
         *ngIf="errorMessage && loginForm.pristine"
         >{{ errorMessage }}</mat-error
       >
       <div class="no-acc-block">
-        <div class="registerbtn" (click)="registerbtn()">
+        <div class="registerbtn" routerLink="/auth/register">
           Don't have an account?
         </div>
       </div>

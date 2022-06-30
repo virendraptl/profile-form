@@ -18,8 +18,7 @@ import { AvatarModule } from 'ngx-avatar';
 import { MatIconModule } from '@angular/material/icon';
 import { UpdateComponent } from './update/update.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-
-
+import { MatMenuModule } from '@angular/material/menu';
 
 
 @NgModule({
@@ -44,6 +43,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     AvatarModule,
     MatIconModule,
     MatSnackBarModule,
+    MatMenuModule,
   ],
 })
 export class UsersModule {}
