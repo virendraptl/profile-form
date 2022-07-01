@@ -34,13 +34,7 @@ export class TableDataService {
     return this.searchTerm;
   }
 
-  setLoggedUser(name:string){
-    this.loggedUser = name;
-  }
 
-  getLoggedUser(){
-    return this.loggedUser;
-  }
 
   setRxjs(data){
     this.rxjsData.next({page: data.page, limit: data.limit})

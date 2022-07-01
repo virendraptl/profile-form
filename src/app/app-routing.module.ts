@@ -6,6 +6,7 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
+    data: { showHeader: false}
   },
   {
     path: 'user',
@@ -15,13 +16,13 @@ const routes: Routes = [
     path: 'users',
     loadChildren: () =>
       import('./users/users.module').then((m) => m.UsersModule),
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
   },
   { path: '**', redirectTo: '' },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

@@ -22,6 +22,10 @@ import {
   SocialAuthServiceConfig,
   SocialLoginModule,
 } from 'angularx-social-login';
+import { HeaderComponent } from './layout/header/header.component';
+import { LayoutModule } from './layout/layout.module';
+import { MatMenuModule } from '@angular/material/menu';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [AppComponent, ConfirmationDialogComponent],
@@ -29,14 +33,9 @@ import {
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    HttpClientModule,
-    MatDialogModule,
-    MatFormFieldModule,
-    SocialLoginModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatButtonModule,
+    LayoutModule,
     ToastrModule.forRoot(),
+    SharedModule
     // AuthModule,
     // UserModule,
   ],
@@ -47,7 +46,6 @@ import {
       useClass: InterceptorService,
       multi: true,
     },
-    
   ],
   bootstrap: [AppComponent],
   entryComponents: [ConfirmationDialogComponent],

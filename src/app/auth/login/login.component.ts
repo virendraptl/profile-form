@@ -137,8 +137,4 @@ export class LoginComponent implements OnInit {
 // name: "Jon Snow"
 // password: "1212qwqw"
 
-// Client ID:  940446213899-5skej2ek1uklvdmm6v3qn8hds2llr5jo.apps.googleusercontent.com
-// Client Secret: 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
 
-// client id: 940446213899-2snutnjhuhs6kbql9ajjhrbeh28bus3c.apps.googleusercontent.com
-// secret: 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

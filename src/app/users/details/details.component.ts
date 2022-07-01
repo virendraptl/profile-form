@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { HeaderTitleService } from 'src/app/services/header-title/header-title.service';
 import { HttpService } from 'src/app/services/http/http.service';
 
 @Component({
@@ -15,10 +16,15 @@ export class DetailsComponent implements OnInit {
   constructor(
     private http: HttpService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
-  ) {}
+    private activatedRoute: ActivatedRoute,
+    private headerTitleService: HeaderTitleService
+  ) {
+        this.headerTitleService.setTitle('Profile');
+
+  }
 
   ngOnInit(): void {
+
     this.loading = true;
     this.currentId = this.activatedRoute.snapshot.paramMap.get('id');
     this.http.get(`users/${this.currentId}`).subscribe({
@@ -32,7 +38,6 @@ export class DetailsComponent implements OnInit {
       },
     });
   }
-
 }
 
 // activated_route

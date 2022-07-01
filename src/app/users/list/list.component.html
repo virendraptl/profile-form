@@ -1,5 +1,5 @@
 <div class="page">
-  <header>
+  <!-- <header>
     <div class="logo-block">
       <img
         class="logo"
@@ -8,22 +8,12 @@
       />
       <h2 class="header-title">Users List</h2>
     </div>
-    <!-- <button routerLink="/users/create" class="btn" mat-raised-button>
-      Add New User
-    </button> -->
-    <!-- <button
-      routerLink="/user/my-profile"
-      (click)="resetTableData()"
-      class="btn"
-      mat-raised-button
-    >
-      Back To Profile
-    </button> -->
+
     <div class="avatar-block">
       <div [matMenuTriggerFor]="menu">
         <ngx-avatar
-          bgColor="#8db0cc"
-          fgColor="#fff"
+          bgColor="#d7e3ed"
+          fgColor="#020024"
           [style]="avatarStyle"
           [name]="loggedUser"
           size="50"
@@ -49,7 +39,7 @@
         </button>
       </mat-menu>
     </div>
-  </header>
+  </header> -->
 
   <ng-container *ngIf="loadFlag">
     <mat-progress-bar mode="indeterminate"></mat-progress-bar>
@@ -175,3 +165,15 @@
 </div>
 
 <!-- https://stackoverflow.com/questions/45318164/how-to-use-paginator-from-material-angular -->
+
+    <!-- <button routerLink="/users/create" class="btn" mat-raised-button>
+      Add New User
+    </button> -->
+    <!-- <button
+      routerLink="/user/my-profile"
+      (click)="resetTableData()"
+      class="btn"
+      mat-raised-button
+    >
+      Back To Profile
+    </button> -->

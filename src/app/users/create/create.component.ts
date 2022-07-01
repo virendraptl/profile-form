@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { HeaderTitleService } from 'src/app/services/header-title/header-title.service';
 import { HttpService } from 'src/app/services/http/http.service';
 
 @Component({
@@ -17,10 +18,15 @@ export class CreateComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private http: HttpService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private headerTitleService: HeaderTitleService
+  ) {
+        this.headerTitleService.setTitle('Create New User');
+
+  }
 
   ngOnInit(): void {
+
     this.isLoading = true;
     this.isRegistered = false;
 

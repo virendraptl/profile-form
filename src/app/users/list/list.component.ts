@@ -11,6 +11,7 @@ import { TableDataService } from 'src/app/services/table-data/table-data.service
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { LocalStorageService } from 'src/app/services/local-storage/local-storage.service';
+import { HeaderTitleService } from 'src/app/services/header-title/header-title.service';
 
 @Component({
   selector: 'app-list',
@@ -56,16 +57,21 @@ export class ListComponent implements OnInit {
     public dialog: MatDialog,
     private table: TableDataService,
     private lstore: LocalStorageService,
-    private toastr: ToastrService
-  ) {}
-
-  ngOnInit(): void {
-    [this.pageIndex, this.pageSize] = this.table.getData();
+    private toastr: ToastrService,
+    private headerTitleService: HeaderTitleService
+  ) {
+    this.headerTitleService.setTitle('Users List');
     this.http.get('auth/self').subscribe({
       next: (res: any) => {
         this.loggedUser = res.name;
+        headerTitleService.setName = res.Name
       },
     });
+  }
+
+  ngOnInit(): void {
+    [this.pageIndex, this.pageSize] = this.table.getData();
+
     // this.table.rxjsData.subscribe((res) => {
     //   if (res) {
     //     console.log('data from rxjs is: ', res.page, res.limit);
@@ -196,7 +202,7 @@ export class ListComponent implements OnInit {
     this.filteredIndex = [];
   }
 
-  logout(){
+  logout() {
     this.lstore.logout();
   }
 }

@@ -1,5 +1,5 @@
 <div class="page">
-  <header>
+  <!-- <header>
     <div class="logo-block">
       <img
         class="logo"
@@ -8,24 +8,12 @@
       />
       <h2 class="header-title">Profile</h2>
     </div>
-    <!-- <button
-      class="listbtn"
-      mat-raised-button
-      type="button"
-      routerLink="/users"
-      [disabled]="!profileData?.isEmailVerified"
-    >
-      Users List
-    </button> -->
-    <!-- <button (click)="logout()" class="logoutbtn" mat-raised-button color="warn">
-      Log Out
-    </button> -->
+
     <div class="avatar-block">
       <div [matMenuTriggerFor]="menu">
         <ngx-avatar
-          bgColor="#8db0cc"
-          
-          fgColor="#fff"
+          bgColor="#d7e3ed"
+          fgColor="#020024"
           [name]="profileData?.name"
           size="50"
           title="You"
@@ -34,7 +22,7 @@
       </div>
       <mat-menu #menu="matMenu">
         <button
-        *ngIf="profileData?.isEmailVerified"
+          *ngIf="profileData?.isEmailVerified"
           routerLink="/users"
           [disabled]="!profileData?.isEmailVerified"
           mat-menu-item
@@ -46,7 +34,7 @@
         </button>
       </mat-menu>
     </div>
-  </header>
+  </header> -->
   <ng-container *ngIf="!profileData">
     <mat-progress-bar mode="indeterminate"></mat-progress-bar>
   </ng-container>
@@ -58,3 +46,17 @@
     <h2>Company Name:- {{ profileData?._org.name }}</h2>
   </div>
 </div>
+
+<!-- header content without avatar & menu -->
+<!-- <button
+      class="listbtn"
+      mat-raised-button
+      type="button"
+      routerLink="/users"
+      [disabled]="!profileData?.isEmailVerified"
+    >
+      Users List
+    </button> -->
+<!-- <button (click)="logout()" class="logoutbtn" mat-raised-button color="warn">
+      Log Out
+    </button> -->

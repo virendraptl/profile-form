@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { HeaderTitleService } from 'src/app/services/header-title/header-title.service';
 import { HttpService } from 'src/app/services/http/http.service';
 import { LocalStorageService } from 'src/app/services/local-storage/local-storage.service';
 
@@ -22,8 +23,11 @@ export class UpdateComponent implements OnInit {
     private fb: FormBuilder,
     private http: HttpService,
     private storage: LocalStorageService,
-    private activatedRoute: ActivatedRoute
-  ) {}
+    private activatedRoute: ActivatedRoute,
+    private headerTitleService: HeaderTitleService
+  ) {
+    this.headerTitleService.setTitle('Update User Info');
+  }
 
   ngOnInit(): void {
     this.currentId = this.activatedRoute.snapshot.paramMap.get('id');
