@@ -19,9 +19,7 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private http: HttpService,
-    private router: Router,
     private lstore: LocalStorageService,
-    private table: TableDataService,
     private headerTitleService: HeaderTitleService
   ) {
     this.headerTitleService.setTitle('Profile');
@@ -31,8 +29,7 @@ export class ProfileComponent implements OnInit {
     this.http.get('auth/self').subscribe({
       next: (res: any) => {
         this.profileData = res;
-        this.headerTitleService.setName(this.profileData.name);
-        console.log('profile data from service:- ', this.profileData);
+        this.headerTitleService.userName.next(this.profileData.name);
       },
     });
   }

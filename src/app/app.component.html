@@ -1,3 +1,3 @@
-<app-header *ngIf="showHeader"></app-header>
-<router-outlet></router-outlet>
+<app-header [btns]="btns" *ngIf="showHeader"></app-header>
+<router-outlet (activate)="setHeaderBtns()"></router-outlet>
 

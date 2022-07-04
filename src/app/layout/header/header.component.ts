@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HeaderTitleService } from 'src/app/services/header-title/header-title.service';
 import { LocalStorageService } from 'src/app/services/local-storage/local-storage.service';
@@ -10,6 +10,7 @@ import { TableDataService } from 'src/app/services/table-data/table-data.service
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
+  @Input() btns: string[];
   title = '';
 
   profileData = {
@@ -32,6 +33,10 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/users']);
   }
   
+  newUser(){
+    this.router.navigate(['/users/create']);
+  }
+
   toProfile() {
     this.table.setData(1, 10);
     this.table.setSearch('');

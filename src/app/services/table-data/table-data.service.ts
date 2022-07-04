@@ -26,15 +26,12 @@ export class TableDataService {
   }
 
   setSearch(term:string){
-    console.log('term is service: ',term);
     this.searchTerm = term;
   }
 
   getSearch(){
     return this.searchTerm;
   }
-
-
 
   setRxjs(data){
     this.rxjsData.next({page: data.page, limit: data.limit})
