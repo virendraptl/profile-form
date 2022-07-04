@@ -14,7 +14,6 @@ export class AppComponent implements OnInit {
   constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
 
   ngOnInit() {
-    // this.setHeaderBtns();
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.showHeader =

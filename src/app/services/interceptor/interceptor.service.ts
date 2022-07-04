@@ -20,7 +20,6 @@ export class InterceptorService implements HttpInterceptor {
   passIntercept: boolean = false;
 
   constructor(
-    private router: Router,
     private lstore: LocalStorageService,
     private toaster: ToastrService
   ) {}

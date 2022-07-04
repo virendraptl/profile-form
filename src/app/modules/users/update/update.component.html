@@ -1,0 +1,106 @@
+<div class="page">
+  <ng-container>
+    <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+  </ng-container>
+  <div *ngIf="!isLoading" class="form-block">
+    <mat-card *ngIf="isRegistered; else postRegister" class="banner">
+      <form
+        class="form-block"
+        [formGroup]="updateUserForm"
+        (ngSubmit)="submitForm()"
+      >
+        <p>
+          <mat-form-field class="block-height" appearance="outline">
+            <mat-label>Full Name</mat-label>
+            <input
+              formControlName="name"
+              matInput
+              placeholder="Enter Full Name"
+            />
+            <mat-error *ngIf="name.invalid">{{
+              getNameErrorMessage()
+            }}</mat-error>
+          </mat-form-field>
+        </p>
+        <p>
+          <mat-form-field class="block-height" appearance="outline">
+            <mat-label>Email</mat-label>
+            <input formControlName="email" matInput placeholder="Enter Email" />
+            <mat-error *ngIf="email.invalid">{{
+              getEmailErrorMessage()
+            }}</mat-error>
+          </mat-form-field>
+        </p>
+        <p>
+          <!-- <mat-form-field class="block-height" appearance="outline">
+            <mat-label>Password</mat-label>
+            <input
+              type="password"
+              formControlName="password"
+              matInput
+              placeholder="Enter Password"
+            />
+            <mat-error *ngIf="password.invalid">{{
+              getPasswordErrorMessage()
+            }}</mat-error>
+          </mat-form-field> -->
+          <!--  -->
+          <mat-form-field class="block-height" appearance="outline">
+          <mat-label>Enter your password</mat-label>
+          <input
+            formControlName="password"
+            matInput
+            placeholder="Enter Password"
+            [type]="hide ? 'password' : 'text'"
+          />
+          <button
+            type="button"
+            mat-icon-button
+            matSuffix
+            (click)="hide = !hide"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide"
+          >
+            <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+          </button>
+          <mat-error *ngIf="password.invalid">{{
+            getPasswordErrorMessage()
+          }}</mat-error>
+        </mat-form-field>
+        </p>
+        <div class="btns-block">
+          <button
+            [disabled]="updateUserForm.invalid"
+            class="btn"
+            mat-raised-button
+          >
+            Update
+          </button>
+          <button
+            type="button"
+            (click)="createForm()"
+            class="btn"
+            mat-raised-button
+          >
+            Reset
+          </button>
+        </div>
+        <mat-error
+          class="errorMessage"
+          *ngIf="errorMessage && updateUserForm.pristine"
+          >{{ errorMessage }}</mat-error
+        >
+      </form>
+    </mat-card>
+    <ng-template #postRegister>
+      <mat-card class="postbanner">
+        <h1>User Updated Successfully</h1>
+        <h4>
+          <a [routerLink]="['/users/details', currentId]">Click here</a> to see
+          the details
+        </h4>
+        <h4><a routerLink="/users">Click here</a> to go back to the list</h4>
+      </mat-card>
+    </ng-template>
+  </div>
+</div>

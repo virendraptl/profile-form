@@ -1,0 +1,88 @@
+.page {
+  width: 100vw;
+  height: 100vh - 90px;
+  box-sizing: border-box;
+}
+
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    90deg,
+    #020024 0%,
+    rgba(9, 9, 121, 1) 46%,
+    rgb(65, 139, 189) 100%
+  );
+  color: rgb(238, 242, 248);
+  /* background-color: white; */
+}
+
+.header-title {
+  margin-left: 0;
+  font-size: 40px;
+  margin: 20px 20px;
+}
+
+.btn {
+  color: #020224;
+  font-weight: bolder;
+  height: 40px;
+  margin: 0 30px;
+  border-radius: 100vmax;
+}
+
+.info-block {
+  margin: 0 20px;
+  padding: 10px 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 100vh - 90px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 300px;
+}
+
+.avatar-block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.updatebutton{
+  height: 30px;
+  width: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100vmax;
+}
+
+.update-btn{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  transform: translate(30px, 30px);
+}
+
+.logo-block{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo{
+  height: 50px;
+  width: 50px;
+}

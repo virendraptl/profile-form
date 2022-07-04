@@ -1,0 +1,26 @@
+<div class="page">
+  <ng-container *ngIf="!profileData">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </ng-container>
+  <div *ngIf="profileData" class="profile-block">
+    <h2>Name:- {{ profileData?.name }}</h2>
+    <h2>Email:- {{ profileData?.email }}</h2>
+    <h2>Role:- {{ profileData?.role }}</h2>
+    <h2>Email verification Status:- {{ profileData?.isEmailVerified }}</h2>
+    <h2>Company Name:- {{ profileData?._org.name }}</h2>
+  </div>
+</div>
+
+<!-- header content without avatar & menu -->
+<!-- <button
+      class="listbtn"
+      mat-raised-button
+      type="button"
+      routerLink="/users"
+      [disabled]="!profileData?.isEmailVerified"
+    >
+      Users List
+    </button> -->
+<!-- <button (click)="logout()" class="logoutbtn" mat-raised-button color="warn">
+      Log Out
+    </button> -->
