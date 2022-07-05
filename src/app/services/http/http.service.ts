@@ -1,7 +1,4 @@
-import {
-  HttpClient,
-  HttpHeaders,
-} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
@@ -9,7 +6,6 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class HttpService {
-
   constructor(private http: HttpClient) {}
 
   post(url: string, data: any, querryObj?: any) {
@@ -17,7 +13,7 @@ export class HttpService {
     return this.http.post(environment.apiUrl + url, data);
   }
 
-  postSecured(url: string, token: any, data: any, querryObj?: any) {
+  postSecured(url: string, data: any, token: any, querryObj?: any) {
     url = querryObj ? this.addQueries(url, querryObj) : url;
     const headers = this.setHeaders(token);
     return this.http.post(environment.apiUrl + url, data, { headers });
@@ -67,11 +63,11 @@ export class HttpService {
     return this.http.patch(environment.apiUrl + url, data, { headers });
   }
 
-/**
- * It returns a new HttpHeaders object with the Content-Type and Authorization headers set
- * @param token - The token that you want to send to the server.
- * @returns A new HttpHeaders object with the content type and authorization headers.
- */
+  /**
+   * It returns a new HttpHeaders object with the Content-Type and Authorization headers set
+   * @param token - The token that you want to send to the server.
+   * @returns A new HttpHeaders object with the content type and authorization headers.
+   */
   setHeaders(token) {
     return new HttpHeaders({
       'Content-Type': 'application/json',
@@ -79,13 +75,13 @@ export class HttpService {
     });
   }
 
-/**
- * It takes a url and a query object and returns a url with the query object added to it
- * @param url - The url to which you want to add the query parameters.
- * @param querryObj - This is the object that contains the key-value pairs that you want to add to the
- * URL.
- * @returns The url with the querryObj added to it.
- */
+  /**
+   * It takes a url and a query object and returns a url with the query object added to it
+   * @param url - The url to which you want to add the query parameters.
+   * @param querryObj - This is the object that contains the key-value pairs that you want to add to the
+   * URL.
+   * @returns The url with the querryObj added to it.
+   */
   addQueries(url, querryObj) {
     url += '?';
     let i = 1;

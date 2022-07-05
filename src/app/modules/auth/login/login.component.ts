@@ -10,18 +10,25 @@ import {
   SocialUser,
 } from 'angularx-social-login';
 import { UserInfo } from 'angular-oauth2-oidc';
+import {
+  SocialAuthServiceConfig,
+  SocialLoginModule,
+} from '@abacritt/angularx-social-login';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
+  // providers: [SocialLoginModule, SocialAuthService],
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   errorMessage: string | undefined;
-  //  public user: SocialUser = new SocialUser
+  user: SocialUser;
+  loggedIn: boolean;
+
   userInfo: UserInfo;
-  hide:boolean = true;
+  hide: boolean = true;
 
   @Output() tada = new EventEmitter();
 
@@ -31,11 +38,13 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private lstore: LocalStorageService,
     private toastr: ToastrService,
+    private authService: SocialAuthService
   ) {
-    // this.authService.authState.subscribe(user => {
-    //   this.user = user;
-    //   console.log(user);
-    // })
+    this.authService.authState.subscribe((user) => {
+      this.user = user;
+      this.loggedIn = user != null;
+      console.log(user);
+    });
   }
 
   ngOnInit(): void {
@@ -116,13 +125,11 @@ export class LoginComponent implements OnInit {
     this.router.navigate(['/auth/register']);
   }
 
-
-
-  // signInWithGoogle(): void {
-  //   this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then((data)=>{
-  //     console.log(data);
-  //   });
-  // }
+  signInWithGoogle(): void {
+    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then((data) => {
+      console.log(data);
+    });
+  }
 }
 
 // error handling reference
@@ -137,5 +144,3 @@ export class LoginComponent implements OnInit {
 // email: "king@north.com"
 // name: "Jon Snow"
 // password: "1212qwqw"
-
-

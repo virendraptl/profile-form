@@ -55,7 +55,7 @@ export class RegisterComponent implements OnInit {
         console.log(data);
         console.log('Token is: ', data['token']);
         this.http
-          .postSecured('auth/send-verification-email', data['token'], '')
+          .postSecured('auth/send-verification-email', '', data['token'],)
           .subscribe(() => {
             console.log('Request sent');
           });

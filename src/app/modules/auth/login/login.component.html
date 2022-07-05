@@ -65,6 +65,15 @@
         *ngIf="errorMessage && loginForm.pristine"
         >{{ errorMessage }}</mat-error
       >
+
+      <div>
+        <asl-google-signin-button>
+          <cool-google-button type="button" color="light">
+            Login with Google
+          </cool-google-button>
+        </asl-google-signin-button>
+      </div>
+
       <div class="no-acc-block">
         <div class="registerbtn" routerLink="/auth/register">
           Don't have an account?

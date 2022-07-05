@@ -18,6 +18,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatDialogModule } from '@angular/material/dialog';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
+import { CoolSocialLoginButtonsModule } from '@angular-cool/social-login-buttons';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import { ToastrModule } from 'ngx-toastr';
     MatDialogModule,
     HttpClientModule,
     ToastrModule,
+    CoolSocialLoginButtonsModule
   ],
 })
 export class SharedModule {}

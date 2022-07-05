@@ -11,9 +11,10 @@ import { ConfirmationDialogComponent } from './modules/layout/confirmation-dialo
 import { ToastrModule } from 'ngx-toastr';
 import { SharedModule } from './modules/shared/shared.module';
 import { LayoutModule } from './modules/layout/layout.module';
+import { GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
 LayoutModule
 @NgModule({
-  declarations: [AppComponent, ConfirmationDialogComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -21,6 +22,7 @@ LayoutModule
     LayoutModule,
     ToastrModule.forRoot(),
     SharedModule,
+    SocialLoginModule,
   ],
   providers: [
     AuthGuard,
@@ -29,8 +31,37 @@ LayoutModule
       useClass: InterceptorService,
       multi: true,
     },
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider('asdfasdfasasasasasasasassasas'),
+          },
+        ],
+        onError: (err) => {
+          console.error(err);
+        },
+      } as SocialAuthServiceConfig,
+    },
   ],
   bootstrap: [AppComponent],
   entryComponents: [ConfirmationDialogComponent],
 })
 export class AppModule {}
+
+// {
+//   provide: 'SocialAuthServiceConfig',
+//   useValue: {
+//     autoLogin: true,
+//     providers: [
+//       {
+//         id: GoogleLoginProvider.PROVIDER_ID,
+//         // provider: new GoogleLoginProvider(CLIENT_ID),
+//         provider: new GoogleLoginProvider(''),
+//       },
+//     ],
+//   } as SocialAuthServiceConfig,
+// },
