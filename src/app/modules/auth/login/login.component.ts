@@ -4,22 +4,18 @@ import { Router } from '@angular/router';
 import { HttpService } from 'src/app/services/http/http.service';
 import { LocalStorageService } from 'src/app/services/local-storage/local-storage.service';
 import { ToastrService } from 'ngx-toastr';
-import {
-  GoogleLoginProvider,
-  SocialAuthService,
-  SocialUser,
-} from 'angularx-social-login';
+
 import { UserInfo } from 'angular-oauth2-oidc';
 import {
-  SocialAuthServiceConfig,
-  SocialLoginModule,
+  FacebookLoginProvider,
+  SocialAuthService,
+  SocialUser,
 } from '@abacritt/angularx-social-login';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  // providers: [SocialLoginModule, SocialAuthService],
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
@@ -39,15 +35,29 @@ export class LoginComponent implements OnInit {
     private lstore: LocalStorageService,
     private toastr: ToastrService,
     private authService: SocialAuthService
-  ) {
-    this.authService.authState.subscribe((user) => {
-      this.user = user;
-      this.loggedIn = user != null;
-      console.log(user);
-    });
-  }
+  ) {}
 
   ngOnInit(): void {
+    this.authService.authState.subscribe({
+      next: (user) => {
+        console.log('log-in successful', user?.idToken);
+        this.http
+          .post('auth/login/google', { token: user?.idToken })
+          .subscribe({
+            next: (data) => {
+              this.lstore.setToken(data['token']);
+              this.router.navigate(['/user/my-profile']);
+            },
+            error: (error) => {
+              console.log(error);
+            },
+          });
+      },
+      error: (err) => {
+        console.log('error: ', err);
+      },
+    });
+
     let checkToken = this.lstore.getToken();
     if (checkToken) {
       this.router.navigate(['/user/my-profile']);
@@ -125,11 +135,18 @@ export class LoginComponent implements OnInit {
     this.router.navigate(['/auth/register']);
   }
 
-  signInWithGoogle(): void {
-    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then((data) => {
-      console.log(data);
-    });
+  facebookSignin() {
+    console.log('fb login clicked');
+    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
+    // .then((data) => console.log(data));
   }
+
+  // signInWithGoogle(): void {
+  //   this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then((data) => {
+  //     console.log(data);
+  //     console.log('Login successful');
+  //   });
+  // }
 }
 
 // error handling reference
@@ -144,3 +161,11 @@ export class LoginComponent implements OnInit {
 // email: "king@north.com"
 // name: "Jon Snow"
 // password: "1212qwqw"
+
+// login with TLS serctificate
+// created a certificate signed by mkcert
+// https://web.dev/how-to-use-local-https/
+// for commands: follow https://www.devdungeon.com/content/how-serve-angular-locally-over-https
+// in CLI, follow:
+// ng serve --ssl --ssl-cert localhost.pem --ssl-key localhost-key.pem
+// change browser url to https://localhost:4200/auth/login

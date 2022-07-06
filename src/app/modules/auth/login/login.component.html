@@ -66,12 +66,22 @@
         >{{ errorMessage }}</mat-error
       >
 
-      <div>
-        <asl-google-signin-button>
-          <cool-google-button type="button" color="light">
+      <div class="social-btns">
+        <!-- <div>
+          <div id="buttonDiv" ></div>
+        </div> -->
+        <!-- social login method: from github -->
+        <asl-google-signin-button> </asl-google-signin-button>
+        <button type="button" class="fb-btn" (click)="facebookSignin()">
+          <mat-icon>facebook</mat-icon>
+        </button>
+        <!-- <cool-google-button type="button" (click)="signInWithGoogle()" color="light">
             Login with Google
-          </cool-google-button>
-        </asl-google-signin-button>
+          </cool-google-button> -->
+        <!--  -->
+        <!-- <div class="card-block">
+          <button class="btn btn-social-icon btn-google" type="button" (click)="signInWithGoogle()"><span class="fa fa-google"></span></button>
+        </div> -->
       </div>
 
       <div class="no-acc-block">

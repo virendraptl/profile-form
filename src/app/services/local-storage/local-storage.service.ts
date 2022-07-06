@@ -1,8 +1,7 @@
+import { SocialAuthService } from '@abacritt/angularx-social-login';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { TableDataService } from '../table-data/table-data.service';
-import { SocialAuthService } from 'angularx-social-login';
-
 @Injectable({
   providedIn: 'root',
 })
@@ -11,6 +10,7 @@ export class LocalStorageService {
   constructor(
     private router: Router,
     private table: TableDataService,
+    private authService: SocialAuthService
     // private authService: SocialAuthService
   ) {}
 
@@ -42,6 +42,8 @@ export class LocalStorageService {
     this.deletetoken();
     this.deleteData('profileData');
     this.table.setData(1, 10);
+        this.authService.signOut();
+
     // this.authService.signOut();
     this.router.navigate(['/auth/login']);
     // console.log('opened login pagess after 401 error');

@@ -11,8 +11,13 @@ import { ConfirmationDialogComponent } from './modules/layout/confirmation-dialo
 import { ToastrModule } from 'ngx-toastr';
 import { SharedModule } from './modules/shared/shared.module';
 import { LayoutModule } from './modules/layout/layout.module';
-import { GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
-LayoutModule
+import {
+  FacebookLoginProvider,
+  GoogleLoginProvider,
+  SocialAuthServiceConfig,
+  SocialLoginModule,
+} from '@abacritt/angularx-social-login';
+LayoutModule;
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -22,7 +27,6 @@ LayoutModule
     LayoutModule,
     ToastrModule.forRoot(),
     SharedModule,
-    SocialLoginModule,
   ],
   providers: [
     AuthGuard,
@@ -38,7 +42,13 @@ LayoutModule
         providers: [
           {
             id: GoogleLoginProvider.PROVIDER_ID,
-            provider: new GoogleLoginProvider('asdfasdfasasasasasasasassasas'),
+            provider: new GoogleLoginProvider(
+              '893913805202-rg7o6somctq21ike6dk1u0d696t64e0q.apps.googleusercontent.com'
+            ),
+          },
+          {
+            id: FacebookLoginProvider.PROVIDER_ID,
+            provider: new FacebookLoginProvider('365586852354146'),
           },
         ],
         onError: (err) => {

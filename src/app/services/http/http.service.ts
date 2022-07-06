@@ -63,6 +63,10 @@ export class HttpService {
     return this.http.patch(environment.apiUrl + url, data, { headers });
   }
 
+  googleSignIn(token){
+    
+  }
+
   /**
    * It returns a new HttpHeaders object with the Content-Type and Authorization headers set
    * @param token - The token that you want to send to the server.

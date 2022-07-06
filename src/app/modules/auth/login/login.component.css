@@ -93,3 +93,16 @@ input.example-right-align::-webkit-inner-spin-button {
 input.example-right-align {
   -moz-appearance: textfield;
 }
+
+.fb-btn{
+  border: none;
+  cursor: pointer;
+  margin-left: 15px;
+}
+
+.social-btns{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
