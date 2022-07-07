@@ -1,3 +1,4 @@
+import { SocialAuthService } from '@abacritt/angularx-social-login';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HeaderTitleService } from 'src/app/services/header-title/header-title.service';
@@ -20,7 +21,8 @@ export class ProfileComponent implements OnInit {
   constructor(
     private http: HttpService,
     private lstore: LocalStorageService,
-    private headerTitleService: HeaderTitleService
+    private headerTitleService: HeaderTitleService,
+    private authService: SocialAuthService
   ) {
     this.headerTitleService.setTitle('Profile');
   }
@@ -35,6 +37,7 @@ export class ProfileComponent implements OnInit {
   }
 
   logout() {
+    this.authService.signOut(false);
     this.lstore.logout();
   }
 }

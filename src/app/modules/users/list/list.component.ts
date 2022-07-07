@@ -12,6 +12,8 @@ import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { LocalStorageService } from 'src/app/services/local-storage/local-storage.service';
 import { HeaderTitleService } from 'src/app/services/header-title/header-title.service';
+import { PreviousRouteService } from 'src/app/services/previous-route/previous-route.service';
+import { HotToastService } from '@ngneat/hot-toast';
 
 @Component({
   selector: 'app-list',
@@ -58,18 +60,21 @@ export class ListComponent implements OnInit {
     private table: TableDataService,
     private lstore: LocalStorageService,
     private toastr: ToastrService,
-    private headerTitleService: HeaderTitleService
+    private headerTitleService: HeaderTitleService,
+    private previousRouteService: PreviousRouteService,
+    private toasterService: HotToastService
   ) {
     this.headerTitleService.setTitle('Users List');
     this.http.get('auth/self').subscribe({
       next: (res: any) => {
         this.loggedUser = res.name;
-        headerTitleService.setName = res.Name
+        headerTitleService.setName = res.Name;
       },
     });
   }
 
   ngOnInit(): void {
+    console.log(this.previousRouteService.getPreviousUrl());
     [this.pageIndex, this.pageSize] = this.table.getData();
 
     // this.table.rxjsData.subscribe((res) => {
@@ -157,7 +162,8 @@ export class ListComponent implements OnInit {
           this.pageTotal -= 1;
           this.dataSource = [...this.filteredTable];
         }
-        this.toasterSuccess(`User: ${name} deleted!`);
+        // this.toasterSuccess(`User: ${name} deleted!`);
+        this.toasterService.success(`User: ${name} deleted!`);
       },
     });
   }

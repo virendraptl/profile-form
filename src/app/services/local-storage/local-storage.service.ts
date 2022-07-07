@@ -6,13 +6,12 @@ import { TableDataService } from '../table-data/table-data.service';
   providedIn: 'root',
 })
 export class LocalStorageService {
-
   constructor(
     private router: Router,
     private table: TableDataService,
     private authService: SocialAuthService
-    // private authService: SocialAuthService
-  ) {}
+  ) // private authService: SocialAuthService
+  {}
 
   setToken(token: string) {
     localStorage.setItem('token', token);
@@ -24,6 +23,7 @@ export class LocalStorageService {
 
   deletetoken() {
     localStorage.removeItem('token');
+    console.log('token deleted');
   }
 
   setData(name: string, data: any) {
@@ -39,12 +39,11 @@ export class LocalStorageService {
   }
 
   logout() {
+    this.authService.signOut(false);
     this.deletetoken();
     this.deleteData('profileData');
     this.table.setData(1, 10);
-        this.authService.signOut();
 
-    // this.authService.signOut();
     this.router.navigate(['/auth/login']);
     // console.log('opened login pagess after 401 error');
   }

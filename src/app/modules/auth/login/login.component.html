@@ -66,12 +66,19 @@
         >{{ errorMessage }}</mat-error
       >
 
+      <div class="divider-block">
+        <mat-divider class="divider"></mat-divider>
+        <p>Or</p>
+        <mat-divider class="divider"></mat-divider>
+      </div>
+
       <div class="social-btns">
         <!-- <div>
           <div id="buttonDiv" ></div>
         </div> -->
         <!-- social login method: from github -->
-        <asl-google-signin-button> </asl-google-signin-button>
+        <asl-google-signin-button></asl-google-signin-button
+        >
         <button type="button" class="fb-btn" (click)="facebookSignin()">
           <mat-icon>facebook</mat-icon>
         </button>
@@ -84,6 +91,10 @@
         </div> -->
       </div>
 
+      <!-- <cool-facebook-button color="light">
+        Login with Facebook
+      </cool-facebook-button> -->
+
       <div class="no-acc-block">
         <div class="registerbtn" routerLink="/auth/register">
           Don't have an account?
@@ -91,4 +102,5 @@
       </div>
     </form>
   </div>
+  <!-- <button (click)="delayBtn()">test delay</button> -->
 </div>

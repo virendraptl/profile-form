@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpService } from 'src/app/services/http/http.service';
+import { PreviousRouteService } from 'src/app/services/previous-route/previous-route.service';
 
 @Component({
   selector: 'app-register',
@@ -12,15 +13,18 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   errorMessage: string | undefined;
   isRegistered: boolean;
-  hide:boolean = true;
+  hide: boolean = true;
 
   constructor(
     private fb: FormBuilder,
     private http: HttpService,
-    private router: Router
+    private router: Router,
+    private previousRouteService: PreviousRouteService
   ) {}
 
   ngOnInit(): void {
+    console.log(this.previousRouteService.getPreviousUrl());
+
     this.isRegistered = false;
 
     this.createForm();
@@ -55,14 +59,13 @@ export class RegisterComponent implements OnInit {
         console.log(data);
         console.log('Token is: ', data['token']);
         this.http
-          .postSecured('auth/send-verification-email', '', data['token'],)
+          .postSecured('auth/send-verification-email', '', data['token'])
           .subscribe(() => {
             console.log('Request sent');
           });
         this.isRegistered = !this.isRegistered;
       },
       error: (error) => {
-        console.log('Error in register is: ', error.message);
         this.errorMessage = error.message;
         this.registerForm.markAsPristine();
       },

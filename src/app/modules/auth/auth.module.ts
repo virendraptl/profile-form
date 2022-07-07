@@ -5,11 +5,24 @@ import { RegisterComponent } from './register/register.component';
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
 import { AuthRoutingModule } from './auth-routing.module';
 import { SharedModule } from '../shared/shared.module';
-import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
+import { MatDividerModule } from '@angular/material/divider';
+
+import {
+  FacebookLoginProvider,
+  GoogleLoginProvider,
+  SocialAuthServiceConfig,
+  SocialLoginModule,
+} from '@abacritt/angularx-social-login';
 
 @NgModule({
   declarations: [LoginComponent, RegisterComponent, VerifyEmailComponent],
-  imports: [CommonModule, AuthRoutingModule, SharedModule, SocialLoginModule],
+  imports: [
+    CommonModule,
+    AuthRoutingModule,
+    SharedModule,
+    MatDividerModule,
+    SocialLoginModule,
+  ],
   providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

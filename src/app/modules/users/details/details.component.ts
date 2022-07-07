@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HeaderTitleService } from 'src/app/services/header-title/header-title.service';
 import { HttpService } from 'src/app/services/http/http.service';
+import { PreviousRouteService } from 'src/app/services/previous-route/previous-route.service';
 
 @Component({
   selector: 'app-details',
@@ -17,12 +18,14 @@ export class DetailsComponent implements OnInit {
     private http: HttpService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private headerTitleService: HeaderTitleService
+    private headerTitleService: HeaderTitleService,
+    private previousRouteService: PreviousRouteService
   ) {
     this.headerTitleService.setTitle('User Details');
   }
 
   ngOnInit(): void {
+    console.log(this.previousRouteService.getPreviousUrl());
     this.loading = true;
     this.currentId = this.activatedRoute.snapshot.paramMap.get('id');
     this.http.get(`users/${this.currentId}`).subscribe({

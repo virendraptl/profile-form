@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HeaderTitleService } from 'src/app/services/header-title/header-title.service';
 import { HttpService } from 'src/app/services/http/http.service';
+import { PreviousRouteService } from 'src/app/services/previous-route/previous-route.service';
 
 @Component({
   selector: 'app-create',
@@ -14,20 +15,20 @@ export class CreateComponent implements OnInit {
   errorMessage: string | undefined;
   isRegistered: boolean;
   isLoading: boolean = true;
-  hide:boolean = true;
+  hide: boolean = true;
 
   constructor(
     private fb: FormBuilder,
     private http: HttpService,
     private router: Router,
-    private headerTitleService: HeaderTitleService
+    private headerTitleService: HeaderTitleService,
+    private previousRouteService: PreviousRouteService
   ) {
-        this.headerTitleService.setTitle('Create New User');
-
+    this.headerTitleService.setTitle('Create New User');
   }
 
   ngOnInit(): void {
-
+    console.log(this.previousRouteService.getPreviousUrl());
     this.isLoading = true;
     this.isRegistered = false;
 
