@@ -11,6 +11,7 @@ import {
   SocialAuthService,
   SocialUser,
 } from '@abacritt/angularx-social-login';
+import { UserRoutingModule } from '../../user/user-routing.module';
 
 @Component({
   selector: 'app-login',
@@ -40,9 +41,11 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.authService.authState.subscribe({
       next: (user) => {
-        console.log('log-in successful', user?.idToken);
+        console.log('log-in successful', user.idToken || user.authToken);
         this.http
-          .post('auth/login/google', { token: user?.idToken })
+          .post(user.idToken ? 'auth/login/google' : 'auth/login/facebook', {
+            token: user.idToken || user.authToken,
+          })
           .subscribe({
             next: (data) => {
               this.lstore.setToken(data['token']);
@@ -137,8 +140,10 @@ export class LoginComponent implements OnInit {
 
   facebookSignin() {
     console.log('fb login clicked');
-    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
-    // .then((data) => console.log(data));
+    this.authService
+      .signIn(FacebookLoginProvider.PROVIDER_ID)
+      // .then((data) => console.log(data));
+;
   }
 
   // signInWithGoogle(): void {
