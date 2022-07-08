@@ -2,6 +2,7 @@ import { SocialAuthService } from '@abacritt/angularx-social-login';
 import { Injectable, Injector } from '@angular/core';
 import { Router } from '@angular/router';
 import { HeaderTitleService } from '../header-title/header-title.service';
+import { SocialStateService } from '../social-state-service/social-state.service';
 import { TableDataService } from '../table-data/table-data.service';
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,8 @@ export class LocalStorageService {
     private router: Router,
     private table: TableDataService,
     private injector: Injector,
-    private authService: SocialAuthService // private authService: SocialAuthService
+    private authService: SocialAuthService, // private authService: SocialAuthService
+    private stateService: SocialStateService
   ) {}
 
   setToken(token: string) {
@@ -40,6 +42,7 @@ export class LocalStorageService {
   }
 
   logout() {
+    // this.stateService.socialState
     this.authService
       .signOut(true)
       .then(
@@ -53,6 +56,7 @@ export class LocalStorageService {
       .catch((err) => {
         console.log(err);
       });
+    console.log('clicked logout');
     this.authService.authState.subscribe((user) => {
       console.log('User info after logout: ', user);
     });

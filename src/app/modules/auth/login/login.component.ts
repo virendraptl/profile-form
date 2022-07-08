@@ -15,6 +15,7 @@ import {
 import { UserRoutingModule } from '../../user/user-routing.module';
 import { PreviousRouteService } from 'src/app/services/previous-route/previous-route.service';
 import { HotToastService } from '@ngneat/hot-toast';
+import { SocialStateService } from 'src/app/services/social-state-service/social-state.service';
 
 @Component({
   selector: 'app-login',
@@ -40,7 +41,8 @@ export class LoginComponent implements OnInit {
     private toastr: ToastrService,
     private authService: SocialAuthService,
     private previousRouteService: PreviousRouteService,
-    private toasterService: HotToastService
+    private toasterService: HotToastService,
+    private stateService: SocialStateService
   ) {}
 
   ngOnInit(): void {
@@ -48,7 +50,8 @@ export class LoginComponent implements OnInit {
 
     // this.googleLogin();
 
-    this.authService.authState.subscribe({
+    // this.stateService.socialState.authState.subscribe({
+      this.authService.authState.subscribe({
       next: (user) => {
         console.log('User info: ', user);
         // console.log('fb log-in successful', user.authToken);
@@ -70,7 +73,6 @@ export class LoginComponent implements OnInit {
               console.log(error);
             },
           });
-
       },
       error: (err) => {
         console.log('error: ', err);
