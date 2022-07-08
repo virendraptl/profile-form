@@ -8,9 +8,6 @@ import { SharedModule } from '../shared/shared.module';
 import { MatDividerModule } from '@angular/material/divider';
 
 import {
-  FacebookLoginProvider,
-  GoogleLoginProvider,
-  SocialAuthServiceConfig,
   SocialLoginModule,
 } from '@abacritt/angularx-social-login';
 

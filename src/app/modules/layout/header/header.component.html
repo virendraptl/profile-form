@@ -1,5 +1,6 @@
 <header>
   <div class="logo-block">
+    <mat-icon title="Back" (click)="backBtn()" style="cursor: pointer;" >arrow_back_ios</mat-icon>
     <img
       class="logo"
       src="../../../assets/images/logo/am-logo.png"
@@ -22,8 +23,8 @@
   <div class="avatar-block">
     <div [matMenuTriggerFor]="menu">
       <ngx-avatar
-        bgColor="#d7e3ed"
-        fgColor="#020024"
+        bgColor="#020028"
+        fgColor="#fff"
         [name]="profileData?.name"
         size="50"
         title="You"

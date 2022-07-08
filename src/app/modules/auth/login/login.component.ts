@@ -8,6 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { UserInfo } from 'angular-oauth2-oidc';
 import {
   FacebookLoginProvider,
+  GoogleLoginProvider,
   SocialAuthService,
   SocialUser,
 } from '@abacritt/angularx-social-login';
@@ -43,38 +44,38 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.previousRouteService.getPreviousUrl());
+    // console.log(this.previousRouteService.getPreviousUrl());
 
-    this.delayBtn();
+    // this.googleLogin();
 
-    // this.authService.authState.subscribe({
-    //   next: (user) => {
-    //     // console.log('fb log-in successful', user.authToken);
-    //     console.log(
-    //       user.idToken ? 'Google' : 'Facebook',
-    //       'log-in successful: ',
-    //       user.idToken || user.authToken
-    //     );
-    //     this.http
-    //       .post(user.idToken ? 'auth/login/google' : 'auth/login/facebook', {
-    //         // .post('auth/login/facebook', {
-    //         token: user.idToken || user.authToken,
-    //         // token: user.authToken,
-    //       })
-    //       .subscribe({
-    //         next: (data) => {
-    //           this.lstore.setToken(data['token']);
-    //           this.router.navigate(['/user/my-profile']);
-    //         },
-    //         error: (error) => {
-    //           console.log(error);
-    //         },
-    //       });
-    //   },
-    //   error: (err) => {
-    //     console.log('error: ', err);
-    //   },
-    // });
+    this.authService.authState.subscribe({
+      next: (user) => {
+        console.log('User info: ', user);
+        // console.log('fb log-in successful', user.authToken);
+        console.log(
+          user?.idToken ? 'Google' : 'Facebook',
+          'log-in successful: ',
+          user?.idToken || user?.authToken
+        );
+        this.http
+          .post(user?.idToken ? 'auth/login/google' : 'auth/login/facebook', {
+            token: user.idToken || user.authToken,
+          })
+          .subscribe({
+            next: (data) => {
+              this.lstore.setToken(data['token']);
+              this.router.navigate(['/user/my-profile']);
+            },
+            error: (error) => {
+              console.log(error);
+            },
+          });
+
+      },
+      error: (err) => {
+        console.log('error: ', err);
+      },
+    });
 
     let checkToken = this.lstore.getToken();
     if (checkToken) {
@@ -156,59 +157,22 @@ export class LoginComponent implements OnInit {
     this.router.navigate(['/auth/register']);
   }
 
-  delayBtn() {
-    setTimeout(() => {
-      this.authService.authState.subscribe({
-        next: (user) => {
-          // console.log('fb log-in successful', user.authToken);
-          console.log(
-            user.idToken ? 'Google' : 'Facebook',
-            'log-in successful: ',
-            user.idToken || user.authToken
-          );
+  googleLogin() {
+    this.authService.authState.subscribe({
+      next: (user) => {
+        // console.log('fb log-in successful', user.authToken);
+        console.log(
+          user?.idToken ? 'Google' : 'Facebook',
+          'log-in successful: ',
+          user?.idToken || user?.authToken
+        );
 
-          if (user.idToken) {
-            this.http
-              // .post(user.idToken ? 'auth/login/google' : 'auth/login/facebook', {
-              .post('auth/login/google', {
-                // token: user.idToken || user.authToken,
-                token: user.idToken,
-              })
-              .subscribe({
-                next: (data) => {
-                  this.lstore.setToken(data['token']);
-                  this.router.navigate(['/user/my-profile']);
-                },
-                error: (error) => {
-                  console.log(error);
-                },
-              });
-          }
-        },
-        error: (err) => {
-          console.log('error in google logout: ', err);
-        },
-      });
-    }, 1);
-  }
-
-  facebookSignin() {
-    console.log('fb login clicked');
-    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then((data) => {
-      console.log('fb click data: ', data);
-      this.authService.authState.subscribe({
-        next: (user) => {
-          // console.log('fb log-in successful', user.authToken);
-          console.log(
-            user.idToken ? 'Google' : 'Facebook',
-            'log-in successful: ',
-            user.idToken || user.authToken
-          );
+        if (user?.idToken) {
           this.http
-            .post(user.idToken ? 'auth/login/google' : 'auth/login/facebook', {
-              // .post('auth/login/facebook', {
-              token: user.idToken || user.authToken,
-              // token: user.authToken,
+            // .post(user.idToken ? 'auth/login/google' : 'auth/login/facebook', {
+            .post('auth/login/google', {
+              // token: user.idToken || user.authToken,
+              token: user.idToken,
             })
             .subscribe({
               next: (data) => {
@@ -219,20 +183,53 @@ export class LoginComponent implements OnInit {
                 console.log(error);
               },
             });
-        },
-        error: (err) => {
-          console.log('error in fb logout: ', err);
-        },
-      });
+        }
+      },
+      error: (err) => {
+        console.log('error in google logout: ', err);
+      },
     });
   }
 
-  // signInWithGoogle(): void {
-  //   this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then((data) => {
-  //     console.log(data);
-  //     console.log('Login successful');
-  //   });
-  // }
+  loginTest() {
+    console.log('clicked on social login button: ');
+  }
+
+  facebookSignin() {
+    console.log('fb login clicked');
+    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
+    // .then((data) => {
+    //   console.log('fb click data: ', data);
+    //   this.authService.authState.subscribe({
+    //     next: (user) => {
+    //       // console.log('fb log-in successful', user.authToken);
+    //       console.log(
+    //         user.idToken ? 'Google' : 'Facebook',
+    //         'log-in successful: ',
+    //         user.idToken || user.authToken
+    //       );
+    //       this.http
+    //         .post(user.idToken ? 'auth/login/google' : 'auth/login/facebook', {
+    //           // .post('auth/login/facebook', {
+    //           token: user.idToken || user.authToken,
+    //           // token: user.authToken,
+    //         })
+    //         .subscribe({
+    //           next: (data) => {
+    //             this.lstore.setToken(data['token']);
+    //             this.router.navigate(['/user/my-profile']);
+    //           },
+    //           error: (error) => {
+    //             console.log(error);
+    //           },
+    //         });
+    //     },
+    //     error: (err) => {
+    //       console.log('error in fb logout: ', err);
+    //     },
+    //   });
+    // });
+  }
 }
 
 // error handling reference

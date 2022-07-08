@@ -37,7 +37,6 @@ export class ProfileComponent implements OnInit {
   }
 
   logout() {
-    this.authService.signOut(false);
     this.lstore.logout();
   }
 }

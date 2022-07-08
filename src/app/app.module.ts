@@ -15,6 +15,7 @@ import {
   FacebookLoginProvider,
   GoogleLoginProvider,
   SocialAuthServiceConfig,
+  SocialLoginModule,
 } from '@abacritt/angularx-social-login';
 LayoutModule;
 @NgModule({

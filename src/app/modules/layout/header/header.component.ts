@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { HeaderTitleService } from 'src/app/services/header-title/header-title.service';
 import { LocalStorageService } from 'src/app/services/local-storage/local-storage.service';
 import { TableDataService } from 'src/app/services/table-data/table-data.service';
+import { PreviousRouteService } from 'src/app/services/previous-route/previous-route.service';
 
 @Component({
   selector: 'app-header',
@@ -16,8 +17,8 @@ export class HeaderComponent implements OnInit {
   avatarStyle = {
     fontSize: '20px',
     fontWeight: '600',
-    border: '2px solid #fff',
-    borderRadius: '100vmax'
+    border: '2px solid #ccc',
+    borderRadius: '100vmax',
   };
 
   profileData = {
@@ -29,7 +30,8 @@ export class HeaderComponent implements OnInit {
     private headerTitleService: HeaderTitleService,
     private lstore: LocalStorageService,
     private router: Router,
-    private table: TableDataService
+    private table: TableDataService,
+    private previousRouteService: PreviousRouteService
   ) {}
 
   logout() {
@@ -57,5 +59,9 @@ export class HeaderComponent implements OnInit {
     this.headerTitleService.userName.subscribe((userName) => {
       this.profileData.name = userName;
     });
+  }
+
+  backBtn() {
+    this.router.navigate([this.previousRouteService.getPreviousUrl()]);
   }
 }

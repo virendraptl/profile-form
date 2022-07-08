@@ -22,3 +22,5 @@ export class PreviousRouteService {
     return this.previousUrl;
    }
 }
+
+// Source:- https://dev.to/slk5611/how-to-access-the-previous-route-in-your-angular-app-5db0
