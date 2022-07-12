@@ -16,6 +16,7 @@ import { UserRoutingModule } from '../../user/user-routing.module';
 import { PreviousRouteService } from 'src/app/services/previous-route/previous-route.service';
 import { HotToastService } from '@ngneat/hot-toast';
 import { SocialStateService } from 'src/app/services/social-state-service/social-state.service';
+import { ReCaptchaV3Service } from 'ng-recaptcha';
 
 @Component({
   selector: 'app-login',
@@ -46,7 +47,8 @@ export class LoginComponent implements OnInit {
     private authService: SocialAuthService,
     private previousRouteService: PreviousRouteService,
     private toasterService: HotToastService,
-    private stateService: SocialStateService
+    private stateService: SocialStateService,
+    private recaptchaV3Service: ReCaptchaV3Service
   ) {
     stateService.lastToken.subscribe((value) => {
       this.lastToken = value;
@@ -150,7 +152,7 @@ export class LoginComponent implements OnInit {
 
   submitForm() {
     console.log(this.loginForm.value);
-    this.http.post('auth/login?captcha=false', this.loginForm.value).subscribe({
+    this.http.post('auth/login', this.loginForm.value, { captcha: false }).subscribe({
       next: (data) => {
         console.log(data);
         this.lstore.setToken(data['token']);
@@ -263,6 +265,12 @@ export class LoginComponent implements OnInit {
     //   });
     // });
   }
+
+  public executeImportantAction(): void {
+    this.recaptchaV3Service
+      .execute('importantAction')
+      .subscribe((token) => console.log(token));
+  }
 }
 
 // error handling reference
@@ -285,6 +293,16 @@ export class LoginComponent implements OnInit {
 // in CLI, follow:
 // ng serve --ssl --ssl-cert localhost.pem --ssl-key localhost-key.pem
 // change browser url to https://localhost:4200/auth/login
+
+// TLS commands
+// * sudo pacman -Syu mkcert
+// * brew install mkcert
+// *  wget https://github.com/FiloSottile/mkcert/releases/download/v1.4.3/mkcert-v1.4.3-linux-amd64
+// * sudo cp mkcert-v1.4.3-linux-amd64 /usr/local/bin/mkcert
+// *  sudo chmod +x /usr/local/bin/mkcert
+// *  mkcert -install
+// * mkcert localhost
+// * ng serve --ssl --ssl-cert localhost.pem --ssl-key localhost-key.pem
 
 // https://stackoverflow.com/questions/46349459/chrome-neterr-cert-authority-invalid-error-on-self-signing-certificate-at-loca
 

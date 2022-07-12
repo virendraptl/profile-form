@@ -10,7 +10,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import {
   SocialLoginModule,
 } from '@abacritt/angularx-social-login';
-import { RecaptchaFormsModule } from 'ng-recaptcha';
+import { RecaptchaV3Module } from 'ng-recaptcha';
 
 @NgModule({
   declarations: [LoginComponent, RegisterComponent, VerifyEmailComponent],
@@ -20,7 +20,7 @@ import { RecaptchaFormsModule } from 'ng-recaptcha';
     SharedModule,
     MatDividerModule,
     SocialLoginModule,
-    RecaptchaFormsModule
+    RecaptchaV3Module
   ],
   providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

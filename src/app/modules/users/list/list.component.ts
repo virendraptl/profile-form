@@ -118,7 +118,7 @@ export class ListComponent implements OnInit {
     this.pageIndex = e.pageIndex + 1;
     this.pageSize = e.pageSize;
     this.table.setData(this.pageIndex, this.pageSize);
-    this.table.setRxjs({ page: this.pageIndex, limit: this.pageSize });
+    // this.table.setRxjs({ page: this.pageIndex, limit: this.pageSize });
     this.rendertable(this.tempUrl, this.pageIndex, this.pageSize);
   }
 

@@ -17,7 +17,7 @@ import {
   SocialAuthServiceConfig,
   SocialLoginModule,
 } from '@abacritt/angularx-social-login';
-import { RECAPTCHA_SETTINGS, RecaptchaSettings } from 'ng-recaptcha';
+import { RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module } from 'ng-recaptcha';
 
 
 @NgModule({
@@ -29,6 +29,7 @@ import { RECAPTCHA_SETTINGS, RecaptchaSettings } from 'ng-recaptcha';
     LayoutModule,
     ToastrModule.forRoot(),
     SharedModule,
+    // RecaptchaV3Module,
   ],
   providers: [
     AuthGuard,
@@ -58,10 +59,10 @@ import { RECAPTCHA_SETTINGS, RecaptchaSettings } from 'ng-recaptcha';
         },
       } as SocialAuthServiceConfig,
     },
-    // {
-    //   provide: RECAPTCHA_SETTINGS,
-    //   useValue: { siteKey: '<YOUR_KEY>' } as RecaptchaSettings,
-    // },
+    {
+      provide: RECAPTCHA_V3_SITE_KEY,
+      useValue: '6LeHBK0bAAAAAOQVTvBOWhfb08cQfUpFoSE3FsmP',
+    },
   ],
   bootstrap: [AppComponent],
   entryComponents: [ConfirmationDialogComponent],
