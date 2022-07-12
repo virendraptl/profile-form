@@ -17,7 +17,9 @@ import {
   SocialAuthServiceConfig,
   SocialLoginModule,
 } from '@abacritt/angularx-social-login';
-LayoutModule;
+import { RECAPTCHA_SETTINGS, RecaptchaSettings } from 'ng-recaptcha';
+
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -56,6 +58,10 @@ LayoutModule;
         },
       } as SocialAuthServiceConfig,
     },
+    // {
+    //   provide: RECAPTCHA_SETTINGS,
+    //   useValue: { siteKey: '<YOUR_KEY>' } as RecaptchaSettings,
+    // },
   ],
   bootstrap: [AppComponent],
   entryComponents: [ConfirmationDialogComponent],

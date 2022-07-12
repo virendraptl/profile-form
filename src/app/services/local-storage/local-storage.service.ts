@@ -47,7 +47,7 @@ export class LocalStorageService {
       .signOut(true)
       .then(
         (fulfilled) => {
-          console.log('signout fulfilled: ', fulfilled);
+          console.log('signout fulfilled!');
         },
         (rejected) => {
           console.log('signout rejected: ', rejected);
@@ -55,17 +55,20 @@ export class LocalStorageService {
       )
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        this.deletetoken();
+        // this.deleteData('profileData');
+        this.table.setData(1, 10);
+        localStorage.clear();
+        const headerTitleService = this.injector.get(HeaderTitleService);
+        headerTitleService.userName.next('');
+        this.router.navigate(['/auth/login']);
       });
     console.log('clicked logout');
-    this.authService.authState.subscribe((user) => {
-      console.log('User info after logout: ', user);
-    });
-    this.deletetoken();
-    this.deleteData('profileData');
-    this.table.setData(1, 10);
-    const headerTitleService = this.injector.get(HeaderTitleService);
-    headerTitleService.userName.next('');
-    this.router.navigate(['/auth/login']);
+    // this.authService.authState.subscribe((user) => {
+    //   console.log('User info after logout: ', user);
+    // });
     // console.log('opened login pagess after 401 error');
   }
 }

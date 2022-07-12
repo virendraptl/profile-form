@@ -20,7 +20,11 @@ p {
   height: 415px;
 }
 input {
-  background-color: rgb(238, 242, 248);
+  background-color: #f3f3f3;
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px #f3f3f3 inset !important;
 }
 
 .page {
@@ -102,6 +106,7 @@ input.example-right-align {
   border: none;
   cursor: pointer;
   margin-left: 15px;
+  border-radius: 3px;
 }
 
 .social-btns {

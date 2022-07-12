@@ -117,16 +117,5 @@ export class RegisterComponent implements OnInit {
   }
 }
 
-// company: "Rvmp Inc"
-// email: "abcd@cdef.com"
-// name: "Ab Pt"
-// password: "qwer1234"
-
-// company: "Stark Inc"
-// email: "king@north.com"
-// name: "Jon Snow"
-// password: "1212qwqw"
-
-// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MmE3MDU1Y2Q1N2UyNmJjMDNkZDgxYWYiLCJpYXQiOjE2NTUxMTMwNTIsImV4cCI6MTY1NTE5OTQ1MiwidHlwZSI6ImFjY2VzcyJ9.7mhQSGcunGR3IBouJTjFrF9cwxsjzJprLSp-18sVEis
 
 // http://localhost:4200/verify-email?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MmE3MDU1Y2Q1N2UyNmJjMDNkZDgxYWYiLCJpYXQiOjE2NTUxMTM1NTcsImV4cCI6MTY1NTExNzE1NywidHlwZSI6InZlcmlmeUVtYWlsIn0.G-1cSGNyanrUWfjSvWFrgEc6ngltQdZHYgPuuz4pUL8

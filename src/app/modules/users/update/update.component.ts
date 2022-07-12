@@ -33,7 +33,7 @@ export class UpdateComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.previousRouteService.getPreviousUrl());
+    // console.log(this.previousRouteService.getPreviousUrl());
     this.currentId = this.activatedRoute.snapshot.paramMap.get('id');
     this.tempurl = `users/${this.currentId}`;
     console.log('User id for preload req: ', this.currentId);

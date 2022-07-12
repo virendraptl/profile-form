@@ -74,7 +74,7 @@ export class ListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.previousRouteService.getPreviousUrl());
+    // console.log(this.previousRouteService.getPreviousUrl());
     [this.pageIndex, this.pageSize] = this.table.getData();
 
     // this.table.rxjsData.subscribe((res) => {

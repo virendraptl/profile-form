@@ -26,6 +26,7 @@ export class InterceptorService implements HttpInterceptor {
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
+    
     this.allowLogout.forEach((api) => {
       if (request.url.includes(api)) {
         this.passIntercept = true;

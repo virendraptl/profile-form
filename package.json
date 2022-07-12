@@ -27,6 +27,7 @@
     "alertifyjs": "^1.13.1",
     "angular-oauth2-oidc": "^13.0.1",
     "angularx-social-login": "^4.1.0",
+    "ng-recaptcha": "^10.0.0",
     "ngx-avatar": "^4.1.0",
     "ngx-toastr": "^15.0.0",
     "rxjs": "~7.5.0",

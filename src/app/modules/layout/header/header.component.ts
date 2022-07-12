@@ -13,6 +13,8 @@ import { PreviousRouteService } from 'src/app/services/previous-route/previous-r
 export class HeaderComponent implements OnInit {
   @Input() btns: string[];
   title = '';
+  backUrl: string;
+  loginUrl: string = '/auth/login';
 
   avatarStyle = {
     fontSize: '20px',
@@ -31,7 +33,7 @@ export class HeaderComponent implements OnInit {
     private lstore: LocalStorageService,
     private router: Router,
     private table: TableDataService,
-    private previousRouteService: PreviousRouteService
+    public previousRouteService: PreviousRouteService
   ) {}
 
   logout() {
@@ -62,6 +64,9 @@ export class HeaderComponent implements OnInit {
   }
 
   backBtn() {
-    this.router.navigate([this.previousRouteService.getPreviousUrl()]);
+    this.backUrl = this.previousRouteService.getPreviousUrl();
+    if (this.backUrl !== '/auth/login') {
+      this.router.navigate([this.backUrl]);
+    }
   }
 }

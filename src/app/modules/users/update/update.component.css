@@ -43,14 +43,18 @@ header {
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  background-color: rgb(245, 247, 255);
+  background-color: #f5f7ff;
   /* border: 2px solid grey; */
   border-radius: 20px;
   padding: 20px;
   height: 300px;
 }
 input {
-  background-color: rgb(255, 255, 255);
+  background-color: #fff;
+}
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px #fff inset !important;
 }
 
 .form-block {
