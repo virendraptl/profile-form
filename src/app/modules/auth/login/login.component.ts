@@ -34,6 +34,8 @@ export class LoginComponent implements OnInit {
   userInfo: UserInfo;
   hide: boolean = true;
 
+  captchaToken: string;
+
   socialState;
 
   @Output() tada = new EventEmitter();
@@ -57,6 +59,16 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.executeImportantAction();
+    let checkToken = this.lstore.getToken();
+    if (checkToken) {
+      this.router.navigate(['/user/my-profile']);
+      // this.toastr.info('User already logged in! Redirecting to profile page');
+      this.toasterService.info(
+        'User already logged in! Redirecting to profile page'
+      );
+    }
+
     // this.googleLogin();
 
     // replace above googleLogin() method with the code below for Google & FB combined auth state subscribe & login. kept seperate to avoid fb auto login, restricting it to click event
@@ -89,38 +101,34 @@ export class LoginComponent implements OnInit {
           this.http
             .post(
               user?.idToken
-                ? 'auth/login/google?captcha=false'
+                ? 'auth/login/google'
                 : user?.authToken
-                ? 'auth/login/facebook?captcha=false'
+                ? 'auth/login/facebook'
                 : '',
               {
                 token: user?.idToken || user?.authToken,
+                captcha: this.captchaToken,
               }
             )
             .subscribe({
               next: (data) => {
                 this.lstore.setToken(data['token']);
                 this.router.navigate(['/user/my-profile']);
+                this.executeImportantAction();
               },
               error: (error) => {
                 console.log(error);
+                this.executeImportantAction();
               },
             });
         }
       },
       error: (err) => {
         console.log('error: ', err);
+        this.executeImportantAction();
       },
     });
 
-    let checkToken = this.lstore.getToken();
-    if (checkToken) {
-      this.router.navigate(['/user/my-profile']);
-      // this.toastr.info('User already logged in! Redirecting to profile page');
-      this.toasterService.info(
-        'User already logged in! Redirecting to profile page'
-      );
-    }
     this.createForm();
   }
 
@@ -146,22 +154,27 @@ export class LoginComponent implements OnInit {
           Validators.pattern('^(?=.*[A-Za-z])(?=.*[0-9])([A-Za-z0-9]+)$'),
         ],
       ],
-      // captcha: ['', Validators.required],
+      captcha: [''],
     });
   }
 
   submitForm() {
+    this.loginForm.patchValue({
+      captcha: this.captchaToken,
+    });
     console.log(this.loginForm.value);
-    this.http.post('auth/login', this.loginForm.value, { captcha: false }).subscribe({
+    this.http.post('auth/login', this.loginForm.value).subscribe({
       next: (data) => {
         console.log(data);
         this.lstore.setToken(data['token']);
         this.router.navigate(['/user/my-profile']);
+        this.executeImportantAction();
       },
       error: (error) => {
         console.log('Error in login is: ', error.message);
         this.errorMessage = error.message;
         this.loginForm.markAsPristine();
+        this.executeImportantAction();
       },
     });
   }
@@ -210,6 +223,7 @@ export class LoginComponent implements OnInit {
             // .post(user.idToken ? 'auth/login/google' : 'auth/login/facebook', {
             .post('auth/login/google?captcha=false', {
               token: user.idToken,
+              captcha: this.captchaToken,
             })
             .subscribe({
               next: (data) => {
@@ -267,9 +281,10 @@ export class LoginComponent implements OnInit {
   }
 
   public executeImportantAction(): void {
-    this.recaptchaV3Service
-      .execute('importantAction')
-      .subscribe((token) => console.log(token));
+    this.recaptchaV3Service.execute('importantAction').subscribe((token) => {
+      console.log(token);
+      this.captchaToken = token;
+    });
   }
 }
 

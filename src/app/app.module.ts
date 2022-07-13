@@ -19,7 +19,6 @@ import {
 } from '@abacritt/angularx-social-login';
 import { RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module } from 'ng-recaptcha';
 
-
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -61,7 +60,7 @@ import { RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module } from 'ng-recaptcha';
     },
     {
       provide: RECAPTCHA_V3_SITE_KEY,
-      useValue: '6LeHBK0bAAAAAOQVTvBOWhfb08cQfUpFoSE3FsmP',
+      useValue: '6LevmbQZAAAAAMSCjcpJmuCr4eIgmjxEI7bvbmRI',
     },
   ],
   bootstrap: [AppComponent],

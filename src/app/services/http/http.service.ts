@@ -16,6 +16,7 @@ export class HttpService {
   postSecured(url: string, data: any, token: any, querryObj?: any) {
     url = querryObj ? this.addQueries(url, querryObj) : url;
     const headers = this.setHeaders(token);
+    console.log('data in post-secured: ', data);
     return this.http.post(environment.apiUrl + url, data, { headers });
   }
 
