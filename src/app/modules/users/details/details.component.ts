@@ -25,7 +25,7 @@ export class DetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.previousRouteService.getPreviousUrl());
+    // console.log(this.previousRouteService.getPreviousUrl());
     this.loading = true;
     this.currentId = this.activatedRoute.snapshot.paramMap.get('id');
     this.http.get(`users/${this.currentId}`).subscribe({

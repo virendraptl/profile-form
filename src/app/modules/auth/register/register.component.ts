@@ -73,7 +73,7 @@ export class RegisterComponent implements OnInit {
         this.isRegistered = !this.isRegistered;
         setTimeout(() => {
           this.sendMail(data['token']);
-        }, 3000);
+        }, 2000);
         // this.http
         //   .postSecured(
         //     'auth/send-verification-email',

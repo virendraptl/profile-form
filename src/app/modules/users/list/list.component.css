@@ -57,6 +57,7 @@ table, mat-form-field {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 10px;
 }
 
 .bold{
@@ -104,10 +105,14 @@ table, mat-form-field {
   margin: 0 30px;
 }
 
+.grecaptcha-badge { display: none; }
 
 
 
-
+/* .table-block{
+  width: 100%;
+  overflow-x: auto;
+} */
 
 /* ::ng-deep snack-bar-container.custom-class {
   background: rgb(238, 242, 248);

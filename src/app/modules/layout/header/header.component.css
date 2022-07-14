@@ -1,5 +1,3 @@
-
-
 header {
   display: flex;
   flex-direction: row;
@@ -7,13 +5,16 @@ header {
   align-items: center;
   padding: 0 20px;
   height: 90px;
-  background: rgb(2, 0, 36);
-  background: linear-gradient(
+  /* background: rgb(2, 0, 36); */
+  background: linear-gradient(90deg, #020024 0%, #090979 46%, #418bbd 100%);
+  /* background: linear-gradient(
     90deg,
     #020024 0%,
-    rgba(9, 9, 121, 1) 46%,
-    rgb(65, 139, 189) 100%
-  );
+    #090979 46%,
+    #418bbd 65%,
+    #c5deee 85%,
+    #fff 100%
+  ); */
   color: #eef2f8;
   /* background-color: white; */
 }
@@ -43,7 +44,7 @@ header {
   border-radius: 100vmax;
 }
 
-.logoutbtn{
+.logoutbtn {
   color: white;
   background-color: rgb(238, 4, 4);
 }
@@ -55,25 +56,59 @@ header {
   margin: 0 30px;
 } */
 
-.header-title{
-    margin-left: 0;
-    font-size: 40px;
-    margin: 20px 20px;
+.header-title {
+  margin-left: 0;
+  font-size: 40px;
+  margin: 20px 20px;
 }
 
-.logo-block{
+.logo-block {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
 }
 
-.logo{
+.logo {
   height: 50px;
   width: 50px;
 }
 
-.avatar-block{
+.avatar-block {
+  position: fixed;
+  top: 15px;
+  right: 15px;
   font-weight: bolder;
   margin: 0 30px;
+  z-index: 1000;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu-title {
+  text-align: center;
+  pointer-events: none;
+}
+
+.settings-icon{
+  font-size: 60px;
+  width: 60px;
+  height: 60px;
+  /* border-radius: 100vmax 100vmax 0 0; */
+  transform: rotate(180deg);
+  margin-top: -120px;
+  /* margin-left: 45px; */
+  /* transform: scale(3); */
+}
+
+.test{
+  background-color: red;
+  width: 80px;
+  height: 40px;
+  /* transform: rotate(45deg); */
+  /* border-radius: 100px 100px 0 100px; */
+  border-radius: 100px 100px 0 0;
 }

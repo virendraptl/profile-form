@@ -87,7 +87,7 @@ export class LoginComponent implements OnInit {
           user?.idToken || user?.authToken
         );
 
-        this.currentToken = user?.idToken || user?.authToken || '';
+        this.currentToken = user?.idToken || user?.authToken || 'invalid_token';
         console.log(
           this.lastToken != this.currentToken
             ? 'Tokens are different'
@@ -95,7 +95,7 @@ export class LoginComponent implements OnInit {
         );
 
         // if(true){
-        if (this.lastToken != this.currentToken && this.currentToken) {
+        if (this.lastToken != this.currentToken && this.currentToken != 'invalid_token') {
           console.log('Social token current value: ', this.currentToken);
           this.stateService.lastToken.next(this.currentToken);
           this.http
@@ -249,6 +249,7 @@ export class LoginComponent implements OnInit {
   facebookSignin() {
     console.log('fb login clicked');
     this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
+    console.log('after fb provider process');
     // .then((data) => {
     //   console.log('fb click data: ', data);
     //   this.authService.authState.subscribe({

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { HeaderTitleService } from 'src/app/services/header-title/header-title.service';
 import { LocalStorageService } from 'src/app/services/local-storage/local-storage.service';
@@ -16,11 +16,17 @@ export class HeaderComponent implements OnInit {
   backUrl: string;
   loginUrl: string = '/auth/login';
 
+  public count = 0;
+
   avatarStyle = {
     fontSize: '20px',
     fontWeight: '600',
     border: '2px solid #ccc',
-    borderRadius: '100vmax',
+    
+    // borderRadius: '100vmax 100vmax 0 0',
+    // width: '50px',
+    // height: '25px'
+    // borderRadius: '100vmax 100vmax 0 0',
   };
 
   profileData = {
@@ -28,12 +34,18 @@ export class HeaderComponent implements OnInit {
     isEmailVerified: '',
   };
 
+  enteredButton: boolean = false;
+  isMatMenuOpen: boolean = false;
+  // isMatMenu2Open: boolean = false;
+  prevButtonTrigger;
+
   constructor(
     private headerTitleService: HeaderTitleService,
     private lstore: LocalStorageService,
     private router: Router,
     private table: TableDataService,
-    public previousRouteService: PreviousRouteService
+    public previousRouteService: PreviousRouteService,
+    private ren: Renderer2
   ) {}
 
   logout() {
@@ -68,5 +80,62 @@ export class HeaderComponent implements OnInit {
     if (this.backUrl !== '/auth/login') {
       this.router.navigate([this.backUrl]);
     }
+  }
+
+  menuenter() {
+    this.isMatMenuOpen = true;
+  }
+
+  menuLeave(trigger, button) {
+    setTimeout(() => {
+      if (!this.enteredButton) {
+        this.isMatMenuOpen = false;
+        trigger.closeMenu();
+        this.ren.removeClass(
+          button['_elementRef'].nativeElement,
+          'cdk-focused'
+        );
+        this.ren.removeClass(
+          button['_elementRef'].nativeElement,
+          'cdk-program-focused'
+        );
+      } else {
+        this.isMatMenuOpen = false;
+      }
+    }, 80);
+  }
+
+
+  buttonEnter(trigger) {
+    setTimeout(() => {
+      if (this.prevButtonTrigger && this.prevButtonTrigger != trigger) {
+        this.prevButtonTrigger.closeMenu();
+        this.prevButtonTrigger = trigger;
+        trigger.openMenu();
+      } else if (!this.isMatMenuOpen) {
+        this.enteredButton = true;
+        this.prevButtonTrigger = trigger;
+        trigger.openMenu();
+      } else {
+        this.enteredButton = true;
+        this.prevButtonTrigger = trigger;
+      }
+    });
+  }
+
+    buttonLeave(trigger, button) {
+    setTimeout(() => {
+      if (this.enteredButton && !this.isMatMenuOpen) {
+        trigger.closeMenu();
+        this.ren.removeClass(button['_elementRef'].nativeElement, 'cdk-focused');
+        this.ren.removeClass(button['_elementRef'].nativeElement, 'cdk-program-focused');
+      } if (!this.isMatMenuOpen) {
+        trigger.closeMenu();
+        this.ren.removeClass(button['_elementRef'].nativeElement, 'cdk-focused');
+        this.ren.removeClass(button['_elementRef'].nativeElement, 'cdk-program-focused');
+      } else {
+        this.enteredButton = false;
+      }
+    }, 100)
   }
 }

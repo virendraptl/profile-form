@@ -1,7 +1,15 @@
 <header>
   <div class="logo-block">
-    <div *ngIf="previousRouteService.getCurrentUrl() !== previousRouteService.getPreviousUrl() && previousRouteService.getPreviousUrl() !== loginUrl">
-      <mat-icon title="Back" (click)="backBtn()" style="cursor: pointer;" >arrow_back_ios</mat-icon>
+    <div
+      *ngIf="
+        previousRouteService.getCurrentUrl() !==
+          previousRouteService.getPreviousUrl() &&
+        previousRouteService.getPreviousUrl() !== loginUrl
+      "
+    >
+      <mat-icon title="Back" (click)="backBtn()" style="cursor: pointer"
+        >arrow_back_ios</mat-icon
+      >
     </div>
     <img
       class="logo"
@@ -23,41 +31,60 @@
       Log Out
     </button> -->
   <div class="avatar-block">
-    <div [matMenuTriggerFor]="menu">
-      <ngx-avatar
-        bgColor="#020028"
-        fgColor="#fff"
-        [name]="profileData?.name"
-        size="50"
-        title="You"
-        [style]="avatarStyle"
-      ></ngx-avatar>
-    </div>
-    <mat-menu #menu="matMenu">
-      <div *ngFor="let btn of btns">
-        <button
-          *ngIf="btn == 'back-profile'"
-          (click)="toProfile()"
-          mat-menu-item
-        >
-          <mat-icon>arrow_back</mat-icon> <span>Back To Profile</span>
-        </button>
-        <button *ngIf="btn == 'back-list'" (click)="showList()" mat-menu-item>
-          <mat-icon>arrow_back</mat-icon> <span>Back To List</span>
-        </button>
-        <button *ngIf="btn == 'list'" (click)="showList()" mat-menu-item>
-          <mat-icon>list</mat-icon> <span>Users List</span>
-        </button>
-        <button *ngIf="btn == 'new'" (click)="newUser()" mat-menu-item>
-          <mat-icon>person_add</mat-icon> <span>Add New User</span>
-        </button>
-        <button *ngIf="btn == 'profile'" (click)="toProfile()" mat-menu-item>
-          <mat-icon>account_circle</mat-icon> <span>Profile</span>
-        </button>
-        <button *ngIf="btn == 'logout'" (click)="logout()" mat-menu-item>
-          <mat-icon>logout</mat-icon> <span>Logout</span>
-        </button>
+    <div class="initials">
+      <!-- style="z-index: 1050"
+      #levelOneTrigger="matMenuTrigger"
+      (mouseenter)="levelOneTrigger.openMenu()"
+      (mouseleave)="buttonLeave(levelOneTrigger, hover)" -->
+      <div #hover style="cursor: pointer" [matMenuTriggerFor]="menu">
+        <ngx-avatar
+          bgColor="#020028"
+          fgColor="#fff"
+          [name]="profileData?.name"
+          size="50"
+          title="You"
+          [style]="avatarStyle"
+        ></ngx-avatar>
       </div>
-    </mat-menu>
+      <mat-menu #menu="matMenu">
+        <!-- <span
+        (mouseenter)="menuenter()"
+        (mouseleave)="menuLeave(levelOneTrigger, hover)"
+        >
+      </span> -->
+        <mat-card-content class="menu-title" mat-menu-item
+          >Hello, {{ profileData?.name.split(" ")[0] }}</mat-card-content
+        >
+        <div *ngFor="let btn of btns">
+          <button
+            *ngIf="btn == 'back-profile'"
+            (click)="toProfile()"
+            mat-menu-item
+          >
+            <mat-icon>arrow_back</mat-icon> <span>Back To Profile</span>
+          </button>
+          <button *ngIf="btn == 'back-list'" (click)="showList()" mat-menu-item>
+            <mat-icon>arrow_back</mat-icon> <span>Back To List</span>
+          </button>
+          <button *ngIf="btn == 'list'" (click)="showList()" mat-menu-item>
+            <mat-icon>list</mat-icon> <span>Users List</span>
+          </button>
+          <button *ngIf="btn == 'new'" (click)="newUser()" mat-menu-item>
+            <mat-icon>person_add</mat-icon> <span>Add New User</span>
+          </button>
+          <button *ngIf="btn == 'profile'" (click)="toProfile()" mat-menu-item>
+            <mat-icon>account_circle</mat-icon> <span>Profile</span>
+          </button>
+          <button *ngIf="btn == 'logout'" (click)="logout()" mat-menu-item>
+            <mat-icon>logout</mat-icon> <span>Logout</span>
+          </button>
+        </div>
+      </mat-menu>
+    </div>
+    <!-- <div>
+      <mat-icon class="settings-icon">settings</mat-icon>
+    </div> -->
   </div>
 </header>
+<!-- <div class="test"></div> -->
+<button (click)="count=count+1" >Count: {{count}}</button>

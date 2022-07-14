@@ -255,3 +255,7 @@ export class ListComponent implements OnInit {
 
 // using modal to show content from other component
 // https://www.thecodehubs.com/open-modal-in-another-component-in-angular-13/
+
+// reactive table example: https://stackblitz.com/edit/material-table-responsive-strict-mode?file=src%2Fapp%2Ftable-basic-example.ts,src%2Fapp%2Ftable-basic-example.html,src%2Fapp%2Fmat-table-responsive%2Fmat-table-responsive.directive.ts,src%2Fapp%2Fmat-table-responsive%2Fmat-table-responsive.directive.scss
+
+// custom directive: https://www.freecodecamp.org/news/angular-directives-learn-how-to-use-or-create-custom-directives-in-angular-c9b133c24442/
