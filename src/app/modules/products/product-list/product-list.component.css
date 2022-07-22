@@ -1,0 +1,18 @@
+.banner{
+    padding: 20px;
+}
+
+.card{
+    width: 200px;
+    margin: 10px 10px;
+}
+
+.products-block{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+img
+{
+background-image:url('https://via.placeholder.com/150');
+}

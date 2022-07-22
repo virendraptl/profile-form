@@ -45,9 +45,7 @@ export class LoginComponent implements OnInit {
     private http: HttpService,
     private router: Router,
     private lstore: LocalStorageService,
-    private toastr: ToastrService,
     private authService: SocialAuthService,
-    private previousRouteService: PreviousRouteService,
     private toasterService: HotToastService,
     private stateService: SocialStateService,
     private recaptchaV3Service: ReCaptchaV3Service
@@ -60,23 +58,20 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.executeImportantAction();
+    console.log('captcha token: ',this.captchaToken);
     let checkToken = this.lstore.getToken();
     if (checkToken) {
       this.router.navigate(['/user/my-profile']);
-      // this.toastr.info('User already logged in! Redirecting to profile page');
       this.toasterService.info(
         'User already logged in! Redirecting to profile page'
       );
     }
-
-    // this.googleLogin();
 
     // replace above googleLogin() method with the code below for Google & FB combined auth state subscribe & login. kept seperate to avoid fb auto login, restricting it to click event
 
     this.authService.authState.subscribe({
       next: (user) => {
         console.log('User info: ', user);
-        // console.log('fb log-in successful', user.authToken);
         console.log(
           user?.idToken
             ? 'Google'
@@ -95,7 +90,10 @@ export class LoginComponent implements OnInit {
         );
 
         // if(true){
-        if (this.lastToken != this.currentToken && this.currentToken != 'invalid_token') {
+        if (
+          this.lastToken != this.currentToken &&
+          this.currentToken != 'invalid_token'
+        ) {
           console.log('Social token current value: ', this.currentToken);
           this.stateService.lastToken.next(this.currentToken);
           this.http
@@ -131,11 +129,6 @@ export class LoginComponent implements OnInit {
 
     this.createForm();
   }
-
-  // ngOnDestroy() {
-  //   console.log('login component destroyed!!!');
-  //   this.socialState.unsubscribe();
-  // }
 
   createForm() {
     this.loginForm = this.fb.group({
@@ -212,36 +205,6 @@ export class LoginComponent implements OnInit {
     this.router.navigate(['/auth/register']);
   }
 
-  googleLogin() {
-    let googleService = this.authService.authState.subscribe({
-      next: (user) => {
-        // console.log('fb log-in successful', user.authToken);
-
-        if (user.idToken) {
-          console.log('Google log-in successful! token: ', user.idToken);
-          this.http
-            // .post(user.idToken ? 'auth/login/google' : 'auth/login/facebook', {
-            .post('auth/login/google?captcha=false', {
-              token: user.idToken,
-              captcha: this.captchaToken,
-            })
-            .subscribe({
-              next: (data) => {
-                this.lstore.setToken(data['token']);
-                this.router.navigate(['/user/my-profile']);
-              },
-              error: (error) => {
-                console.log(error);
-              },
-            });
-        }
-      },
-      error: (err) => {
-        console.log('error in google logout: ', err);
-      },
-    });
-  }
-
   loginTest() {
     console.log('clicked on social login button: ');
   }
@@ -250,43 +213,18 @@ export class LoginComponent implements OnInit {
     console.log('fb login clicked');
     this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
     console.log('after fb provider process');
-    // .then((data) => {
-    //   console.log('fb click data: ', data);
-    //   this.authService.authState.subscribe({
-    //     next: (user) => {
-    //       // console.log('fb log-in successful', user.authToken);
-    //       console.log('Facebook log-in successful: ', user.authToken);
-    //       this.http
-    //         .post('auth/login/facebook?captcha=false',
-    //           {
-    //             // .post('auth/login/facebook', {
-    //             token: user.authToken,
-    //             // token: user.authToken,
-    //           }
-    //         )
-    //         .subscribe({
-    //           next: (data) => {
-    //             this.lstore.setToken(data['token']);
-    //             this.router.navigate(['/user/my-profile']);
-    //           },
-    //           error: (error) => {
-    //             console.log(error);
-    //           },
-    //         });
-    //     },
-    //     error: (err) => {
-    //       console.log('error in fb logout: ', err);
-    //     },
-    //   });
-    // });
   }
 
   public executeImportantAction(): void {
     this.recaptchaV3Service.execute('importantAction').subscribe((token) => {
-      console.log(token);
+      console.log('Captcha token is: ',token);
       this.captchaToken = token;
     });
   }
+
+  // async executeImportantAction() {
+  //   return await this.recaptchaV3Service.execute('importantAction');
+  // }
 }
 
 // error handling reference

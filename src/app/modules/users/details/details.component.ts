@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { HeaderTitleService } from 'src/app/services/header-title/header-title.service';
 import { HttpService } from 'src/app/services/http/http.service';
-import { PreviousRouteService } from 'src/app/services/previous-route/previous-route.service';
 
 @Component({
   selector: 'app-details',
@@ -16,10 +15,8 @@ export class DetailsComponent implements OnInit {
 
   constructor(
     private http: HttpService,
-    private router: Router,
     private activatedRoute: ActivatedRoute,
     private headerTitleService: HeaderTitleService,
-    private previousRouteService: PreviousRouteService
   ) {
     this.headerTitleService.setTitle('User Details');
   }

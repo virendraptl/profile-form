@@ -29,6 +29,7 @@
     "angularx-social-login": "^4.1.0",
     "ng-recaptcha": "^10.0.0",
     "ngx-avatar": "^4.1.0",
+    "ngx-light-carousel": "^1.1.16",
     "ngx-toastr": "^15.0.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",

@@ -1,0 +1,187 @@
+<div class="banner">
+  <ng-container *ngIf="loading">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </ng-container>
+  <div class="page" *ngIf="!loading">
+    <mat-card>
+      <mat-card-title-group>
+        <!-- <img
+          mat-card-xl-image
+          src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+        /> -->
+
+        <div *ngIf="!loading">
+          <ngx-light-carousel
+            style="max-width: 400px; margin-bottom: 100px; display: block"
+            [options]="sliderOptions"
+            [data]="productImages"
+            class="wrapper c-accent"
+          >
+            <section ngx-light-carousel-container class="content">
+              <article
+                class="cursor-pointer"
+                ngx-light-carousel-item
+                *ngFor="let product of productImages; let i = index"
+              >
+                <div class="item">
+                  <div class="cursor-pointer">
+                    <div class="product">
+                      <!-- class="w-100" -->
+                      <div class="img-block">
+                        <img
+                          src="{{ product.url }}"
+                          (load)="product.loaded = true"
+                        />
+                      </div>
+                      <div class="text-left mt-2">
+                        <h3 class="title mb-1">{{ product.title }}</h3>
+                        <div class="pricing d-flex">
+                          <span
+                            class="sale-price text-danger ml-2"
+                            *ngIf="product.salePrice"
+                            >{{ product.salePrice | currency }}</span
+                          >
+                          <span
+                            class="original-price"
+                            [ngClass]="{ 'on-sale ml-1': product.salePrice }"
+                            >{{ product.regularPrice | currency }}</span
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </article>
+              <ng-template #infiniteContainer></ng-template>
+            </section>
+
+            <ng-template #carouselContent let-product let-i="index">
+              <article>
+                <div class="item cursor-pointer">
+                  <div class="product">
+                    <img class="w-100" src="{{ product.url }}" />
+                    <div class="text-left mt-2">
+                      <h3 class="title mb-1">{{ product.title }}</h3>
+                      <div class="pricing d-flex">
+                        <span
+                          class="sale-price text-danger ml-2"
+                          *ngIf="product.salePrice"
+                          >{{ product.salePrice | currency }}</span
+                        >
+                        <span
+                          class="original-price"
+                          [ngClass]="{ 'on-sale ml-1': product.salePrice }"
+                          >{{ product.regularPrice | currency }}</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </ng-template>
+
+            <ng-template #carouselPrev>
+              <div class="click-area"></div>
+            </ng-template>
+            <ng-template #carouselNext>
+              <div class="click-area"></div>
+            </ng-template>
+
+            <ng-template #carouselDot let-model>
+              <div class="ball bg-accent"></div>
+            </ng-template>
+
+            <ng-template #carouselProgress let-progress>
+              <div class="progress"></div>
+            </ng-template>
+          </ngx-light-carousel>
+        </div>
+        <mat-card-title>Shiba Inu</mat-card-title>
+        <mat-card-subtitle>Extra large</mat-card-subtitle>
+      </mat-card-title-group>
+    </mat-card>
+  </div>
+</div>
+
+<!-- <div *ngIf="!loading">
+  <ngx-light-carousel
+    style="max-width: 400px; margin-bottom: 100px; display: block"
+    [options]="sliderOptions"
+    [data]="productImages"
+    class="wrapper c-accent"
+  >
+    <section ngx-light-carousel-container class="content">
+      <article
+        class="cursor-pointer"
+        ngx-light-carousel-item
+        *ngFor="let product of productImages; let i = index"
+      >
+        <div class="item">
+          <div class="cursor-pointer">
+            <div class="product">
+              <div class="img-block">
+                <img src="{{ product.url }}" (load)="product.loaded = true" />
+              </div>
+              <div class="text-left mt-2">
+                <h3 class="title mb-1">{{ product.title }}</h3>
+                <div class="pricing d-flex">
+                  <span
+                    class="sale-price text-danger ml-2"
+                    *ngIf="product.salePrice"
+                    >{{ product.salePrice | currency }}</span
+                  >
+                  <span
+                    class="original-price"
+                    [ngClass]="{ 'on-sale ml-1': product.salePrice }"
+                    >{{ product.regularPrice | currency }}</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+      <ng-template #infiniteContainer></ng-template>
+    </section>
+
+    <ng-template #carouselContent let-product let-i="index">
+      <article>
+        <div class="item cursor-pointer">
+          <div class="product">
+            <img class="w-100" src="{{ product.url }}" />
+            <div class="text-left mt-2">
+              <h3 class="title mb-1">{{ product.title }}</h3>
+              <div class="pricing d-flex">
+                <span
+                  class="sale-price text-danger ml-2"
+                  *ngIf="product.salePrice"
+                  >{{ product.salePrice | currency }}</span
+                >
+                <span
+                  class="original-price"
+                  [ngClass]="{ 'on-sale ml-1': product.salePrice }"
+                  >{{ product.regularPrice | currency }}</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </ng-template>
+
+    <ng-template #carouselPrev>
+      <div class="click-area"></div>
+    </ng-template>
+    <ng-template #carouselNext>
+      <div class="click-area"></div>
+    </ng-template>
+
+    <ng-template #carouselDot let-model>
+      <div class="ball bg-accent"></div>
+    </ng-template>
+
+    <ng-template #carouselProgress let-progress>
+      <div class="progress"></div>
+    </ng-template>
+  </ngx-light-carousel>
+</div> -->

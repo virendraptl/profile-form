@@ -20,7 +20,6 @@ export class CreateComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private http: HttpService,
-    private router: Router,
     private headerTitleService: HeaderTitleService,
     private previousRouteService: PreviousRouteService
   ) {

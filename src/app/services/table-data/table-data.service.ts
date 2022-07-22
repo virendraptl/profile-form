@@ -8,32 +8,28 @@ export class TableDataService {
   pageIndexSize = [1, 10];
   loggedUser = '';
   searchTerm = '';
-  rxjsData = new BehaviorSubject({page: 1, limit: 10});
-  // rxjsData = new Subject();
+  rxjsData = new BehaviorSubject({ page: 1, limit: 10 });
 
-  constructor(){
-    // this.rxjsData.next({ page: 1, limit: 10 });
-  }
+  constructor() {}
 
   setData(index: number, size: number) {
     this.pageIndexSize[0] = index;
     this.pageIndexSize[1] = size;
-    // console.log(this.pageIndexSize);
   }
 
   getData() {
     return this.pageIndexSize;
   }
 
-  setSearch(term:string){
+  setSearch(term: string) {
     this.searchTerm = term;
   }
 
-  getSearch(){
+  getSearch() {
     return this.searchTerm;
   }
 
-  setRxjs(data){
-    this.rxjsData.next({page: data.page, limit: data.limit})
+  setRxjs(data) {
+    this.rxjsData.next({ page: data.page, limit: data.limit });
   }
 }

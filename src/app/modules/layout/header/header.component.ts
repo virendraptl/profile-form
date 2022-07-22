@@ -22,11 +22,6 @@ export class HeaderComponent implements OnInit {
     fontSize: '20px',
     fontWeight: '600',
     border: '2px solid #ccc',
-    
-    // borderRadius: '100vmax 100vmax 0 0',
-    // width: '50px',
-    // height: '25px'
-    // borderRadius: '100vmax 100vmax 0 0',
   };
 
   profileData = {
@@ -54,6 +49,10 @@ export class HeaderComponent implements OnInit {
 
   showList() {
     this.router.navigate(['/users']);
+  }
+  
+  showProducts(){
+    this.router.navigate(['/products']);
   }
 
   newUser() {

@@ -1,10 +1,8 @@
 import { SocialAuthService } from '@abacritt/angularx-social-login';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { HeaderTitleService } from 'src/app/services/header-title/header-title.service';
 import { HttpService } from 'src/app/services/http/http.service';
 import { LocalStorageService } from 'src/app/services/local-storage/local-storage.service';
-import { TableDataService } from 'src/app/services/table-data/table-data.service';
 
 @Component({
   selector: 'app-profile',
@@ -22,7 +20,6 @@ export class ProfileComponent implements OnInit {
     private http: HttpService,
     private lstore: LocalStorageService,
     private headerTitleService: HeaderTitleService,
-    private authService: SocialAuthService
   ) {
     this.headerTitleService.setTitle('Profile');
   }
@@ -31,6 +28,7 @@ export class ProfileComponent implements OnInit {
     this.http.get('auth/self').subscribe({
       next: (res: any) => {
         this.profileData = res;
+        console.table(this.profileData);
         this.headerTitleService.userName.next(this.profileData.name);
       },
     });

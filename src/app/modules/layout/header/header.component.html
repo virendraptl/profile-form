@@ -18,18 +18,7 @@
     />
     <h2 class="header-title">{{ title }}</h2>
   </div>
-  <!-- <button
-      class="listbtn"
-      mat-raised-button
-      type="button"
-      routerLink="/users"
-      [disabled]="!profileData?.isEmailVerified"
-    >
-      Users List
-    </button> -->
-  <!-- <button (click)="logout()" class="logoutbtn" mat-raised-button color="warn">
-      Log Out
-    </button> -->
+
   <div class="avatar-block">
     <div class="initials">
       <!-- style="z-index: 1050"
@@ -69,6 +58,20 @@
           <button *ngIf="btn == 'list'" (click)="showList()" mat-menu-item>
             <mat-icon>list</mat-icon> <span>Users List</span>
           </button>
+          <button
+            *ngIf="btn == 'back-products'"
+            (click)="showProducts()"
+            mat-menu-item
+          >
+            <mat-icon>arrow_back</mat-icon> <span>Back to Products</span>
+          </button>
+          <button
+            *ngIf="btn == 'products'"
+            (click)="showProducts()"
+            mat-menu-item
+          >
+            <mat-icon>list</mat-icon> <span>Products List</span>
+          </button>
           <button *ngIf="btn == 'new'" (click)="newUser()" mat-menu-item>
             <mat-icon>person_add</mat-icon> <span>Add New User</span>
           </button>
@@ -81,10 +84,6 @@
         </div>
       </mat-menu>
     </div>
-    <!-- <div>
-      <mat-icon class="settings-icon">settings</mat-icon>
-    </div> -->
   </div>
 </header>
-<!-- <div class="test"></div> -->
-<button (click)="count=count+1" >Count: {{count}}</button>
+<!-- <button (click)="count=count+1" >Count: {{count}}</button> -->

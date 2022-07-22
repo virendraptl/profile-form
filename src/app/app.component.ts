@@ -24,20 +24,24 @@ export class AppComponent implements OnInit {
 
   setHeaderBtns(){
         this.url = this.router.url;
-        if(this.url.includes('my-profile')){
-          this.btns = ['list','logout']
-        }else if(this.url.includes('update')){
+        if (this.url.includes('my-profile')) {
+          this.btns = ['list', 'products', 'logout'];
+        } else if (this.url.includes('update')) {
           this.btns = ['back-list', 'profile', 'logout'];
-        }else if(this.url.includes('details')){
+        } else if (this.url.includes('users/details')) {
           this.btns = ['back-list', 'profile', 'logout'];
-        }else if(this.url.includes('create')){
+        } else if (this.url.includes('create')) {
           this.btns = ['back-list', 'profile', 'logout'];
-        }else if (
+        } else if (
           this.url.includes('users') &&
           !this.url.includes('update') &&
           !this.url.includes('create')
         ) {
           this.btns = ['back-profile', 'new', 'logout'];
+        } else if (this.url.includes('products')) {
+          this.btns = ['back-profile', 'logout'];
+        } else if (this.url.includes('products/details')) {
+          this.btns = ['back-products', 'logout'];
         }
   }
 }

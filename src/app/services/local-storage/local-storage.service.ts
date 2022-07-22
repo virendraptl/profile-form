@@ -26,7 +26,6 @@ export class LocalStorageService {
 
   deletetoken() {
     localStorage.removeItem('token');
-    // console.log('token deleted');
   }
 
   setData(name: string, data: any) {
@@ -58,7 +57,6 @@ export class LocalStorageService {
       })
       .finally(() => {
         this.deletetoken();
-        // this.deleteData('profileData');
         this.table.setData(1, 10);
         localStorage.clear();
         const headerTitleService = this.injector.get(HeaderTitleService);
@@ -66,9 +64,5 @@ export class LocalStorageService {
         this.router.navigate(['/auth/login']);
       });
     console.log('clicked logout');
-    // this.authService.authState.subscribe((user) => {
-    //   console.log('User info after logout: ', user);
-    // });
-    // console.log('opened login pagess after 401 error');
   }
 }

@@ -12,7 +12,6 @@ import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { LocalStorageService } from 'src/app/services/local-storage/local-storage.service';
 import { HeaderTitleService } from 'src/app/services/header-title/header-title.service';
-import { PreviousRouteService } from 'src/app/services/previous-route/previous-route.service';
 import { HotToastService } from '@ngneat/hot-toast';
 
 @Component({
@@ -61,7 +60,6 @@ export class ListComponent implements OnInit {
     private lstore: LocalStorageService,
     private toastr: ToastrService,
     private headerTitleService: HeaderTitleService,
-    private previousRouteService: PreviousRouteService,
     private toasterService: HotToastService
   ) {
     this.headerTitleService.setTitle('Users List');
@@ -74,14 +72,7 @@ export class ListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // console.log(this.previousRouteService.getPreviousUrl());
     [this.pageIndex, this.pageSize] = this.table.getData();
-
-    // this.table.rxjsData.subscribe((res) => {
-    //   if (res) {
-    //     console.log('data from rxjs is: ', res.page, res.limit);
-    //   }
-    // });
     this.rendertable(this.tempUrl, this.pageIndex, this.pageSize);
   }
 
@@ -102,6 +93,7 @@ export class ListComponent implements OnInit {
       next: (data) => {
         this.tempdata = data;
         this.dataSource = data['results'];
+        console.table(this.dataSource);
         this.pageTotal = data['totalResults'];
         this.dataCopy = [...this.dataSource];
         this.loadFlag = false;
@@ -118,7 +110,6 @@ export class ListComponent implements OnInit {
     this.pageIndex = e.pageIndex + 1;
     this.pageSize = e.pageSize;
     this.table.setData(this.pageIndex, this.pageSize);
-    // this.table.setRxjs({ page: this.pageIndex, limit: this.pageSize });
     this.rendertable(this.tempUrl, this.pageIndex, this.pageSize);
   }
 
@@ -154,15 +145,12 @@ export class ListComponent implements OnInit {
               value -= 1;
               this.filteredIndex.splice(index, 1, value);
             }
-            // console.log('index: ', index, ' value: ', value);
-            // console.log(this.filteredIndex);
           });
           this.filteredTable.splice(i, 1);
           this.filteredIndex.splice(i, 1);
           this.pageTotal -= 1;
           this.dataSource = [...this.filteredTable];
         }
-        // this.toasterSuccess(`User: ${name} deleted!`);
         this.toasterService.success(`User: ${name} deleted!`);
       },
     });
@@ -181,8 +169,15 @@ export class ListComponent implements OnInit {
     let term = (event.target as HTMLInputElement).value.toLowerCase();
     this.table.setSearch(term);
     this.searchTerm = term;
-
+    let startTime = performance.now();
     this.searchResult(term);
+    let endTime = performance.now();
+    console.log('TIme to search: ', endTime - startTime);
+    // this.searchTest(term);
+  }
+
+  searchTest(term:string){
+
   }
 
   searchResult(term: string) {
