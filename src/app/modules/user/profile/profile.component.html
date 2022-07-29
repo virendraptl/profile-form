@@ -1,13 +1,41 @@
 <div class="page">
-  <ng-container *ngIf="!profileData">
+  <ng-container *ngIf="!profileData && !errorMsg">
     <mat-progress-bar mode="indeterminate"></mat-progress-bar>
   </ng-container>
   <div *ngIf="profileData" class="profile-block">
-    <h2>Name:- {{ profileData?.name }}</h2>
-    <h2>Email:- {{ profileData?.email }}</h2>
-    <h2>Role:- {{ profileData?.role }}</h2>
-    <h2>Email verification Status:- {{ profileData?.isEmailVerified }}</h2>
-    <h2>Company Name:- {{ profileData?._org.name }}</h2>
+    <h2>
+      Name:-
+      <span>
+        {{ profileData?.name }}
+      </span>
+    </h2>
+    <h2>
+      Email:-
+      <span>
+        {{ profileData?.email }}
+      </span>
+    </h2>
+    <h2>
+      Role:-
+      <span>
+        {{ profileData?.role }}
+      </span>
+    </h2>
+    <h2>
+      Email verification Status:-
+      <span>
+        {{ profileData?.isEmailVerified }}
+      </span>
+    </h2>
+    <h2>
+      Company Name:-
+      <span>
+        {{ profileData?._org.name }}
+      </span>
+    </h2>
+  </div>
+  <div *ngIf="errorMsg" class="error-block">
+    <h1>Page could not load: {{ errorMsg }}</h1>
   </div>
 </div>
 

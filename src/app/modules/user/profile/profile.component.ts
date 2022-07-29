@@ -12,6 +12,7 @@ import { LocalStorageService } from 'src/app/services/local-storage/local-storag
 export class ProfileComponent implements OnInit {
   tempToken: string;
   profileData: any;
+  errorMsg:any;
   avatarStyle = {
     cursor: 'pointer',
   };
@@ -31,6 +32,10 @@ export class ProfileComponent implements OnInit {
         console.table(this.profileData);
         this.headerTitleService.userName.next(this.profileData.name);
       },
+      error: (err) => {
+        console.log('Page could not load:', err.message);
+        this.errorMsg = err.message;
+      }
     });
   }
 

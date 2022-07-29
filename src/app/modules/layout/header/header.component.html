@@ -75,6 +75,13 @@
           <button *ngIf="btn == 'new'" (click)="newUser()" mat-menu-item>
             <mat-icon>person_add</mat-icon> <span>Add New User</span>
           </button>
+          <button
+            *ngIf="btn == 'new-product'"
+            (click)="newProduct()"
+            mat-menu-item
+          >
+            <mat-icon>person_add</mat-icon> <span>Add New Product</span>
+          </button>
           <button *ngIf="btn == 'profile'" (click)="toProfile()" mat-menu-item>
             <mat-icon>account_circle</mat-icon> <span>Profile</span>
           </button>

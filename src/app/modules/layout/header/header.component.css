@@ -59,6 +59,7 @@ header {
 .header-title {
   margin-left: 0;
   font-size: 40px;
+  font-weight: bold;
   margin: 20px 20px;
 }
 

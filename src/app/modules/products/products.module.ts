@@ -6,11 +6,15 @@ import { ProductListComponent } from './product-list/product-list.component';
 import { SharedModule } from '../shared/shared.module';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { NgxCarouselModule } from 'ngx-light-carousel';
+import { ProductCreateComponent } from './product-create/product-create.component';
+import { ProductUpdateComponent } from './product-update/product-update.component';
 
 @NgModule({
   declarations: [
     ProductListComponent,
-    ProductDetailsComponent
+    ProductDetailsComponent,
+    ProductCreateComponent,
+    ProductUpdateComponent
   ],
   imports: [
     CommonModule,

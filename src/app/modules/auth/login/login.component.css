@@ -17,14 +17,14 @@ p {
   /* border: 2px solid grey; */
   border-radius: 20px;
   padding: 20px;
-  height: 415px;
+  height: 435px;
 }
 input {
   background-color: #f3f3f3;
 }
 
 input:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0px 1000px #f3f3f3 inset !important;
+  -webkit-box-shadow: 0 0 0px 1000px #f3f3f3 inset !important;
 }
 
 .page {
@@ -131,4 +131,10 @@ input.example-right-align {
   background-color: #090979;
   margin: 0 10px;
   border: none;
+}
+
+.header-title {
+  font-weight: bold;
+  font-size: 18px;
+  margin: 0;
 }

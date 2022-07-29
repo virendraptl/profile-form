@@ -19,14 +19,43 @@
       <div class="avatar-block">
         <ngx-avatar [name]="currentData?.name" size="100"></ngx-avatar>
       </div>
-      <h3>Name:- {{ currentData?.name }}</h3>
-      <h3>email:- {{ currentData?.email }}</h3>
-      <h3>Role:- {{ currentData?.role }}</h3>
-      <h3>Organization:- {{ currentData?._org.name }}</h3>
-      <h3>Org email:- {{ currentData?._org.email }}</h3>
-      <h3>Verification Status:- {{ currentData?.isEmailVerified }}</h3>
+      <h3>
+        Name:-
+        <span>
+          {{ currentData?.name }}
+        </span>
+      </h3>
+      <h3>
+        email:-
+        <span>
+          {{ currentData?.email }}
+        </span>
+      </h3>
+      <h3>
+        Role:-
+        <span>
+          {{ currentData?.role }}
+        </span>
+      </h3>
+      <h3>
+        Organization:-
+        <span>
+          {{ currentData?._org.name }}
+        </span>
+      </h3>
+      <h3>
+        Org email:-
+        <span>
+          {{ currentData?._org.email }}
+        </span>
+      </h3>
+      <h3>
+        Verification Status:-
+        <span>
+          {{ currentData?.isEmailVerified }}
+        </span>
+      </h3>
     </mat-card>
-
   </div>
 </div>
 

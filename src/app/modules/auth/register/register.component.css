@@ -117,3 +117,9 @@ input.example-right-align::-webkit-inner-spin-button {
 input.example-right-align {
   -moz-appearance: textfield;
 }
+
+.header-title {
+  font-weight: bold;
+  font-size: 18px;
+  margin: 0;
+}

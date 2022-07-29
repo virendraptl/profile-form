@@ -106,10 +106,17 @@
 
   <ng-template #postRegister>
     <div class="postbanner">
-      <h1 *ngIf="!mailSent && !mailNotSent">Sending a mail with verification link!</h1>
-      <mat-progress-bar *ngIf="!mailSent && !mailNotSent" mode="indeterminate"></mat-progress-bar>
-      <h1 *ngIf="mailNotSent">Mail not sent: {{mailError}}</h1>
-      <h1 *ngIf="mailSent">Check your mailbox for a mail containing the verification link</h1>
+      <h1 *ngIf="!mailSent && !mailNotSent">
+        Sending a mail with verification link!
+      </h1>
+      <mat-progress-bar
+        *ngIf="!mailSent && !mailNotSent"
+        mode="indeterminate"
+      ></mat-progress-bar>
+      <h1 *ngIf="mailNotSent">Mail not sent: {{ mailError }}</h1>
+      <h1 *ngIf="mailSent">
+        Check your mailbox for a mail containing the verification link
+      </h1>
       <h4><a routerLink="/auth/login">Click here</a> to go to login page</h4>
     </div>
   </ng-template>

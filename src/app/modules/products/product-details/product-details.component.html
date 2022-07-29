@@ -2,13 +2,89 @@
   <ng-container *ngIf="loading">
     <mat-progress-bar mode="indeterminate"></mat-progress-bar>
   </ng-container>
+  <!-- *ngIf="!loading" -->
   <div class="page" *ngIf="!loading">
-    <mat-card>
+    <div class="card main-card">
+      <div class="img-block">
+        <!-- <carousel [height]="300" [arrows]="false" cellWidth="100%">
+          <ng-container *ngFor="let img of productImages">
+            <div class="carousel-cell">
+            </div>
+          </ng-container>
+        </carousel> -->
+        <div class="img-preview">
+          <img [src]="previewUrl" />
+        </div>
+        <br />
+        <carousel
+          style="z-index: 0"
+          [width]="450"
+          [arrowsOutside]="false"
+          [height]="75"
+          [margin]="15"
+          [cellWidth]="80"
+        >
+          <ng-container *ngFor="let img of productImages; let i = index">
+            <div (mouseover)="imgClicked(i)" class="carousel-cell">
+              <img src="{{ img.url }}" />
+            </div>
+          </ng-container>
+        </carousel>
+        <!-- <carousel [images]="productImages" >
+        </carousel> -->
+      </div>
+      <div class="detail-block">
+        <div class="card card-small" style="width: 100%">
+          <div class="card-body">
+            <h5 class="card-title">{{ productData.name }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">
+              Uploaded: {{ uploadDate | timeAgo }}
+            </h6>
+            <h6 *ngIf="uploadDate != updateDate" class="card-subtitle mb-2 text-muted">
+              Last updated: {{ updateDate | timeAgo }}
+            </h6>
+            <p class="card-text">
+              {{ productData.description }}
+            </p>
+          </div>
+        </div>
+        <div class="btn-block">
+          <div
+            class="btn-group"
+            role="group"
+            aria-label="Basic mixed styles example"
+          >
+            <button
+              [routerLink]="['/products/update', productId]"
+              type="button"
+              class="btn btn-primary"
+            >
+              Update
+            </button>
+            <button
+              (click)="
+                openConfirmationDialog(productData.name, productData._id)
+              "
+              type="button"
+              class="btn btn-danger"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+  <!--  -->
+  <!-- <img
+  mat-card-xl-image
+  src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+/> -->
+  <!-- <mat-card>
       <mat-card-title-group>
-        <!-- <img
-          mat-card-xl-image
-          src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-        /> -->
 
         <div *ngIf="!loading">
           <ngx-light-carousel
@@ -26,7 +102,6 @@
                 <div class="item">
                   <div class="cursor-pointer">
                     <div class="product">
-                      <!-- class="w-100" -->
                       <div class="img-block">
                         <img
                           src="{{ product.url }}"
@@ -96,92 +171,7 @@
             </ng-template>
           </ngx-light-carousel>
         </div>
-        <mat-card-title>Shiba Inu</mat-card-title>
-        <mat-card-subtitle>Extra large</mat-card-subtitle>
+        <mat-card-title>{{ productData.name }}</mat-card-title>
+        <mat-card-subtitle>{{ productData.description }}</mat-card-subtitle>
       </mat-card-title-group>
-    </mat-card>
-  </div>
-</div>
-
-<!-- <div *ngIf="!loading">
-  <ngx-light-carousel
-    style="max-width: 400px; margin-bottom: 100px; display: block"
-    [options]="sliderOptions"
-    [data]="productImages"
-    class="wrapper c-accent"
-  >
-    <section ngx-light-carousel-container class="content">
-      <article
-        class="cursor-pointer"
-        ngx-light-carousel-item
-        *ngFor="let product of productImages; let i = index"
-      >
-        <div class="item">
-          <div class="cursor-pointer">
-            <div class="product">
-              <div class="img-block">
-                <img src="{{ product.url }}" (load)="product.loaded = true" />
-              </div>
-              <div class="text-left mt-2">
-                <h3 class="title mb-1">{{ product.title }}</h3>
-                <div class="pricing d-flex">
-                  <span
-                    class="sale-price text-danger ml-2"
-                    *ngIf="product.salePrice"
-                    >{{ product.salePrice | currency }}</span
-                  >
-                  <span
-                    class="original-price"
-                    [ngClass]="{ 'on-sale ml-1': product.salePrice }"
-                    >{{ product.regularPrice | currency }}</span
-                  >
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </article>
-      <ng-template #infiniteContainer></ng-template>
-    </section>
-
-    <ng-template #carouselContent let-product let-i="index">
-      <article>
-        <div class="item cursor-pointer">
-          <div class="product">
-            <img class="w-100" src="{{ product.url }}" />
-            <div class="text-left mt-2">
-              <h3 class="title mb-1">{{ product.title }}</h3>
-              <div class="pricing d-flex">
-                <span
-                  class="sale-price text-danger ml-2"
-                  *ngIf="product.salePrice"
-                  >{{ product.salePrice | currency }}</span
-                >
-                <span
-                  class="original-price"
-                  [ngClass]="{ 'on-sale ml-1': product.salePrice }"
-                  >{{ product.regularPrice | currency }}</span
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-      </article>
-    </ng-template>
-
-    <ng-template #carouselPrev>
-      <div class="click-area"></div>
-    </ng-template>
-    <ng-template #carouselNext>
-      <div class="click-area"></div>
-    </ng-template>
-
-    <ng-template #carouselDot let-model>
-      <div class="ball bg-accent"></div>
-    </ng-template>
-
-    <ng-template #carouselProgress let-progress>
-      <div class="progress"></div>
-    </ng-template>
-  </ngx-light-carousel>
-</div> -->
+    </mat-card> -->

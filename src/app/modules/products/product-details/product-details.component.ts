@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
+import { HotToastService } from '@ngneat/hot-toast';
 import { HeaderTitleService } from 'src/app/services/header-title/header-title.service';
 import { HttpService } from 'src/app/services/http/http.service';
+import { ConfirmationDialogComponent } from '../../layout/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-product-details',
@@ -14,51 +17,22 @@ export class ProductDetailsComponent implements OnInit {
   productData: any;
   productImages: any;
 
+  previewUrl = '';
+  uploadDate;
+  updateDate;
+  dialogRef: MatDialogRef<ConfirmationDialogComponent>;
+
   sliderOptions: any;
 
   constructor(
     private http: HttpService,
     private activatedRoute: ActivatedRoute,
-    private headerTitleService: HeaderTitleService
+    public dialog: MatDialog,
+    private toasterService: HotToastService,
+    private headerTitleService: HeaderTitleService,
+    private router: Router
   ) {
-    this.headerTitleService.setTitle('Product Details');
-    this.sliderOptions = {
-      animation: {
-        animationClass: 'transition', // done
-        animationTime: 500,
-      },
-      swipe: {
-        swipeable: true, // done
-        swipeVelocity: 0.004, // done - check amount
-      },
-      drag: {
-        draggable: true, // done
-        dragMany: true, // todo
-      },
-      autoplay: {
-        enabled: true,
-        direction: 'right',
-        delay: 5000,
-        stopOnHover: true,
-        speed: 6000,
-      },
-      arrows: true,
-      infinite: true,
-      breakpoints: [
-        {
-          width: 768,
-          number: 1,
-        },
-        {
-          width: 991,
-          number: 3,
-        },
-        {
-          width: 9999,
-          number: 4,
-        },
-      ],
-    };
+    this.headerTitleService.setTitle('Products Details');
   }
 
   ngOnInit(): void {
@@ -69,6 +43,9 @@ export class ProductDetailsComponent implements OnInit {
         this.loading = false;
         this.productData = data;
         this.productImages = data['images'];
+        this.previewUrl = this.productImages[0].url;
+        this.uploadDate = new Date(this.productData.createdAt);
+        this.updateDate = new Date(this.productData.updatedAt);
         console.log('Product details:', this.productData);
         console.log('Product images:', this.productImages);
       },
@@ -77,4 +54,40 @@ export class ProductDetailsComponent implements OnInit {
       },
     });
   }
+
+  imgClicked(i) {
+    this.previewUrl = this.productImages[i].url;
+    // console.log('img clicked............');
+  }
+
+  openConfirmationDialog(name: string, id: string) {
+    this.dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      disableClose: false,
+    });
+    this.dialogRef.componentInstance.confirmMessage = `Are you sure you want to delete this product: ${name} ?`;
+
+    this.dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        console.log(name, ' Deleted!!!');
+        // this.deleteUser(id, name, i);
+        this.deleteProduct(name, id);
+      }
+      this.dialogRef = null;
+    });
+  }
+
+  deleteProduct(name, id) {
+    this.http.delete(`products/${id}`).subscribe({
+      next: (data) => {
+        this.toasterService.success(`Product: "${name}" deleted!`);
+        this.router.navigate(['/products']);
+      },
+      error: (err) => {
+        this.toasterService.warning('Error: ', err.message);
+      },
+    });
+  }
 }
+
+// carousel http://ivylab.space/carousel/demo
+// https://github.com/ivylaboratory/angular-carousel

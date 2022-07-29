@@ -51,7 +51,6 @@ header {
   height: 300px;
 }
 
-
 .form-block {
   display: flex;
   flex-direction: column;
@@ -114,6 +113,9 @@ header {
   /* border: 2px solid grey; */
   border-radius: 20px;
   /* height: 450px; */
+  -webkit-box-shadow: 8px 12px 42px -2px rgba(179, 179, 179, 1);
+  -moz-box-shadow: 8px 12px 42px -2px rgba(179, 179, 179, 1);
+  box-shadow: 8px 12px 42px -2px rgba(179, 179, 179, 1);
 }
 
 input {
@@ -159,4 +161,6 @@ input.example-right-align {
   -moz-appearance: textfield;
 }
 
-.grecaptcha-badge { display: none; }
+.grecaptcha-badge {
+  display: none;
+}

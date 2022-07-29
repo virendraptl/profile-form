@@ -19,6 +19,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { CoolSocialLoginButtonsModule } from '@angular-cool/social-login-buttons';
+import { IvyCarouselModule } from 'angular-responsive-carousel';
+import { NgPipesModule } from 'ngx-pipes';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -41,7 +44,10 @@ import { CoolSocialLoginButtonsModule } from '@angular-cool/social-login-buttons
     MatDialogModule,
     HttpClientModule,
     ToastrModule,
-    CoolSocialLoginButtonsModule
+    CoolSocialLoginButtonsModule,
+    IvyCarouselModule,
+    NgPipesModule,
+    NgxPaginationModule,
   ],
 })
 export class SharedModule {}

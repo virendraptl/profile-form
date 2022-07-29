@@ -23,7 +23,12 @@ header {
 }
 
 .profile-block {
+  margin: 20px;
   padding: 50px;
+  border-radius: 10px;
+  -webkit-box-shadow: 8px 12px 42px -2px rgba(179, 179, 179, 1);
+  -moz-box-shadow: 8px 12px 42px -2px rgba(179, 179, 179, 1);
+  box-shadow: 8px 12px 42px -2px rgba(179, 179, 179, 1);
 }
 
 .row {
@@ -77,4 +82,19 @@ header {
 
 .grecaptcha-badge {
   display: none;
+}
+
+.error-block {
+  padding: 50px;
+  font-size: 40px;
+  color: rgb(177, 177, 177);
+}
+
+h2 {
+  font-size: 25px;
+  font-weight: 600;
+}
+
+span {
+  font-weight: 550;
 }

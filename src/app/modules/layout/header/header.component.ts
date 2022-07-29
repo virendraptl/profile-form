@@ -50,13 +50,17 @@ export class HeaderComponent implements OnInit {
   showList() {
     this.router.navigate(['/users']);
   }
-  
-  showProducts(){
+
+  showProducts() {
     this.router.navigate(['/products']);
   }
 
   newUser() {
     this.router.navigate(['/users/create']);
+  }
+  
+  newProduct(){
+    this.router.navigate(['/products/create']);
   }
 
   toProfile() {
@@ -104,7 +108,6 @@ export class HeaderComponent implements OnInit {
     }, 80);
   }
 
-
   buttonEnter(trigger) {
     setTimeout(() => {
       if (this.prevButtonTrigger && this.prevButtonTrigger != trigger) {
@@ -122,19 +125,32 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-    buttonLeave(trigger, button) {
+  buttonLeave(trigger, button) {
     setTimeout(() => {
       if (this.enteredButton && !this.isMatMenuOpen) {
         trigger.closeMenu();
-        this.ren.removeClass(button['_elementRef'].nativeElement, 'cdk-focused');
-        this.ren.removeClass(button['_elementRef'].nativeElement, 'cdk-program-focused');
-      } if (!this.isMatMenuOpen) {
+        this.ren.removeClass(
+          button['_elementRef'].nativeElement,
+          'cdk-focused'
+        );
+        this.ren.removeClass(
+          button['_elementRef'].nativeElement,
+          'cdk-program-focused'
+        );
+      }
+      if (!this.isMatMenuOpen) {
         trigger.closeMenu();
-        this.ren.removeClass(button['_elementRef'].nativeElement, 'cdk-focused');
-        this.ren.removeClass(button['_elementRef'].nativeElement, 'cdk-program-focused');
+        this.ren.removeClass(
+          button['_elementRef'].nativeElement,
+          'cdk-focused'
+        );
+        this.ren.removeClass(
+          button['_elementRef'].nativeElement,
+          'cdk-program-focused'
+        );
       } else {
         this.enteredButton = false;
       }
-    }, 100)
+    }, 100);
   }
 }
