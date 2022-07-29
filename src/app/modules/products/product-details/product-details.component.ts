@@ -62,6 +62,7 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   imgClicked(i) {
+    this.selectedImageIndex = i;
     this.previewUrl = this.productImages[i].url;
     // console.log('img clicked............');
   }
@@ -95,7 +96,7 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   openFullScreenView(previewUrl) {
-    this.selectedImageIndex = this.fullviewArr.indexOf(previewUrl);
+    // this.selectedImageIndex = this.fullviewArr.indexOf(previewUrl);
     this.showFlag = true;
   }
 
