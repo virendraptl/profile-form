@@ -1,2 +1,2 @@
-<app-header  [btns]="btns" *ngIf="showHeader"></app-header>
+<app-header [showAvatar] = "showAvatar"  [btns]="btns" *ngIf="showHeader"></app-header>
 <router-outlet (activate)="setHeaderBtns()"></router-outlet>

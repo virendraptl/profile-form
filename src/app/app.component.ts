@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { first, take } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -8,18 +9,26 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 })
 export class AppComponent implements OnInit {
   showHeader: boolean = false;
+  showAvatar:boolean = true;
   url: string;
   btns: string[];
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
 
   ngOnInit() {
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.showHeader =
-          this.activatedRoute.firstChild.snapshot.data['showHeader'] !== false;
-      }
-    });
+    // this.router.events.subscribe((event) => {
+    //   if (event instanceof NavigationEnd) {
+    //   this.activatedRoute.data.subscribe((data) => {
+    //     console.log('Header present: ', data);
+    //   });
+    //     this.showHeader =
+    //       this.activatedRoute.firstChild.snapshot.data['header'] !== false;
+    //   }
+    // });
+
+    // this.activatedRoute.data.pipe(take(1)).subscribe((data)=>{
+    //   console.log('data from acti route: ', data);
+    // })
   }
 
   setHeaderBtns() {
@@ -46,6 +55,22 @@ export class AppComponent implements OnInit {
       this.btns = ['back-products', 'logout'];
     } else if (this.url.includes('products')) {
       this.btns = ['back-profile', 'new-product', 'logout'];
+    }
+
+    if (
+      this.url.includes('/seller/auth/login') ||
+      this.url.includes('/seller/auth/register') ||
+      this.url.includes('/seller/auth/verify-email')
+    ) {
+      this.showHeader = false;
+    }else{
+      this.showHeader = true;
+    }
+
+    if(this.url.includes('customer') || this.url == '/'){
+      this.showAvatar = false;
+    }else{
+      this.showAvatar = true;
     }
   }
 }

@@ -1,0 +1,123 @@
+<div class="page">
+  <div *ngIf="!isRegistered; else postRegister" class="banner">
+    <form [formGroup]="registerForm" (ngSubmit)="submitForm()">
+      <div class="logo-block">
+        <img
+          class="logo"
+          src="../../../assets/images/logo/am-logo.png"
+          alt="am-logo"
+        />
+        <h3 class="header-title">Register Here</h3>
+      </div>
+
+      <p>
+        <mat-form-field class="block-height" appearance="outline">
+          <mat-label>Full Name</mat-label>
+          <input
+            formControlName="name"
+            matInput
+            placeholder="Enter Full Name"
+          />
+          <mat-error *ngIf="name.invalid">{{
+            getNameErrorMessage()
+          }}</mat-error>
+        </mat-form-field>
+      </p>
+
+      <p>
+        <mat-form-field class="block-height" appearance="outline">
+          <mat-label>Company Name</mat-label>
+          <input
+            formControlName="company"
+            matInput
+            placeholder="Enter Company Name"
+          />
+          <mat-error *ngIf="company.invalid">{{
+            getCompanyErrorMessage()
+          }}</mat-error>
+        </mat-form-field>
+      </p>
+
+      <p>
+        <mat-form-field class="block-height" appearance="outline">
+          <mat-label>Email</mat-label>
+          <input formControlName="email" matInput placeholder="Enter Email" />
+          <mat-error *ngIf="email.invalid">{{
+            getEmailErrorMessage()
+          }}</mat-error>
+        </mat-form-field>
+      </p>
+
+      <p>
+        <!-- <mat-form-field class="block-height" appearance="outline">
+          <mat-label>Password</mat-label>
+          <input
+            type="password"
+            formControlName="password"
+            matInput
+            placeholder="Enter Password"
+          />
+          <mat-error *ngIf="password.invalid">{{
+            getPasswordErrorMessage()
+          }}</mat-error>
+        </mat-form-field> -->
+        <!--  -->
+        <mat-form-field class="block-height" appearance="outline">
+          <mat-label>Enter your password</mat-label>
+          <input
+            formControlName="password"
+            matInput
+            placeholder="Enter Password"
+            [type]="hide ? 'password' : 'text'"
+          />
+          <button
+            type="button"
+            mat-icon-button
+            matSuffix
+            (click)="hide = !hide"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide"
+          >
+            <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+          </button>
+          <mat-error *ngIf="password.invalid">{{
+            getPasswordErrorMessage()
+          }}</mat-error>
+        </mat-form-field>
+      </p>
+
+      <button [disabled]="registerForm.invalid" class="btn" mat-raised-button>
+        Register
+      </button>
+
+      <mat-error
+        class="errorMessage"
+        *ngIf="errorMessage && registerForm.pristine"
+        >{{ errorMessage }}</mat-error
+      >
+
+      <div class="have-acc-block">
+        <div class="loginbtn" routerLink="/seller/auth/login">
+          Already have an account?
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <ng-template #postRegister>
+    <div class="postbanner">
+      <h1 *ngIf="!mailSent && !mailNotSent">
+        Sending a mail with verification link!
+      </h1>
+      <mat-progress-bar
+        *ngIf="!mailSent && !mailNotSent"
+        mode="indeterminate"
+      ></mat-progress-bar>
+      <h1 *ngIf="mailNotSent">Mail not sent: {{ mailError }}</h1>
+      <h1 *ngIf="mailSent">
+        Check your mailbox for a mail containing the verification link
+      </h1>
+      <h4><a routerLink="/seller/auth/login">Click here</a> to go to login page</h4>
+    </div>
+  </ng-template>
+</div>

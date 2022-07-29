@@ -1,0 +1,182 @@
+<div class="banner">
+  <ng-container *ngIf="loading">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </ng-container>
+  <div class="page" *ngIf="!loading">
+    <div class="card main-card">
+      <div class="info-card">
+        <div class="details-block">
+          <form [formGroup]="updateForm">
+            <h5 class="card-title">Product Name:</h5>
+            <input formControlName="name" style="width: 100%" type="text" />
+            <small *ngIf="name.invalid && name.touched"
+              >Name field can not be empty</small
+            >
+            <h5 class="card-title">Product Description:</h5>
+            <textarea
+              formControlName="description"
+              style="
+                width: 100%;
+                border-color: grey;
+                padding: 5px;
+                border-radius: 5px;
+              "
+              name="desc"
+              id=""
+              cols="30"
+              rows="6"
+            ></textarea>
+            <small *ngIf="description.invalid && description.touched"
+              >Description field can not be empty</small
+            >
+          </form>
+        </div>
+        <div class="seperator-block"></div>
+        <div class="preview-block">
+          <h5 class="card-title">Product Images Preview:-</h5>
+          <input
+            type="file"
+            class="file-input"
+            multiple
+            (change)="onFileSelected($event)"
+            #fileUpload
+          />
+
+          <div class="file-upload">
+            <div
+              *ngIf="photosArr.length == 0 && currentData.images.length == 0"
+            >
+              No photo preview yet
+            </div>
+
+            <ng-container *ngIf="true">
+              <ng-container
+                class="file-upload"
+                *ngFor="let photo of currentData.images; let i = index"
+              >
+                <div
+                  [ngClass]="imgFlag[0][i] ? 'redBorderOnly' : 'greenBorder'"
+                  class="photo-block"
+                  (click)="imgFlag[0][i] = !imgFlag[0][i]"
+                >
+                  <img
+                    [ngClass]="imgFlag[0][i] ? 'bwpic' : ''"
+                    height="50"
+                    [src]="photo.url"
+                    alt=""
+                  />
+
+                  <svg
+                    [ngClass]="imgFlag[0][i] ? 'hide-view' : ''"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="12"
+                    height="12"
+                    fill="currentColor"
+                    class="bi bi-check-circle-fill check-logo"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"
+                    />
+                  </svg>
+
+                  <svg
+                    [ngClass]="imgFlag[0][i] ? '' : 'hide-view'"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="12"
+                    height="12"
+                    fill="currentColor"
+                    class="bi bi-x-circle-fill cross-logo"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"
+                    />
+                  </svg>
+                </div>
+              </ng-container>
+              <ng-container *ngFor="let photo of photosArr; let j = index">
+                <div
+                  (click)="imgFlag[1][j] = !imgFlag[1][j]"
+                  class="photo-block"
+                  [ngClass]="imgFlag[1][j] ? 'redBorderOnly' : 'greenBorder'"
+                >
+                  <img
+                    [ngClass]="imgFlag[1][j] ? 'bwpic' : ''"
+                    height="50"
+                    [src]="photo"
+                    alt=""
+                  />
+
+                  <svg
+                    [ngClass]="imgFlag[1][j] ? 'hide-view' : ''"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="12"
+                    height="12"
+                    fill="currentColor"
+                    class="bi bi-check-circle-fill check-logo"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"
+                    />
+                  </svg>
+
+                  <svg
+                    [ngClass]="imgFlag[1][j] ? '' : 'hide-view'"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="12"
+                    height="12"
+                    fill="currentColor"
+                    class="bi bi-x-circle-fill cross-logo"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"
+                    />
+                  </svg>
+                </div>
+              </ng-container>
+            </ng-container>
+
+            <button
+              type="button"
+              mat-mini-fab
+              color="primary"
+              class="upload-btn"
+              (click)="fileUpload.click()"
+            >
+              <!-- <mat-icon>attach_file</mat-icon> -->
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                fill="currentColor"
+                class="bi bi-plus"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="submit-block">
+        <button
+          type="button"
+          [disabled]="updateForm.invalid"
+          (click)="productUpdate()"
+          class="btn btn-primary"
+        >
+          Update
+        </button>
+        <button type="button" (click)="resetData()" class="btn btn-light">
+          Reset
+        </button>
+      </div>
+      <small *ngIf="countError">Need at least 1 photo for the product</small>
+    </div>
+  </div>
+</div>

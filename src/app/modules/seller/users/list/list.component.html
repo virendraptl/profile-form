@@ -1,0 +1,137 @@
+<div class="page">
+  <ng-container *ngIf="loadFlag">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </ng-container>
+
+  <div *ngIf="!loadFlag" class="table-block">
+    <mat-paginator
+      [length]="tempdata.totalResults"
+      [pageSize]="tempdata.limit"
+      [pageIndex]="tempdata.page - 1"
+      [pageSizeOptions]="[5, 10, 15, 20, pageTotal]"
+      (page)="changeTable($event)"
+    >
+    </mat-paginator>
+
+    <mat-form-field class="search-block">
+      <span matPrefix> </span>
+      <mat-label>Search</mat-label>
+      <input
+        autocomplete="off"
+        placeholder="Ex. Bruce Banner"
+        type="text"
+        matInput
+        [value]="searchTerm"
+        (keyup)="searchTable($event)"
+      />
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <ng-container matColumnDef="no">
+          <th mat-header-cell *matHeaderCellDef>Sr No</th>
+          <td class="bold" mat-cell *matCellDef="let element; let i = index">
+            {{
+              filteredTable.length == 0
+                ? i + 1 + (pageIndex - 1) * pageSize
+                : filteredIndex[i]
+            }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Name</th>
+          <td
+            class="name-cell bold"
+            [routerLink]="['/seller/users/details', element._id]"
+            title="click to see details"
+            mat-cell
+            *matCellDef="let element"
+          >
+            {{ element.name }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="role">
+          <th mat-header-cell *matHeaderCellDef>Role</th>
+          <td class="bold" mat-cell *matCellDef="let element">
+            {{ element.role }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="org">
+          <th mat-header-cell *matHeaderCellDef>Company</th>
+          <td class="bold" mat-cell *matCellDef="let element">
+            {{ element._org.name }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef>Verification Status</th>
+          <td class="bold" mat-cell *matCellDef="let element">
+            {{ element.isEmailVerified }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="edit">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td title="edit" mat-cell *matCellDef="let element">
+            <button
+              class="updatebutton"
+              mat-mini-fab
+              [routerLink]="['/seller/users/update', element._id]"
+              color="primary"
+              type="button"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="button">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td title="Delete" mat-cell *matCellDef="let element; let i = index">
+            <button
+              (click)="openConfirmationDialog(element.name, element._id, i)"
+              class="dltbutton"
+              mat-mini-fab
+              color="warn"
+              type="button"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr
+          class="table-head"
+          mat-header-row
+          *matHeaderRowDef="displayedColumns"
+        ></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+
+    <mat-paginator
+      [length]="tempdata.totalResults"
+      [pageSize]="tempdata.limit"
+      [pageIndex]="tempdata.page - 1"
+      [pageSizeOptions]="[5, 10, 15, 20, pageTotal]"
+      (page)="changeTable($event)"
+    >
+    </mat-paginator>
+  </div>
+</div>
+
+<!-- https://stackoverflow.com/questions/45318164/how-to-use-paginator-from-material-angular -->
+
+<!-- <button routerLink="/users/create" class="btn" mat-raised-button>
+      Add New User
+    </button> -->
+<!-- <button
+      routerLink="/user/my-profile"
+      (click)="resetTableData()"
+      class="btn"
+      mat-raised-button
+    >
+      Back To Profile
+    </button> -->

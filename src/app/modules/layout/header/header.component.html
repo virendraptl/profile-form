@@ -19,7 +19,7 @@
     <h2 class="header-title">{{ title }}</h2>
   </div>
 
-  <div class="avatar-block">
+  <div *ngIf="showAvatar" class="avatar-block">
     <div class="initials">
       <!-- style="z-index: 1050"
       #levelOneTrigger="matMenuTrigger"

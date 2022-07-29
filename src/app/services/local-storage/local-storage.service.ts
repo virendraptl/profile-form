@@ -61,7 +61,7 @@ export class LocalStorageService {
         localStorage.clear();
         const headerTitleService = this.injector.get(HeaderTitleService);
         headerTitleService.userName.next('');
-        this.router.navigate(['/auth/login']);
+        this.router.navigate(['/seller/auth/login']);
       });
     console.log('clicked logout');
   }

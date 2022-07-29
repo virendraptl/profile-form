@@ -1,0 +1,107 @@
+<div class="card">
+  <div *ngIf="!submitted; else postSubmit" class="card-body">
+    <form [formGroup]="productForm" (ngSubmit)="submitProduct()">
+      <h5 class="card-title">Product Name:</h5>
+      <input formControlName="prodName" style="width: 100%" type="text" />
+      <small *ngIf="prodName.invalid && prodName.touched"
+        >Name field can not be empty</small
+      >
+      <h5 class="card-title">Product Description:</h5>
+      <textarea
+        formControlName="prodDesc"
+        style="width: 100%"
+        name="desc"
+        id=""
+        cols="30"
+        rows="3"
+      ></textarea>
+      <small *ngIf="prodDesc.invalid && prodDesc.touched"
+        >Description field can not be empty</small
+      >
+      <h5 class="card-title">Product Photos:</h5>
+      <input
+        type="file"
+        class="file-input"
+        multiple
+        (change)="onFileSelected($event)"
+        #fileUpload
+      />
+
+      <div class="file-upload">
+        <div *ngIf="photosArr.length == 0">No photo preview yet</div>
+
+        <ng-container *ngIf="fileName">
+          <ng-container *ngFor="let photo of photosArr; let i = index">
+            <div class="preview-block">
+              <img height="50" [src]="photo" alt="" />
+              <div style="cursor: pointer" title="Delete">
+                <svg
+                  (click)="deletePhoto(i)"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-x-circle dlt-btn"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"
+                  />
+                  <path
+                    d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"
+                  />
+                </svg>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+
+        <button
+          type="button"
+          mat-mini-fab
+          color="primary"
+          class="upload-btn"
+          (click)="fileUpload.click()"
+        >
+          <!-- <mat-icon>attach_file</mat-icon> -->
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="currentColor"
+            class="bi bi-plus"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"
+            />
+          </svg>
+        </button>
+      </div>
+      <div class="submit-block"></div>
+      <button
+        [disabled]="productForm.invalid || totalPhotos.length == 0"
+        class="btn btn-primary"
+      >
+        Submit
+      </button>
+    </form>
+  </div>
+  <ng-template #postSubmit>
+    <div class="post-body">
+      <h1 *ngIf="!created && !failed">Uploading all info for the product...</h1>
+      <mat-progress-bar
+      class="progress-bar"
+        *ngIf="!created && !failed"
+        mode="indeterminate"
+      ></mat-progress-bar>
+      <h1 *ngIf="failed">There is an error: {{ errMessage }}</h1>
+      <h1 *ngIf="created">Product successfully uploaded!!</h1>
+      <h4 *ngIf="created">
+        <a [routerLink]="['/seller/products/details', newProdId]">Click here</a> to see new
+        product details
+      </h4>
+      <h4><a routerLink="/seller/products">Click here</a> to see all products</h4>
+    </div>
+  </ng-template>
+</div>

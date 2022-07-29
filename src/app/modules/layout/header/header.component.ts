@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Renderer2 } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { HeaderTitleService } from 'src/app/services/header-title/header-title.service';
 import { LocalStorageService } from 'src/app/services/local-storage/local-storage.service';
 import { TableDataService } from 'src/app/services/table-data/table-data.service';
@@ -12,9 +12,12 @@ import { PreviousRouteService } from 'src/app/services/previous-route/previous-r
 })
 export class HeaderComponent implements OnInit {
   @Input() btns: string[];
+  @Input() showAvatar: boolean;
   title = '';
   backUrl: string;
   loginUrl: string = '/auth/login';
+
+  hideAvatar: boolean = true;
 
   public count = 0;
 
@@ -48,25 +51,25 @@ export class HeaderComponent implements OnInit {
   }
 
   showList() {
-    this.router.navigate(['/users']);
+    this.router.navigate(['/seller/users']);
   }
 
   showProducts() {
-    this.router.navigate(['/products']);
+    this.router.navigate(['/seller/products']);
   }
 
   newUser() {
-    this.router.navigate(['/users/create']);
+    this.router.navigate(['/seller/users/create']);
   }
-  
-  newProduct(){
-    this.router.navigate(['/products/create']);
+
+  newProduct() {
+    this.router.navigate(['/seller/products/create']);
   }
 
   toProfile() {
     this.table.setData(1, 10);
     this.table.setSearch('');
-    this.router.navigate(['/user/my-profile']);
+    this.router.navigate(['/seller/user/my-profile']);
   }
 
   ngOnInit(): void {
@@ -76,11 +79,22 @@ export class HeaderComponent implements OnInit {
     this.headerTitleService.userName.subscribe((userName) => {
       this.profileData.name = userName;
     });
+
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        let url = this.router.url;
+        if (url.includes('customer')) {
+          this.hideAvatar = false;
+        } else {
+          this.hideAvatar = true;
+        }
+      }
+    });
   }
 
   backBtn() {
     this.backUrl = this.previousRouteService.getPreviousUrl();
-    if (this.backUrl !== '/auth/login') {
+    if (this.backUrl !== '/seller/auth/login') {
       this.router.navigate([this.backUrl]);
     }
   }
