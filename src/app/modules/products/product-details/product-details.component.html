@@ -12,9 +12,16 @@
             </div>
           </ng-container>
         </carousel> -->
-        <div class="img-preview">
+        <div (click)="openFullScreenView(previewUrl)" class="img-preview">
           <img [src]="previewUrl" />
         </div>
+        <ng-image-fullscreen-view
+          [images]="fullviewArr"
+          [imageIndex]="selectedImageIndex"
+          [show]="showFlag"
+          [arrowKeyMove]="false"
+          (close)="closeFullScreenView()"
+        ></ng-image-fullscreen-view>
         <br />
         <carousel
           style="z-index: 0"
@@ -40,8 +47,11 @@
             <h6 class="card-subtitle mb-2 text-muted">
               Uploaded: {{ uploadDate | timeAgo }}
             </h6>
-            <h6 *ngIf="uploadDate != updateDate" class="card-subtitle mb-2 text-muted">
-              Last updated: {{ updateDate | timeAgo }}
+            <h6
+              *ngIf="productData.createdAt != productData.updatedAt"
+              class="card-subtitle mb-2 text-muted"
+            >
+              Last Updated: {{ updateDate | timeAgo }}
             </h6>
             <p class="card-text">
               {{ productData.description }}
@@ -74,16 +84,15 @@
         </div>
       </div>
     </div>
-    
   </div>
 </div>
 
-  <!--  -->
-  <!-- <img
+<!--  -->
+<!-- <img
   mat-card-xl-image
   src="https://material.angular.io/assets/img/examples/shiba2.jpg"
 /> -->
-  <!-- <mat-card>
+<!-- <mat-card>
       <mat-card-title-group>
 
         <div *ngIf="!loading">

@@ -84,7 +84,7 @@
       </div>
     </ng-container>
   </div>
-  <div class="pagination-block" *ngIf="!loading">
+  <div class="pagination-block" *ngIf="!loading && !empty">
     <div>
       <!-- <nav aria-label="...">
         <ul class="pagination">
@@ -106,6 +106,9 @@
         (pageChange)="pageChanged($event)"
       ></pagination-controls>
     </div>
+  </div>
+  <div *ngIf="empty">
+    <p class="empty-block">No Products To Show...</p>
   </div>
 </div>
 

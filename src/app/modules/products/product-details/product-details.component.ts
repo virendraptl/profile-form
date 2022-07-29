@@ -16,6 +16,9 @@ export class ProductDetailsComponent implements OnInit {
   productId: string;
   productData: any;
   productImages: any;
+  fullviewArr = [];
+  showFlag: boolean = false;
+  selectedImageIndex: number = -1;
 
   previewUrl = '';
   uploadDate;
@@ -43,6 +46,9 @@ export class ProductDetailsComponent implements OnInit {
         this.loading = false;
         this.productData = data;
         this.productImages = data['images'];
+        this.productImages.forEach((img) => {
+          this.fullviewArr.push({ image: img.url });
+        });
         this.previewUrl = this.productImages[0].url;
         this.uploadDate = new Date(this.productData.createdAt);
         this.updateDate = new Date(this.productData.updatedAt);
@@ -87,7 +93,19 @@ export class ProductDetailsComponent implements OnInit {
       },
     });
   }
+
+  openFullScreenView(previewUrl) {
+    this.selectedImageIndex = this.fullviewArr.indexOf(previewUrl);
+    this.showFlag = true;
+  }
+
+  closeFullScreenView() {
+    this.showFlag = false;
+    this.selectedImageIndex = -1;
+  }
 }
 
 // carousel http://ivylab.space/carousel/demo
 // https://github.com/ivylaboratory/angular-carousel
+
+// extra: https://lukasz-galka.github.io/ngx-gallery-demo/

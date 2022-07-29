@@ -91,6 +91,7 @@
     <div class="post-body">
       <h1 *ngIf="!created && !failed">Uploading all info for the product...</h1>
       <mat-progress-bar
+      class="progress-bar"
         *ngIf="!created && !failed"
         mode="indeterminate"
       ></mat-progress-bar>

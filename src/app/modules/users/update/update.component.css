@@ -109,6 +109,9 @@ input:-webkit-autofill {
   border-radius: 20px;
   height: 450px;
   /* height: 70vh; */
+  -webkit-box-shadow: 8px 12px 42px -2px rgba(179, 179, 179, 1);
+  -moz-box-shadow: 8px 12px 42px -2px rgba(179, 179, 179, 1);
+  box-shadow: 8px 12px 42px -2px rgba(179, 179, 179, 1);
 }
 
 p,
@@ -146,4 +149,6 @@ input.example-right-align {
   -moz-appearance: textfield;
 }
 
-.grecaptcha-badge { display: none; }
+.grecaptcha-badge {
+  display: none;
+}

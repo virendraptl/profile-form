@@ -19,7 +19,7 @@ export class HeaderComponent implements OnInit {
   public count = 0;
 
   avatarStyle = {
-    fontSize: '20px',
+    fontSize: '15px',
     fontWeight: '600',
     border: '2px solid #ccc',
   };

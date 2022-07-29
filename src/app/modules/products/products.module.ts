@@ -8,19 +8,22 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
 import { NgxCarouselModule } from 'ngx-light-carousel';
 import { ProductCreateComponent } from './product-create/product-create.component';
 import { ProductUpdateComponent } from './product-update/product-update.component';
+import { NgImageFullscreenViewModule } from 'ng-image-fullscreen-view';
+
 
 @NgModule({
   declarations: [
     ProductListComponent,
     ProductDetailsComponent,
     ProductCreateComponent,
-    ProductUpdateComponent
+    ProductUpdateComponent,
   ],
   imports: [
     CommonModule,
     ProductsRoutingModule,
     SharedModule,
-    NgxCarouselModule
-  ]
+    NgxCarouselModule,
+    NgImageFullscreenViewModule,
+  ],
 })
-export class ProductsModule { }
+export class ProductsModule {}

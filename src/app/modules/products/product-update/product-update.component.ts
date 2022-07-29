@@ -19,8 +19,8 @@ export class ProductUpdateComponent implements OnInit {
   photosArr = [];
   prevPhotos = [];
   newPhotos = [];
-  fileName = '';
   imgFlag = [[], []];
+  fileName = '';
   previousCount: number;
   finalCount = 0;
   countError = false;
@@ -105,7 +105,7 @@ export class ProductUpdateComponent implements OnInit {
     this.imgFlag[1].forEach((flag, i) => {
       if (flag == false) {
         photopass = true;
-        console.log('new photo:',this.newPhotos[i].name);
+        console.log('new photo:', this.newPhotos[i].name);
         formData.append('new_images', this.newPhotos[i]);
       }
     });
@@ -154,5 +154,14 @@ export class ProductUpdateComponent implements OnInit {
           },
         });
     }
+  }
+
+  resetData() {
+    this.photosArr = [];
+    this.prevPhotos = [...this.currentData['images']];
+    this.newPhotos = [];
+    this.imgFlag = [[], []];
+    this.createForm();
+    this.updateImgFlag();
   }
 }

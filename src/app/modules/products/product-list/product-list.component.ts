@@ -14,6 +14,7 @@ export class ProductListComponent implements OnInit {
   p: number = 1;
   totalData;
   loading:boolean = true;
+  empty:boolean = false;
   autoHover = [];
 
   public productsArr;
@@ -39,6 +40,10 @@ export class ProductListComponent implements OnInit {
       .subscribe((data) => {
         this.totalData = data;
         this.productsArr = [...data['results']];
+        if(this.productsArr.length == 0){
+          console.log('no products to show;');
+          this.empty = true;
+        }
         console.log('Products data:', this.productsArr);
         this.loading = false;
       });

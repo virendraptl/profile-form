@@ -16,12 +16,13 @@ h5 {
 }
 
 .card-body {
+  padding: 20px 40px;
   /* display: flex; */
   /* flex-direction: column; */
 }
 
 .post-body {
-  padding: 20px;
+  /* padding: 20px; */
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -64,12 +65,34 @@ img {
   align-items: center;
 }
 
-h1,
+h1 {
+  color: #02012b;
+  margin: 40px;
+  font-weight: bold;
+  font-size: 25px;
+}
+
 h4 {
   color: #02012b;
   margin: 40px;
+  font-weight: bold;
+  font-size: 20px;
 }
 
 textarea{
   border-radius: 5px;
+}
+
+.progress-bar{
+  width: 100%;
+}
+
+a:link {
+  color: #686886;
+  /* text-decoration: none; */
+}
+
+a:visited {
+  color: #090979;
+  text-decoration: none;
 }

@@ -163,7 +163,7 @@
       </div>
       <div class="submit-block">
         <button type="button" [disabled]="updateForm.invalid" (click)="productUpdate()" class="btn btn-primary">Update</button>
-        <button type="button" class="btn btn-light">Reset</button>
+        <button type="button" (click)="resetData()" class="btn btn-light">Reset</button>
       </div>
       <small *ngIf="countError">Need at least 1 photo for the product</small>
     </div>
