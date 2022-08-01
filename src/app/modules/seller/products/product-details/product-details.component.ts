@@ -26,6 +26,9 @@ export class ProductDetailsComponent implements OnInit {
   updateDate;
   dialogRef: MatDialogRef<ConfirmationDialogComponent>;
 
+  isSubmitted:boolean = false;
+  isUpdated:boolean = false;
+
   sliderOptions: any;
 
   constructor(
@@ -130,3 +133,5 @@ export class ProductDetailsComponent implements OnInit {
 
 // extra: https://lukasz-galka.github.io/ngx-gallery-demo/
 // extra: http://kenwheeler.github.io/slick/
+
+// fullscreen preview: https://www.npmjs.com/package/ng-image-fullscreen-view

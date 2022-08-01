@@ -60,17 +60,17 @@ export class AppComponent implements OnInit {
     if (
       this.url.includes('/seller/auth/login') ||
       this.url.includes('/seller/auth/register') ||
-      this.url.includes('/seller/auth/verify-email')
+      this.url.includes('/seller/verify-email')
     ) {
       this.showHeader = false;
     }else{
       this.showHeader = true;
     }
 
-    if(this.url.includes('customer') || this.url == '/'){
-      this.showAvatar = false;
-    }else{
+    if(this.url.includes('seller')){
       this.showAvatar = true;
+    }else{
+      this.showAvatar = false;
     }
   }
 }

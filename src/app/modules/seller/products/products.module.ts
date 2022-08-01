@@ -7,7 +7,6 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
 import { NgxCarouselModule } from 'ngx-light-carousel';
 import { ProductCreateComponent } from './product-create/product-create.component';
 import { ProductUpdateComponent } from './product-update/product-update.component';
-import { NgImageFullscreenViewModule } from 'ng-image-fullscreen-view';
 import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
@@ -21,8 +20,7 @@ import { SharedModule } from '../../shared/shared.module';
     CommonModule,
     ProductsRoutingModule,
     SharedModule,
-    NgxCarouselModule,
-    NgImageFullscreenViewModule,
+
   ],
 })
 export class ProductsModule {}

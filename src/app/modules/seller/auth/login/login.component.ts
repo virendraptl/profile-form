@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.executeImportantAction();
-    console.log('captcha token: ',this.captchaToken);
+    console.log('captcha token: ', this.captchaToken);
     let checkToken = this.lstore.getToken();
     if (checkToken) {
       this.router.navigate(['seller/user/my-profile']);
@@ -144,7 +144,9 @@ export class LoginComponent implements OnInit {
         [
           Validators.required,
           Validators.minLength(8),
-          Validators.pattern('^(?=.*[A-Za-z])(?=.*[0-9])([A-Za-z0-9]+)$'),
+          Validators.pattern(
+            '^(?=.*[A-Za-z])(?=.*[0-9])([A-Za-z0-9$@$!%.+=^)(\\*?&#_-]+)$'
+          ),
         ],
       ],
       captcha: [''],
@@ -217,7 +219,7 @@ export class LoginComponent implements OnInit {
 
   public executeImportantAction(): void {
     this.recaptchaV3Service.execute('importantAction').subscribe((token) => {
-      console.log('Captcha token is: ',token);
+      console.log('Captcha token is: ', token);
       this.captchaToken = token;
     });
   }
@@ -260,10 +262,4 @@ export class LoginComponent implements OnInit {
 
 // https://stackoverflow.com/questions/46349459/chrome-neterr-cert-authority-invalid-error-on-self-signing-certificate-at-loca
 
-// eyJhbGciOiJSUzI1NiIsImtpZCI6IjFiZDY4NWY1ZThmYzYyZDc1ODcwNWMxZWIwZThhNzUyNGM0NzU5NzUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJuYmYiOjE2NTc1OTkxNzAsImF1ZCI6Ijg5MzkxMzgwNTIwMi1yZzdvNnNvbWN0cTIxaWtlNmRrMXUwZDY5NnQ2NGUwcS5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbSIsInN1YiI6IjEwOTQ4OTQxODM0NDQ5OTA1NDcwNCIsImVtYWlsIjoidmlyZW5kcmEucGF0aWwyNTNAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImF6cCI6Ijg5MzkxMzgwNTIwMi1yZzdvNnNvbWN0cTIxaWtlNmRrMXUwZDY5NnQ2NGUwcS5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbSIsIm5hbWUiOiJWaXJlbmRyYSIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BSXRidm1rQTF5LTg4dTJHc3pBU2pUSjgwWDRWUlRCUTdVTHpNaEpNZkg5YWlRPXM5Ni1jIiwiZ2l2ZW5fbmFtZSI6IlZpcmVuZHJhIiwiaWF0IjoxNjU3NTk5NDcwLCJleHAiOjE2NTc2MDMwNzAsImp0aSI6IjMzNzc5NjEwOTAyZTgxZjM2MDE5YzA1OTYyYTcwOGYyOTlhNTEzNGQifQ.Ym_mhtdAlkIvQGq5Xa5gaqHBCdzjl6UY1YRJ8ACkc4egnPh-zkev0aJ3SXdMZVUffcI7XQCEPtD7Xp5atcMC7ma8n-ATkoHZPUoxkFwbgL93mOm1mLX2H5Y1SbpzTQDZioPeyExaAKA0l4fFMA-RIVlwtQsHEWdsFz7IC0mwWu-tYWpSllPlN1eKbmGhBVRrm2tIjL0lQbqwMyApIoU8Vgj7Qp8AKBxMHKBmEOLBwpYQ_0pj481Ar9hESkQZzstbclFSFOk4mCJzUE3xnEI688MLT7qHMuaj-yALawpkBLpzYSMrG9r7Uu-SL_tJUzJsWAbBBfGJhMMWik9wqUHcCg
-
-// eyJhbGciOiJSUzI1NiIsImtpZCI6IjFiZDY4NWY1ZThmYzYyZDc1ODcwNWMxZWIwZThhNzUyNGM0NzU5NzUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJuYmYiOjE2NTc1OTkyMDAsImF1ZCI6Ijg5MzkxMzgwNTIwMi1yZzdvNnNvbWN0cTIxaWtlNmRrMXUwZDY5NnQ2NGUwcS5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbSIsInN1YiI6IjEwOTQ4OTQxODM0NDQ5OTA1NDcwNCIsImVtYWlsIjoidmlyZW5kcmEucGF0aWwyNTNAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImF6cCI6Ijg5MzkxMzgwNTIwMi1yZzdvNnNvbWN0cTIxaWtlNmRrMXUwZDY5NnQ2NGUwcS5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbSIsIm5hbWUiOiJWaXJlbmRyYSIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BSXRidm1rQTF5LTg4dTJHc3pBU2pUSjgwWDRWUlRCUTdVTHpNaEpNZkg5YWlRPXM5Ni1jIiwiZ2l2ZW5fbmFtZSI6IlZpcmVuZHJhIiwiaWF0IjoxNjU3NTk5NTAwLCJleHAiOjE2NTc2MDMxMDAsImp0aSI6IjdiOGQ2NjJhZjUwOTAwYzM5ZTY5ODBmZmVmMGE3YTY0Njk1MTRjY2QifQ.BzTBDa6rVTCLN8nj4lpEgGDNFWhYFdSUyb8-_qRZlD6k94VZAy6dFWFVO6AmCmDNU2entMWlBjVizGdeHnVdYF3EDdZXOiILAV9j8MZ0qr-3O91UhTIrd51f3HBE1hZYVyMjmrHVpze6s5sEYTc0vzlaCBYlzGkCuUOxkbZ1R4pcihqiDpHvU4PFug4mcwQKoaGjJc9aQPoeJiuLM1xvU0Ce2On9ZyxlEcBO48-q35yXCmp7kP2Qbs1bWef3shFjrTmWsZ0vNoEHBr_MLkek4so8BiBk3YikjsrOtaCvPTkda1OA7-xPFkjpV1NY2rRsl70crjujAZtiGXOO2cBpVQ
-
-// EAAFMf9J4GGIBAJA9P4uevlftCLViinwLoKXpZC4VfnKfZCsZAt8VCP8IZBhXCPzY6tYVFkZBpDYujepvZCyNP2nYnXuVUTqLiRMAzXeuaszLyEzVZCUtolgZBYsHgCJP4dLP9SYT6l0ZClZATuMOLxwGEzh2hPEtNnyaoLDH6yxogl7o937crzVl3ZBZA5SR1K8BvqUJPCAdZCWbdWTZAYKzmHbrsO
-
-// EAAFMf9J4GGIBAALKdBEFIbRmsorUItqUaiZBsmQvDS6sBJGHCAA74mD2CpRQi0fgll6ZAoHv225RyZAqJVvOz6J75nDQoY4AvqB5Mddlh0xwLOY0jZCMFl3xZBZA2pZCAzg9ZCoRItZCALAdDE86BxSK8uzTfmXOc64Rkn7oZAkq6OupZAJoXJjDbFN7ZCUjTjqJAWRoZCxtBkt2FXFFzR04iU0cs
+// regex for password:  '^(?=.*[A-Za-z])(?=.*[0-9])([A-Za-z0-9$@$!%\.\+\=\^\)\(\\*?&#_-]+)$'

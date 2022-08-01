@@ -1,0 +1,123 @@
+@import url("https://fonts.googleapis.com/css2?family=Square+Peg&display=swap");
+
+/* font-family: 'Square Peg', cursive;
+ */
+
+.banner {
+  padding: 20px;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  display: inline-block;
+  position: relative;
+  width: 200px;
+  margin: 20px 20px;
+  -webkit-box-shadow: 8px 12px 42px -2px rgba(179, 179, 179, 1);
+  -moz-box-shadow: 8px 12px 42px -2px rgba(179, 179, 179, 1);
+  box-shadow: 8px 12px 42px -2px rgba(179, 179, 179, 1);
+}
+
+.previewimg {
+  /* z-index: -1; */
+  /* padding-top: 10px; */
+  /* padding-right: 10px; */
+}
+
+.products-block {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+a:link {
+  color: #090979;
+  text-decoration: none;
+}
+
+a:visited {
+  color: #090979;
+  text-decoration: none;
+}
+
+.pagination-block {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+img {
+  background-image: url("https://via.placeholder.com/150");
+}
+
+.dlt-btn {
+  color: rgb(255, 111, 111);
+  /* background-color: aqua; */
+  position: absolute;
+  top: -20px;
+  right: 0;
+}
+
+.carousel-block {
+  z-index: 0;
+}
+
+.image-area img {
+  max-width: 100%;
+  height: auto;
+}
+.remove-image {
+  z-index: 1;
+  display: none;
+  position: absolute;
+  bottom: -1px;
+  right: -1px;
+  cursor: pointer;
+  /* border: 1px solid #090979; */
+  border-radius: 0.25rem;
+  padding: 2px 6px 3px;
+  text-decoration: none;
+  font: 700 21px/20px sans-serif;
+  background: rgb(108, 153, 250);
+  /* border: 3px solid #fff; */
+  color: rgb(255, 255, 255);
+  -webkit-transition: background 0.5s;
+  transition: background 0.5s;
+}
+.remove-image:hover {
+  background: #2d77bd;
+  color: #fff;
+  padding: 3px 7px 5px;
+  /* top: -11px;
+  right: -11px; */
+  bottom: -1px;
+  right: -1px;
+}
+.remove-image:active {
+  background: #005eb6;
+  color: #fff;
+
+  /* top: -10px;
+  right: -11px; */
+  bottom: -1px;
+  right: -1px;
+}
+
+.empty-block {
+  font-family: "Square Peg", cursive;
+
+  padding: 40px;
+  font-size: 100px;
+  color: rgb(187, 187, 187);
+  opacity: 0.5;
+}
+
+.card-text {
+  margin: 0 10px 10px 0;
+  cursor: default;
+}

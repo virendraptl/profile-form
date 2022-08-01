@@ -25,6 +25,9 @@ export class ProductUpdateComponent implements OnInit {
   finalCount = 0;
   countError = false;
 
+  isSubmitted: boolean = false;
+  isUpdated: boolean = false;
+
   constructor(
     private fb: FormBuilder,
     private http: HttpService,
@@ -114,9 +117,11 @@ export class ProductUpdateComponent implements OnInit {
         next: (data) => {
           console.log('Product images update done!!');
           this.toasterService.success('Product update done!!');
+          // this.isUpdated = true;
           this.router.navigate([`/seller/products/details/${this.currentId}`]);
         },
         error: (err) => {
+          this.isSubmitted = false;
           this.toasterService.error(`Error: ${err.message}`);
         },
       });
@@ -127,6 +132,7 @@ export class ProductUpdateComponent implements OnInit {
   }
 
   productUpdate() {
+    this.isSubmitted = true;
     this.imgFlag[0].forEach((flag) => {
       if (flag == true) {
         this.finalCount++;

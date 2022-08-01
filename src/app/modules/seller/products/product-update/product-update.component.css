@@ -15,6 +15,22 @@
   box-shadow: 0px 3px 24px -5px rgba(0, 0, 0, 0.75);
 }
 
+.post-card {
+  width: 880px;
+  min-width: 880px;
+  height: auto;
+  margin: 10px 20px;
+  display: flex;
+    justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  flex-direction: column;
+  -webkit-box-shadow: 0px 3px 24px -5px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 3px 24px -5px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 3px 24px -5px rgba(0, 0, 0, 0.75);
+}
+
+
 .info-card {
   height: auto;
   padding: 0;
@@ -124,5 +140,12 @@ img {
 }
 
 h5{
+  font-weight: bold;
+}
+
+.post-title {
+  margin: 50px;
+  font-size: 35px;
+  color: #090979;
   font-weight: bold;
 }

@@ -1,32 +1,46 @@
-.page{
-    height: 100vh;
-    width: 100vw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgb(2,0,36);
-background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 46%, rgb(65, 139, 189) 100%);
+.page {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    90deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(9, 9, 121, 1) 46%,
+    rgb(65, 139, 189) 100%
+  );
 }
 
-.banner{
-    color: #090979;
-    width: 500px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    background-color: rgb(243, 243, 243);
-    border-radius: 20px;
-    padding: 20px;
-    height: 330px;
+.banner {
+  color: #090979;
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  background-color: rgb(243, 243, 243);
+  border-radius: 20px;
+  /* padding: 20px; */
+  height: 330px;
+  -webkit-box-shadow: 0px 3px 24px -5px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 3px 24px -5px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 3px 24px -5px rgba(0, 0, 0, 0.75);
 }
 
-.error-msg{
-    color: red;
+.error-msg {
+  color: red;
 }
 
-.btn{
-    color: white;
-    background-color: #090979;
-    font-weight: bold;
+.btn {
+  color: white;
+  background-color: #090979;
+  font-weight: bold;
+}
+
+h2,
+h4 {
+  font-weight: bold;
+  margin-bottom: 20px;
 }

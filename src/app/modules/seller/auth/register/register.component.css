@@ -30,7 +30,7 @@ p {
   background-color: rgb(243, 243, 243);
   /* border: 2px solid grey; */
   border-radius: 20px;
-  padding: 20px;
+  /* padding: 20px; */
   height: 510px;
 }
 input {
@@ -38,7 +38,7 @@ input {
 }
 
 input:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0px 1000px #f3f3f3 inset !important;
+  -webkit-box-shadow: 0 0 0px 1000px #f3f3f3 inset !important;
 }
 
 .page {
@@ -122,4 +122,10 @@ input.example-right-align {
   font-weight: bold;
   font-size: 18px;
   margin: 0;
+}
+
+h2,
+h4 {
+  font-weight: bold;
+  margin: 20px;
 }

@@ -1,1 +1,95 @@
-<h1>Bhaw!</h1>
+<ng-container *ngIf="loading">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</ng-container>
+<div class="banner">
+  <div *ngIf="!loading" class="products-block">
+    <ng-container *ngFor="let product of productsArr; let i = index">
+      <div
+        (mouseenter)="autoHover[i] = true"
+        (mouseleave)="autoHover[i] = false"
+        class="card"
+        style="width: 192px; height: 240px"
+      >
+        <carousel
+          [arrows]="autoHover[i]"
+          class="carousel-block"
+          objectFit="cover"
+          [width]="192"
+          [height]="130"
+          [margin]="15"
+          [cellWidth]="192"
+        >
+          <ng-container
+            *ngFor="
+              let img of product['images']
+                | paginate
+                  : {
+                      id: 'my-pg',
+                      itemsPerPage: totalData.limit,
+                      currentPage: totalData.page,
+                      totalItems: totalData.totalResults
+                    }
+            "
+          >
+            <div class="carousel-cell previewimg">
+              <img [src]="img.url" />
+            </div>
+          </ng-container>
+        </carousel>
+        <div class="card-body">
+          <h5 class="card-title">
+            <a
+              class="prod-title"
+              [routerLink]="['/details', product._id]"
+              >{{ product.name }}</a
+            >
+          </h5>
+          <p class="card-text">
+            {{ product.description | shorten: 38:"..." }}
+          </p>
+        </div>
+        <!-- <a
+          title="Delete"
+          class="remove-image"
+
+          style="display: inline"
+          >&#215;</a
+        > -->
+        <div (click)="addToCart(product)" title="Add to Cart" class="remove-image" style="display: inline">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-cart-plus-fill"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0z"
+            />
+          </svg>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <div class="pagination-block" *ngIf="!loading && !empty">
+    <div>
+      <pagination-controls
+        id="my-pg"
+        (pageChange)="pageChanged($event)"
+      ></pagination-controls>
+    </div>
+  </div>
+  <div *ngIf="empty">
+    <p class="empty-block">No Products To Show...</p>
+  </div>
+</div>
+
+<!-- <mat-card [routerLink]="['/products/details', product._id]"  class="card">
+    <img mat-card-image [src]="product['images'][0]['url']" alt="" />
+    <mat-card-header>
+      <mat-card-title>{{product.name}}</mat-card-title>
+      <mat-card-subtitle>{{product.description}}</mat-card-subtitle>
+    </mat-card-header>
+  </mat-card> -->
+<!-- || 'https://via.placeholder.com/150' -->

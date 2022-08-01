@@ -23,7 +23,7 @@ export class UpdateComponent implements OnInit {
     private fb: FormBuilder,
     private http: HttpService,
     private activatedRoute: ActivatedRoute,
-    private headerTitleService: HeaderTitleService,
+    private headerTitleService: HeaderTitleService
   ) {
     this.headerTitleService.setTitle('Update User Info');
   }
@@ -55,7 +55,9 @@ export class UpdateComponent implements OnInit {
         [
           Validators.required,
           Validators.minLength(8),
-          Validators.pattern('^(?=.*[A-Za-z])(?=.*[0-9])([A-Za-z0-9]+)$'),
+          Validators.pattern(
+            '^(?=.*[A-Za-z])(?=.*[0-9])([A-Za-z0-9$@$!%.+=^)(\\*?&#_-]+)$'
+          ),
         ],
       ],
     });

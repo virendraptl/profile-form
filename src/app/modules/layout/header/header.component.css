@@ -23,7 +23,17 @@ header {
   color: white;
   font-weight: bolder;
   height: 40px;
-  border-radius: 100vmax;
+  /* border-radius: 100vmax; */
+}
+
+.count{
+  width: 20px;
+height: 20px;
+margin-top: 2px;
+font-size: 12.5px;
+display: flex;
+justify-content: center;
+align-items: center;
 }
 
 .profile-block {
@@ -57,6 +67,7 @@ header {
 } */
 
 .header-title {
+  cursor: default;
   margin-left: 0;
   font-size: 30px;
   font-weight: bold;
@@ -89,6 +100,20 @@ header {
   align-items: center;
 }
 
+.cart-block {
+  width: 40px;
+  height: 40px;
+  /* border-radius: 5px; */
+  /* background-color: #020224; */
+  font-weight: bolder;
+  margin: 0 30px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .menu-title {
   text-align: center;
   pointer-events: none;
@@ -96,7 +121,7 @@ header {
   margin: 0;
 }
 
-.settings-icon{
+.settings-icon {
   font-size: 60px;
   width: 60px;
   height: 60px;
@@ -107,7 +132,7 @@ header {
   /* transform: scale(3); */
 }
 
-.test{
+.test {
   background-color: red;
   width: 80px;
   height: 40px;

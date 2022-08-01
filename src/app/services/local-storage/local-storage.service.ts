@@ -1,6 +1,7 @@
 import { SocialAuthService } from '@abacritt/angularx-social-login';
 import { Injectable, Injector } from '@angular/core';
 import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 import { HeaderTitleService } from '../header-title/header-title.service';
 import { SocialStateService } from '../social-state-service/social-state.service';
 import { TableDataService } from '../table-data/table-data.service';
@@ -8,6 +9,8 @@ import { TableDataService } from '../table-data/table-data.service';
   providedIn: 'root',
 })
 export class LocalStorageService {
+  cartCount = new BehaviorSubject(0);
+
   constructor(
     private router: Router,
     private table: TableDataService,
@@ -61,8 +64,17 @@ export class LocalStorageService {
         localStorage.clear();
         const headerTitleService = this.injector.get(HeaderTitleService);
         headerTitleService.userName.next('');
-        this.router.navigate(['/seller/auth/login']);
+        this.router.navigate(['seller/auth/login']);
       });
     console.log('clicked logout');
+  }
+
+  setCartData(data) {
+    localStorage.setItem('cart-data', JSON.stringify(data));
+    this.cartCount.next(data.length);
+  }
+
+  getCartData() {
+    return JSON.parse(localStorage.getItem('cart-data'));
   }
 }

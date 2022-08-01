@@ -3,7 +3,7 @@
     <mat-progress-bar mode="indeterminate"></mat-progress-bar>
   </ng-container>
   <div class="page" *ngIf="!loading">
-    <div class="card main-card">
+    <div *ngIf="!isSubmitted; else postSubmit" class="card main-card">
       <div class="info-card">
         <div class="details-block">
           <form [formGroup]="updateForm">
@@ -178,5 +178,18 @@
       </div>
       <small *ngIf="countError">Need at least 1 photo for the product</small>
     </div>
+    <ng-template #postSubmit>
+      <div class="card post-card">
+        <p class="post-title">Updating a product...</p>
+        <ng-container>
+          <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        </ng-container>
+        <!-- <p class="post-title" *ngIf="!isUpdated">Product updated!</p>
+        <p class="post-text">
+          <a href="">Click here</a> to see the updated product
+        </p>
+        <p class="post-text"><a href="">Click here</a> to see all products</p> -->
+      </div>
+    </ng-template>
   </div>
 </div>

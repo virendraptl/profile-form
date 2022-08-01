@@ -22,6 +22,8 @@ import { CoolSocialLoginButtonsModule } from '@angular-cool/social-login-buttons
 import { IvyCarouselModule } from 'angular-responsive-carousel';
 import { NgPipesModule } from 'ngx-pipes';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { NgxCarouselModule } from 'ngx-light-carousel';
+import { NgImageFullscreenViewModule } from 'ng-image-fullscreen-view';
 
 
 @NgModule({
@@ -48,6 +50,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     IvyCarouselModule,
     NgPipesModule,
     NgxPaginationModule,
+    NgxCarouselModule,
+    NgImageFullscreenViewModule,
   ],
 })
 export class SharedModule {}

@@ -14,7 +14,7 @@ export class RegisterComponent implements OnInit {
   errorMessage: string | undefined;
   isRegistered: boolean;
   hide: boolean = true;
-  captchaToken: string ;
+  captchaToken: string;
   mailSent: boolean = false;
   mailNotSent: boolean = false;
   mailError: string;
@@ -51,7 +51,9 @@ export class RegisterComponent implements OnInit {
         [
           Validators.required,
           Validators.minLength(8),
-          Validators.pattern('^(?=.*[A-Za-z])(?=.*[0-9])([A-Za-z0-9]+)$'),
+          Validators.pattern(
+            '^(?=.*[A-Za-z])(?=.*[0-9])([A-Za-z0-9$@$!%.+=^)(\\*?&#_-]+)$'
+          ),
         ],
       ],
       captcha: [''],
@@ -153,7 +155,6 @@ export class RegisterComponent implements OnInit {
       this.captchaToken = token;
     });
   }
- 
 }
 
 // http://localhost:4200/verify-email?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MmE3MDU1Y2Q1N2UyNmJjMDNkZDgxYWYiLCJpYXQiOjE2NTUxMTM1NTcsImV4cCI6MTY1NTExNzE1NywidHlwZSI6InZlcmlmeUVtYWlsIn0.G-1cSGNyanrUWfjSvWFrgEc6ngltQdZHYgPuuz4pUL8

@@ -37,6 +37,8 @@ export class HeaderComponent implements OnInit {
   // isMatMenu2Open: boolean = false;
   prevButtonTrigger;
 
+  cartCount:number;
+
   constructor(
     private headerTitleService: HeaderTitleService,
     private lstore: LocalStorageService,
@@ -79,6 +81,10 @@ export class HeaderComponent implements OnInit {
     this.headerTitleService.userName.subscribe((userName) => {
       this.profileData.name = userName;
     });
+
+    this.lstore.cartCount.subscribe((count) => {
+      this.cartCount = count;
+    })
 
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
