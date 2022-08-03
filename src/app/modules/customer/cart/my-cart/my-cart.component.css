@@ -1,0 +1,53 @@
+.page {
+  padding: 20px;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-card {
+  width: 880px;
+  min-width: 880px;
+  height: auto;
+  padding: 20px;
+  margin: 10px 20px;
+  display: flex;
+
+  border-radius: 5px;
+  flex-direction: column;
+
+  -webkit-box-shadow: 0px 3px 24px -5px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 3px 24px -5px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 3px 24px -5px rgba(0, 0, 0, 0.75);
+}
+
+.carousel-block {
+  z-index: 0;
+}
+
+.btn-link,
+btn-link:active,
+btn-link:focus {
+  padding: 0;
+  border: none;
+}
+
+a:link {
+  color: #090979;
+  text-decoration: none;
+}
+
+a:visited {
+  color: #090979;
+  text-decoration: none;
+}
+
+.empty-block{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  font-size: 50px;
+  color: grey;
+  opacity: 0.5;
+}

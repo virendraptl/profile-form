@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HeaderTitleService } from 'src/app/services/header-title/header-title.service';
 import { HttpService } from 'src/app/services/http/http.service';
+import { PreviousRouteService } from 'src/app/services/previous-route/previous-route.service';
 
 @Component({
   selector: 'app-update',
@@ -23,12 +24,16 @@ export class UpdateComponent implements OnInit {
     private fb: FormBuilder,
     private http: HttpService,
     private activatedRoute: ActivatedRoute,
+    public previousRouteService: PreviousRouteService,
+
     private headerTitleService: HeaderTitleService
   ) {
     this.headerTitleService.setTitle('Update User Info');
   }
 
   ngOnInit(): void {
+    this.previousRouteService.setDefPrevUrl('/seller/users');
+
     this.currentId = this.activatedRoute.snapshot.paramMap.get('id');
     this.tempurl = `users/${this.currentId}`;
     console.log('User id for preload req: ', this.currentId);

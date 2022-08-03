@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { HeaderTitleService } from 'src/app/services/header-title/header-title.service';
 import { HttpService } from 'src/app/services/http/http.service';
 import { LocalStorageService } from 'src/app/services/local-storage/local-storage.service';
+import { PreviousRouteService } from 'src/app/services/previous-route/previous-route.service';
 
 @Component({
   selector: 'app-profile',
@@ -12,7 +13,7 @@ import { LocalStorageService } from 'src/app/services/local-storage/local-storag
 export class ProfileComponent implements OnInit {
   tempToken: string;
   profileData: any;
-  errorMsg:any;
+  errorMsg: any;
   avatarStyle = {
     cursor: 'pointer',
   };
@@ -20,12 +21,14 @@ export class ProfileComponent implements OnInit {
   constructor(
     private http: HttpService,
     private lstore: LocalStorageService,
-    private headerTitleService: HeaderTitleService,
+    public previousRouteService: PreviousRouteService,
+    private headerTitleService: HeaderTitleService
   ) {
     this.headerTitleService.setTitle('Profile');
   }
 
   ngOnInit(): void {
+    this.previousRouteService.setDefPrevUrl('/seller/user/my-profile');
     this.http.get('auth/self').subscribe({
       next: (res: any) => {
         this.profileData = res;
@@ -35,7 +38,7 @@ export class ProfileComponent implements OnInit {
       error: (err) => {
         console.log('Page could not load:', err.message);
         this.errorMsg = err.message;
-      }
+      },
     });
   }
 

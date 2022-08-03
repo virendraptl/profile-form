@@ -13,6 +13,7 @@ import { Subscription } from 'rxjs';
 import { LocalStorageService } from 'src/app/services/local-storage/local-storage.service';
 import { HeaderTitleService } from 'src/app/services/header-title/header-title.service';
 import { HotToastService } from '@ngneat/hot-toast';
+import { PreviousRouteService } from 'src/app/services/previous-route/previous-route.service';
 
 @Component({
   selector: 'app-list',
@@ -60,7 +61,8 @@ export class ListComponent implements OnInit {
     private lstore: LocalStorageService,
     private toastr: ToastrService,
     private headerTitleService: HeaderTitleService,
-    private toasterService: HotToastService
+    private toasterService: HotToastService,
+    public previousRouteService: PreviousRouteService
   ) {
     this.headerTitleService.setTitle('Users List');
     this.http.get('auth/self').subscribe({
@@ -72,6 +74,7 @@ export class ListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.previousRouteService.setDefPrevUrl('/seller/user/my-profile');
     [this.pageIndex, this.pageSize] = this.table.getData();
     this.rendertable(this.tempUrl, this.pageIndex, this.pageSize);
   }
@@ -169,16 +172,11 @@ export class ListComponent implements OnInit {
     let term = (event.target as HTMLInputElement).value.toLowerCase();
     this.table.setSearch(term);
     this.searchTerm = term;
-    let startTime = performance.now();
     this.searchResult(term);
-    let endTime = performance.now();
-    console.log('TIme to search: ', endTime - startTime);
     // this.searchTest(term);
   }
 
-  searchTest(term:string){
-
-  }
+  searchTest(term: string) {}
 
   searchResult(term: string) {
     this.dataSource = [...this.dataCopy];

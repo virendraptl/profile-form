@@ -50,11 +50,11 @@ export class AppComponent implements OnInit {
       !this.url.includes('update') &&
       !this.url.includes('create')
     ) {
-      this.btns = ['back-profile', 'new', 'logout'];
+      this.btns = ['back-profile', 'new', 'products', 'logout'];
     } else if (this.url.includes('products/details')) {
       this.btns = ['back-products', 'logout'];
     } else if (this.url.includes('products')) {
-      this.btns = ['back-profile', 'new-product', 'logout'];
+      this.btns = ['back-profile', 'new-product', 'list', 'logout'];
     }
 
     if (

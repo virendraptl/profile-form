@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HeaderTitleService } from 'src/app/services/header-title/header-title.service';
 import { HttpService } from 'src/app/services/http/http.service';
+import { PreviousRouteService } from 'src/app/services/previous-route/previous-route.service';
 
 @Component({
   selector: 'app-product-create',
@@ -9,11 +10,11 @@ import { HttpService } from 'src/app/services/http/http.service';
   styleUrls: ['./product-create.component.css'],
 })
 export class ProductCreateComponent implements OnInit {
-  submitted:boolean = false;
-  created:boolean = false;
-  failed:boolean = false;
-  newProdId:string;
-  errMessage:string;
+  submitted: boolean = false;
+  created: boolean = false;
+  failed: boolean = false;
+  newProdId: string;
+  errMessage: string;
   fileName = '';
   photosArr = [];
   totalPhotos: File[] = [];
@@ -22,12 +23,16 @@ export class ProductCreateComponent implements OnInit {
   constructor(
     private headerTitleService: HeaderTitleService,
     private http: HttpService,
+    public previousRouteService: PreviousRouteService,
+
     private fb: FormBuilder
   ) {
     this.headerTitleService.setTitle('Add New Product');
   }
 
   ngOnInit(): void {
+    this.previousRouteService.setDefPrevUrl('/seller/products');
+
     this.productForm = this.fb.group({
       prodName: ['', Validators.required],
       prodDesc: ['', Validators.required],
@@ -58,10 +63,10 @@ export class ProductCreateComponent implements OnInit {
     }
   }
 
-  deletePhoto(i){
-    console.log('index: ',i);
-    this.photosArr.splice(i,1);
-    this.totalPhotos.splice(i,1);
+  deletePhoto(i) {
+    console.log('index: ', i);
+    this.photosArr.splice(i, 1);
+    this.totalPhotos.splice(i, 1);
   }
 
   submitProduct() {

@@ -4,7 +4,7 @@
   </ng-container>
   <!-- *ngIf="!loading" -->
   <div class="page" *ngIf="!loading">
-    <div *ngIf="!isSubmitted; else postSubmit" class="card main-card">
+    <div class="card main-card">
       <div class="img-block">
         <!-- <carousel [height]="300" [arrows]="false" cellWidth="100%">
           <ng-container *ngFor="let img of productImages">
@@ -82,17 +82,7 @@
         </div>
       </div>
     </div>
-    <ng-template #postSubmit>
-      <div class="card post-card">
-        <p *ngIf="!isUpdated" class="post-title">Updating a product...</p>
-        <ng-container *ngIf="!isUpdated && !isSubmitted">
-          <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-        </ng-container>
-        <p class="post-title" *ngIf="!isUpdated">Product updated!</p>
-        <p class="post-text"><a href="">Click here</a> to see the updated product</p>
-        <p class="post-text"><a href="">Click here</a> to see all products</p>
-      </div>
-    </ng-template>
+
   </div>
 </div>
 

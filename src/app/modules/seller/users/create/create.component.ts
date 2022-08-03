@@ -27,7 +27,8 @@ export class CreateComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.previousRouteService.getPreviousUrl());
+    this.previousRouteService.setDefPrevUrl('/seller/users');
+
     this.isLoading = true;
     this.isRegistered = false;
 

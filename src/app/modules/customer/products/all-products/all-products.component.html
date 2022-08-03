@@ -2,6 +2,52 @@
   <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 </ng-container>
 <div class="banner">
+  <div class="input-group search-block">
+    <input
+      autocomplete="off"
+      id="dropdownMenu2"
+      type="text"
+      data-bs-toggle="dropdown"
+      class="form-control dropdown-toggle"
+      aria-label="Text input with segmented dropdown button"
+      [value]="searchTerm"
+      (keyup)="searchProduct($event)"
+    />
+    <!-- <ul *ngFor="let product of filteredProd" class="dropdown-menu" aria-labelledby="dropdownMenu2">
+      <li><button class="dropdown-item" (click)="goToProduct(product._id)" type="button">{{product.name}}</button></li>
+    </ul> -->
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+      <li>
+        <button
+          *ngFor="let product of filteredProd"
+          (click)="goToProduct(product._id)"
+          class="dropdown-item"
+          type="button"
+        >
+          {{ product.name }}
+        </button>
+      </li>
+    </ul>
+    <button
+      (click)="searchResult(searchTerm, $event)"
+      type="button"
+      class="btn btn-outline-secondary"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        fill="currentColor"
+        class="bi bi-search"
+        viewBox="0 0 16 16"
+      >
+        <path
+          d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
+        />
+      </svg>
+    </button>
+  </div>
+
   <div *ngIf="!loading" class="products-block">
     <ng-container *ngFor="let product of productsArr; let i = index">
       <div
@@ -14,10 +60,10 @@
           [arrows]="autoHover[i]"
           class="carousel-block"
           objectFit="cover"
-          [width]="192"
+          [width]="190"
           [height]="130"
           [margin]="15"
-          [cellWidth]="192"
+          [cellWidth]="190"
         >
           <ng-container
             *ngFor="
@@ -37,26 +83,25 @@
           </ng-container>
         </carousel>
         <div class="card-body">
-          <h5 class="card-title">
-            <a
-              class="prod-title"
-              [routerLink]="['/details', product._id]"
-              >{{ product.name }}</a
-            >
-          </h5>
-          <p class="card-text">
-            {{ product.description | shorten: 38:"..." }}
-          </p>
+          <a class="prod-title" [routerLink]="['/details', product._id]">
+            <h5 class="card-title">
+              {{ product.name }}
+            </h5>
+            <p class="card-text">
+              {{ product.description | shorten: 38:"..." }}
+            </p>
+          </a>
         </div>
-        <!-- <a
-          title="Delete"
-          class="remove-image"
 
+        <div
+          [ngClass]="isPresent(product) ? 'bgGreen' : ''"
+          (click)="addToCart(product)"
+          title="Add to Cart"
+          class="remove-image"
           style="display: inline"
-          >&#215;</a
-        > -->
-        <div (click)="addToCart(product)" title="Add to Cart" class="remove-image" style="display: inline">
+        >
           <svg
+            *ngIf="!isPresent(product)"
             xmlns="http://www.w3.org/2000/svg"
             width="16"
             height="16"
@@ -66,6 +111,19 @@
           >
             <path
               d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0z"
+            />
+          </svg>
+          <svg
+            *ngIf="isPresent(product)"
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-cart-check-fill"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm-1.646-7.646-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L8 8.293l2.646-2.647a.5.5 0 0 1 .708.708z"
             />
           </svg>
         </div>

@@ -64,8 +64,17 @@
             role="group"
             aria-label="Basic mixed styles example"
           >
-            <button type="button" class="btn btn-outline-primary">Buy Now</button>
-            <button type="button" class="btn btn-primary">Add To Cart</button>
+            <button type="button" class="btn btn-outline-primary">
+              Buy Now
+            </button>
+            <button
+            (click)="addToCart()"
+              type="button"
+              class="btn"
+              [ngClass]="cartCount == 0 ? 'btn-outline-primary' : 'btn-primary'"
+            >
+              {{ cartText }}
+            </button>
           </div>
         </div>
       </div>

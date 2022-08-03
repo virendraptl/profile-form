@@ -7,6 +7,7 @@ import { NavigationEnd, Router } from '@angular/router';
 export class PreviousRouteService {
   previousUrl:string;
   currentUrl:string;
+  defaultPrevUrl:string = '/';
 
   constructor(private router: Router) {
     this.currentUrl = this.router.url;
@@ -24,6 +25,14 @@ export class PreviousRouteService {
 
    getCurrentUrl(){
     return this.currentUrl;
+   }
+
+   getDefPrevUrl(){
+    return this.defaultPrevUrl;
+   }
+
+   setDefPrevUrl(url){
+   this.defaultPrevUrl = url;
    }
 }
 

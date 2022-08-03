@@ -5,6 +5,7 @@ import { HotToastService } from '@ngneat/hot-toast';
 import { ConfirmationDialogComponent } from 'src/app/modules/layout/confirmation-dialog/confirmation-dialog.component';
 import { HeaderTitleService } from 'src/app/services/header-title/header-title.service';
 import { HttpService } from 'src/app/services/http/http.service';
+import { PreviousRouteService } from 'src/app/services/previous-route/previous-route.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -26,9 +27,6 @@ export class ProductDetailsComponent implements OnInit {
   updateDate;
   dialogRef: MatDialogRef<ConfirmationDialogComponent>;
 
-  isSubmitted:boolean = false;
-  isUpdated:boolean = false;
-
   sliderOptions: any;
 
   constructor(
@@ -37,12 +35,16 @@ export class ProductDetailsComponent implements OnInit {
     public dialog: MatDialog,
     private toasterService: HotToastService,
     private headerTitleService: HeaderTitleService,
+    public previousRouteService: PreviousRouteService,
+
     private router: Router
   ) {
     this.headerTitleService.setTitle('Products Details');
   }
 
   ngOnInit(): void {
+    this.previousRouteService.setDefPrevUrl('/seller/products');
+
     this.loading = true;
     this.productId = this.activatedRoute.snapshot.paramMap.get('id');
     this.http.get(`products/${this.productId}`).subscribe({

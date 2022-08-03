@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { HotToastService } from '@ngneat/hot-toast';
 import { HeaderTitleService } from 'src/app/services/header-title/header-title.service';
 import { LocalStorageService } from 'src/app/services/local-storage/local-storage.service';
+import { PreviousRouteService } from 'src/app/services/previous-route/previous-route.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -763,17 +766,29 @@ export class AllProductsComponent implements OnInit {
   loading: boolean = true;
   empty: boolean = false;
   autoHover = [];
+  searchTerm: string = '';
 
   cartProducts = [];
+  searchCopy = [];
+  dataCopy: any;
+  filteredProd: any[] = [];
+  filteredProdIndex: any[];
 
   constructor(
     private headerTitleService: HeaderTitleService,
-    private lstore: LocalStorageService
+    private lstore: LocalStorageService,
+    private router: Router,
+    public previousRouteService: PreviousRouteService,
+
+    private toasterService: HotToastService
   ) {
     this.headerTitleService.setTitle('All Products');
   }
 
   ngOnInit(): void {
+    this.previousRouteService.setDefPrevUrl('/');
+
+    this.dataCopy = [...this.productsArr];
     this.loading = false;
     this.cartProducts = this.lstore.getCartData() || [];
     console.log(this.cartProducts);
@@ -784,28 +799,80 @@ export class AllProductsComponent implements OnInit {
     // this.renderProducts(event, this.totalData.limit);
   }
 
-  addToCart(product){
-    this.cartProducts.push(product);
-    // console.log('cart data:',this.cartProducts);
+  addToCart(product) {
+    this.cartProducts = this.lstore.getCartData() || [];
+    let isPresent = false;
+
+    this.cartProducts.forEach((prod) => {
+      if (prod._id == product._id) {
+        isPresent = true;
+        prod.cartCount++;
+      }
+    });
+
+    if (!isPresent) {
+      product.cartCount = 1;
+      this.cartProducts.push(product);
+    }
+
     this.lstore.setCartData(this.cartProducts);
+    this.toasterService.success(`"${product.name}" added to the cart!`);
   }
 
-//   addToCart(product) {
-//     Swal.fire({
-//       title: '<strong>Select quantity:</strong>',
-//       icon: 'info',
-//       html:
-//         '<div class="btn-group" role="group" aria-label="Basic outlined example">' +
-//         ' <button type="button" class="btn btn-outline-primary">-</button>' +
-//         ' <button type="button" disabled class="btn btn-outline-primary">Middle</button>' +
-//         ' <button type="button" class="btn btn-outline-primary">+</button>' +
-//         '</div>',
+  searchProduct(event) {
+    console.log(event);
+    this.searchTerm = event.target.value;
+    this.searchResult(this.searchTerm, event);
+  }
 
-//       showCloseButton: true,
-//       showCancelButton: true,
-//       confirmButtonColor: '#3085d6',
-//       cancelButtonColor: '#d33',
-//       confirmButtonText: 'Add to cart!',
-//     });
-//   }
+  searchResult(term: string, event) {
+    // this.productsArr = [...this.dataCopy];
+    if (term && term !== '') {
+      this.filterReset();
+      this.dataCopy.forEach((user, index) => {
+        if (user.name.toLowerCase().search(term) != -1) {
+          this.filteredProd.push(user);
+          this.filteredProdIndex.push(
+            // index + 1 + (this.productsArr.length - 1) * this.pageSize
+            index + 1 + (this.productsArr.length - 1) * 10
+          );
+        }
+      });
+      // this.productsArr = [...this.dataCopy];
+      if (event.key == 'Enter' || event.type == 'click') {
+        this.productsArr = [...this.filteredProd];
+        this.filteredProd = [];
+      }
+    } else if (term == '' && (event.key == 'Enter' || event.type == 'click')) {
+      this.productsArr = [...this.dataCopy];
+    } else {
+      this.filterReset();
+    }
+  }
+
+  filterReset() {
+    // this.productsArr = [...this.dataCopy];
+    this.filteredProd = [];
+    this.filteredProdIndex = [];
+  }
+
+  goToProduct(id) {
+    this.router.navigate(['/details', id]);
+  }
+
+  searchClick(event) {
+    console.log(event);
+  }
+
+  isPresent(product) {
+    let isPresent = false;
+
+    this.cartProducts.forEach((prod) => {
+      if (prod._id == product._id) {
+        isPresent = true;
+      }
+    });
+
+    return isPresent;
+  }
 }

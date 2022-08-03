@@ -5,6 +5,7 @@ import { ConfirmationDialogComponent } from 'src/app/modules/layout/confirmation
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { HotToastService } from '@ngneat/hot-toast';
 import Swal from 'sweetalert2';
+import { PreviousRouteService } from 'src/app/services/previous-route/previous-route.service';
 
 @Component({
   selector: 'app-product-list',
@@ -25,12 +26,15 @@ export class ProductListComponent implements OnInit {
     private headerTitleService: HeaderTitleService,
     private http: HttpService,
     public dialog: MatDialog,
+    public previousRouteService: PreviousRouteService,
     private toasterService: HotToastService
   ) {
     this.headerTitleService.setTitle('Products List');
   }
 
   ngOnInit(): void {
+    this.previousRouteService.setDefPrevUrl('/seller/user/my-profile');
+
     this.renderProducts(1, 10);
   }
 

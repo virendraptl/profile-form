@@ -15,7 +15,7 @@ export class HeaderComponent implements OnInit {
   @Input() showAvatar: boolean;
   title = '';
   backUrl: string;
-  loginUrl: string = '/auth/login';
+  loginUrl: string = '/seller/auth/login';
 
   hideAvatar: boolean = true;
 
@@ -37,7 +37,7 @@ export class HeaderComponent implements OnInit {
   // isMatMenu2Open: boolean = false;
   prevButtonTrigger;
 
-  cartCount:number;
+  cartCount: number;
 
   constructor(
     private headerTitleService: HeaderTitleService,
@@ -84,7 +84,7 @@ export class HeaderComponent implements OnInit {
 
     this.lstore.cartCount.subscribe((count) => {
       this.cartCount = count;
-    })
+    });
 
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -100,77 +100,28 @@ export class HeaderComponent implements OnInit {
 
   backBtn() {
     this.backUrl = this.previousRouteService.getPreviousUrl();
-    if (this.backUrl !== '/seller/auth/login') {
+    let currentUrl = this.previousRouteService.getCurrentUrl();
+    if (this.backUrl != currentUrl && this.backUrl) {
       this.router.navigate([this.backUrl]);
+    }
+    else {
+        this.router.navigate([this.previousRouteService.getDefPrevUrl()]);
     }
   }
 
-  menuenter() {
-    this.isMatMenuOpen = true;
+
+
+
+
+
+
+  goToHome() {
+    if (this.router.url.includes('seller')) {
+      this.router.navigate(['/seller/user/my-profile']);
+    } else this.router.navigate(['/']);
   }
 
-  menuLeave(trigger, button) {
-    setTimeout(() => {
-      if (!this.enteredButton) {
-        this.isMatMenuOpen = false;
-        trigger.closeMenu();
-        this.ren.removeClass(
-          button['_elementRef'].nativeElement,
-          'cdk-focused'
-        );
-        this.ren.removeClass(
-          button['_elementRef'].nativeElement,
-          'cdk-program-focused'
-        );
-      } else {
-        this.isMatMenuOpen = false;
-      }
-    }, 80);
-  }
-
-  buttonEnter(trigger) {
-    setTimeout(() => {
-      if (this.prevButtonTrigger && this.prevButtonTrigger != trigger) {
-        this.prevButtonTrigger.closeMenu();
-        this.prevButtonTrigger = trigger;
-        trigger.openMenu();
-      } else if (!this.isMatMenuOpen) {
-        this.enteredButton = true;
-        this.prevButtonTrigger = trigger;
-        trigger.openMenu();
-      } else {
-        this.enteredButton = true;
-        this.prevButtonTrigger = trigger;
-      }
-    });
-  }
-
-  buttonLeave(trigger, button) {
-    setTimeout(() => {
-      if (this.enteredButton && !this.isMatMenuOpen) {
-        trigger.closeMenu();
-        this.ren.removeClass(
-          button['_elementRef'].nativeElement,
-          'cdk-focused'
-        );
-        this.ren.removeClass(
-          button['_elementRef'].nativeElement,
-          'cdk-program-focused'
-        );
-      }
-      if (!this.isMatMenuOpen) {
-        trigger.closeMenu();
-        this.ren.removeClass(
-          button['_elementRef'].nativeElement,
-          'cdk-focused'
-        );
-        this.ren.removeClass(
-          button['_elementRef'].nativeElement,
-          'cdk-program-focused'
-        );
-      } else {
-        this.enteredButton = false;
-      }
-    }, 100);
+  goToCart() {
+    this.router.navigate(['/cart']);
   }
 }

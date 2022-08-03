@@ -17,7 +17,16 @@ export class LocalStorageService {
     private injector: Injector,
     private authService: SocialAuthService, // private authService: SocialAuthService
     private stateService: SocialStateService
-  ) {}
+  ) {
+    let cartData = JSON.parse(localStorage.getItem('cart-data'));
+    let count = 0;
+    if (cartData) {
+      cartData.forEach((product) => {
+        count += product.cartCount;
+      });
+      this.cartCount.next(count);
+    }
+  }
 
   setToken(token: string) {
     localStorage.setItem('token', token);
@@ -71,7 +80,11 @@ export class LocalStorageService {
 
   setCartData(data) {
     localStorage.setItem('cart-data', JSON.stringify(data));
-    this.cartCount.next(data.length);
+    let count = 0;
+    data.forEach((product) => {
+      count += product.cartCount;
+    });
+    this.cartCount.next(count);
   }
 
   getCartData() {

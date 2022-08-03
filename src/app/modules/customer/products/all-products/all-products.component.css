@@ -93,19 +93,20 @@ img {
   background: #2d77bd;
   color: #fff;
   padding: 3px 7px 5px;
-  /* top: -11px;
-  right: -11px; */
+
   bottom: -1px;
   right: -1px;
 }
 .remove-image:active {
   background: #005eb6;
-  color: #fff;
 
-  /* top: -10px;
-  right: -11px; */
+  color: #fff;
   bottom: -1px;
   right: -1px;
+}
+
+.bgGreen {
+  background: rgb(32, 182, 2);
 }
 
 .empty-block {
@@ -120,4 +121,14 @@ img {
 .card-text {
   margin: 0 10px 10px 0;
   cursor: default;
+}
+
+.search-block,
+.dropdown-item {
+  width: 400px;
+}
+
+.dropdown-menu {
+  padding: 0;
+  border: none;
 }

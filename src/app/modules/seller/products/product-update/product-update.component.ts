@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
 import { HeaderTitleService } from 'src/app/services/header-title/header-title.service';
 import { HttpService } from 'src/app/services/http/http.service';
+import { PreviousRouteService } from 'src/app/services/previous-route/previous-route.service';
 
 @Component({
   selector: 'app-product-update',
@@ -34,6 +35,8 @@ export class ProductUpdateComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private headerTitleService: HeaderTitleService,
     private toasterService: HotToastService,
+    public previousRouteService: PreviousRouteService,
+
     private router: Router
   ) {
     this.headerTitleService.setTitle('Update Product Info');
@@ -51,6 +54,10 @@ export class ProductUpdateComponent implements OnInit {
         console.log('Prev photos:', this.prevPhotos);
         this.createForm();
         this.updateImgFlag();
+        this.previousRouteService.setDefPrevUrl(
+          `/seller/products/details/${this.currentData._id}`
+        );
+
         console.log(this.currentData);
       },
     });
@@ -132,7 +139,6 @@ export class ProductUpdateComponent implements OnInit {
   }
 
   productUpdate() {
-    this.isSubmitted = true;
     this.imgFlag[0].forEach((flag) => {
       if (flag == true) {
         this.finalCount++;
@@ -147,6 +153,8 @@ export class ProductUpdateComponent implements OnInit {
       this.toasterService.error('Product needs at least 1 image');
       this.finalCount = 0;
     } else {
+      this.isSubmitted = true;
+
       this.http
         .patch(`products/${this.currentId}`, this.updateForm.value)
         .subscribe({
