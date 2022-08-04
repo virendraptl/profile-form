@@ -1,2 +1,9 @@
-<app-header [showAvatar] = "showAvatar"  [btns]="btns" *ngIf="showHeader"></app-header>
-<router-outlet (activate)="setHeaderBtns()"></router-outlet>
+<app-header
+  style="position: fixed; top: 0; width: 100%; z-index: 10"
+  [showAvatar]="showAvatar"
+  [btns]="btns"
+  *ngIf="showHeader"
+></app-header>
+<div style="margin-top: 70px; height: 100% - 70px;">
+  <router-outlet (activate)="setHeaderBtns()"></router-outlet>
+</div>

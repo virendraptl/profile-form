@@ -4,6 +4,7 @@ import { HotToastService } from '@ngneat/hot-toast';
 import { HeaderTitleService } from 'src/app/services/header-title/header-title.service';
 import { LocalStorageService } from 'src/app/services/local-storage/local-storage.service';
 import { PreviousRouteService } from 'src/app/services/previous-route/previous-route.service';
+import { TableDataService } from 'src/app/services/table-data/table-data.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -12,344 +13,6 @@ import Swal from 'sweetalert2';
   styleUrls: ['./all-products.component.css'],
 })
 export class AllProductsComponent implements OnInit {
-  // productsArr = [
-  //   [
-  //     {
-  //       public_id: 'training-api/cv6hj7x9odrjl4tghc34',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658821263/training-api/cv6hj7x9odrjl4tghc34.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/hqcwjj6slsjng8iucyci',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658821264/training-api/hqcwjj6slsjng8iucyci.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/heuk0axht8xp3b4pqt3i',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658821264/training-api/heuk0axht8xp3b4pqt3i.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/xchm8vdxtdjufdvjhf7e',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658821265/training-api/xchm8vdxtdjufdvjhf7e.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/zxbxlcq8urkjlpsnpiwt',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658821265/training-api/zxbxlcq8urkjlpsnpiwt.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/ticek974hp8zyhnllp2z',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658821266/training-api/ticek974hp8zyhnllp2z.jpg',
-  //     },
-  //   ],
-  //   [
-  //     {
-  //       public_id: 'training-api/sglr0aohpx3lidma3rn1',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658909005/training-api/sglr0aohpx3lidma3rn1.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/x15b4w78s488cj8rhfb4',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658909006/training-api/x15b4w78s488cj8rhfb4.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/espa2isdjwfngkkb7tyb',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658909007/training-api/espa2isdjwfngkkb7tyb.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/dwmmfi9zmpr3lxatmxww',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658909007/training-api/dwmmfi9zmpr3lxatmxww.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/ybfettn5jusqzrim4fy6',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658909008/training-api/ybfettn5jusqzrim4fy6.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/uuvbcrw43zaoli7zjxiz',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658909008/training-api/uuvbcrw43zaoli7zjxiz.jpg',
-  //     },
-  //   ],
-  //   [
-  //     {
-  //       public_id: 'training-api/sazvgekbmov07ri82xdo',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658912173/training-api/sazvgekbmov07ri82xdo.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/kdofzcj0l5f4es8ukc01',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658912174/training-api/kdofzcj0l5f4es8ukc01.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/jn9xib9yzoybobsbq1s2',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658912174/training-api/jn9xib9yzoybobsbq1s2.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/p9o9neuvytzta0jtbwsl',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658912175/training-api/p9o9neuvytzta0jtbwsl.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/cx4oz5dzakxlaq3jly8v',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658912175/training-api/cx4oz5dzakxlaq3jly8v.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/p36rgrlsctxgwjgonldh',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658912176/training-api/p36rgrlsctxgwjgonldh.jpg',
-  //     },
-  //   ],
-  //   [
-  //     {
-  //       public_id: 'training-api/wh3ec2efriofsldtqhpe',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658914684/training-api/wh3ec2efriofsldtqhpe.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/dytziuqjvvko8pllxygr',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658914685/training-api/dytziuqjvvko8pllxygr.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/qpgyaedzki4byv883fpb',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658914686/training-api/qpgyaedzki4byv883fpb.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/qkhzsz5o3ftzwxen3awq',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658914687/training-api/qkhzsz5o3ftzwxen3awq.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/fgmsawbjflk4uc2ffbr7',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658914688/training-api/fgmsawbjflk4uc2ffbr7.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/meirgczmetwpckiivvfb',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658914689/training-api/meirgczmetwpckiivvfb.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/lbjtkn9ux7k0elzvexmk',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1659078950/training-api/lbjtkn9ux7k0elzvexmk.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/tfl1hizvlk0veminkqwg',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1659078951/training-api/tfl1hizvlk0veminkqwg.jpg',
-  //     },
-  //   ],
-  //   [
-  //     {
-  //       public_id: 'training-api/cv6hj7x9odrjl4tghc34',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658821263/training-api/cv6hj7x9odrjl4tghc34.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/hqcwjj6slsjng8iucyci',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658821264/training-api/hqcwjj6slsjng8iucyci.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/heuk0axht8xp3b4pqt3i',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658821264/training-api/heuk0axht8xp3b4pqt3i.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/xchm8vdxtdjufdvjhf7e',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658821265/training-api/xchm8vdxtdjufdvjhf7e.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/zxbxlcq8urkjlpsnpiwt',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658821265/training-api/zxbxlcq8urkjlpsnpiwt.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/ticek974hp8zyhnllp2z',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658821266/training-api/ticek974hp8zyhnllp2z.jpg',
-  //     },
-  //   ],
-  //   [
-  //     {
-  //       public_id: 'training-api/sglr0aohpx3lidma3rn1',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658909005/training-api/sglr0aohpx3lidma3rn1.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/x15b4w78s488cj8rhfb4',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658909006/training-api/x15b4w78s488cj8rhfb4.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/espa2isdjwfngkkb7tyb',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658909007/training-api/espa2isdjwfngkkb7tyb.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/dwmmfi9zmpr3lxatmxww',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658909007/training-api/dwmmfi9zmpr3lxatmxww.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/ybfettn5jusqzrim4fy6',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658909008/training-api/ybfettn5jusqzrim4fy6.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/uuvbcrw43zaoli7zjxiz',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658909008/training-api/uuvbcrw43zaoli7zjxiz.jpg',
-  //     },
-  //   ],
-  //   [
-  //     {
-  //       public_id: 'training-api/sazvgekbmov07ri82xdo',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658912173/training-api/sazvgekbmov07ri82xdo.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/kdofzcj0l5f4es8ukc01',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658912174/training-api/kdofzcj0l5f4es8ukc01.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/jn9xib9yzoybobsbq1s2',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658912174/training-api/jn9xib9yzoybobsbq1s2.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/p9o9neuvytzta0jtbwsl',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658912175/training-api/p9o9neuvytzta0jtbwsl.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/cx4oz5dzakxlaq3jly8v',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658912175/training-api/cx4oz5dzakxlaq3jly8v.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/p36rgrlsctxgwjgonldh',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658912176/training-api/p36rgrlsctxgwjgonldh.jpg',
-  //     },
-  //   ],
-  //   [
-  //     {
-  //       public_id: 'training-api/wh3ec2efriofsldtqhpe',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658914684/training-api/wh3ec2efriofsldtqhpe.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/dytziuqjvvko8pllxygr',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658914685/training-api/dytziuqjvvko8pllxygr.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/qpgyaedzki4byv883fpb',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658914686/training-api/qpgyaedzki4byv883fpb.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/qkhzsz5o3ftzwxen3awq',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658914687/training-api/qkhzsz5o3ftzwxen3awq.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/fgmsawbjflk4uc2ffbr7',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658914688/training-api/fgmsawbjflk4uc2ffbr7.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/meirgczmetwpckiivvfb',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658914689/training-api/meirgczmetwpckiivvfb.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/lbjtkn9ux7k0elzvexmk',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1659078950/training-api/lbjtkn9ux7k0elzvexmk.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/tfl1hizvlk0veminkqwg',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1659078951/training-api/tfl1hizvlk0veminkqwg.jpg',
-  //     },
-  //   ],
-  //   [
-  //     {
-  //       public_id: 'training-api/cv6hj7x9odrjl4tghc34',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658821263/training-api/cv6hj7x9odrjl4tghc34.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/hqcwjj6slsjng8iucyci',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658821264/training-api/hqcwjj6slsjng8iucyci.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/heuk0axht8xp3b4pqt3i',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658821264/training-api/heuk0axht8xp3b4pqt3i.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/xchm8vdxtdjufdvjhf7e',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658821265/training-api/xchm8vdxtdjufdvjhf7e.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/zxbxlcq8urkjlpsnpiwt',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658821265/training-api/zxbxlcq8urkjlpsnpiwt.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/ticek974hp8zyhnllp2z',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658821266/training-api/ticek974hp8zyhnllp2z.jpg',
-  //     },
-  //   ],
-  //   [
-  //     {
-  //       public_id: 'training-api/sglr0aohpx3lidma3rn1',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658909005/training-api/sglr0aohpx3lidma3rn1.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/x15b4w78s488cj8rhfb4',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658909006/training-api/x15b4w78s488cj8rhfb4.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/espa2isdjwfngkkb7tyb',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658909007/training-api/espa2isdjwfngkkb7tyb.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/dwmmfi9zmpr3lxatmxww',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658909007/training-api/dwmmfi9zmpr3lxatmxww.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/ybfettn5jusqzrim4fy6',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658909008/training-api/ybfettn5jusqzrim4fy6.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/uuvbcrw43zaoli7zjxiz',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658909008/training-api/uuvbcrw43zaoli7zjxiz.jpg',
-  //     },
-  //   ],
-  //   [
-  //     {
-  //       public_id: 'training-api/sazvgekbmov07ri82xdo',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658912173/training-api/sazvgekbmov07ri82xdo.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/kdofzcj0l5f4es8ukc01',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658912174/training-api/kdofzcj0l5f4es8ukc01.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/jn9xib9yzoybobsbq1s2',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658912174/training-api/jn9xib9yzoybobsbq1s2.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/p9o9neuvytzta0jtbwsl',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658912175/training-api/p9o9neuvytzta0jtbwsl.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/cx4oz5dzakxlaq3jly8v',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658912175/training-api/cx4oz5dzakxlaq3jly8v.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/p36rgrlsctxgwjgonldh',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658912176/training-api/p36rgrlsctxgwjgonldh.jpg',
-  //     },
-  //   ],
-  //   [
-  //     {
-  //       public_id: 'training-api/wh3ec2efriofsldtqhpe',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658914684/training-api/wh3ec2efriofsldtqhpe.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/dytziuqjvvko8pllxygr',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658914685/training-api/dytziuqjvvko8pllxygr.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/qpgyaedzki4byv883fpb',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658914686/training-api/qpgyaedzki4byv883fpb.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/qkhzsz5o3ftzwxen3awq',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658914687/training-api/qkhzsz5o3ftzwxen3awq.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/fgmsawbjflk4uc2ffbr7',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658914688/training-api/fgmsawbjflk4uc2ffbr7.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/meirgczmetwpckiivvfb',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1658914689/training-api/meirgczmetwpckiivvfb.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/lbjtkn9ux7k0elzvexmk',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1659078950/training-api/lbjtkn9ux7k0elzvexmk.jpg',
-  //     },
-  //     {
-  //       public_id: 'training-api/tfl1hizvlk0veminkqwg',
-  //       url: 'http://res.cloudinary.com/abs-am/image/upload/v1659078951/training-api/tfl1hizvlk0veminkqwg.jpg',
-  //     },
-  //   ],
-  // ];
 
   productsArr = [
     {
@@ -778,6 +441,7 @@ export class AllProductsComponent implements OnInit {
     private headerTitleService: HeaderTitleService,
     private lstore: LocalStorageService,
     private router: Router,
+    private table: TableDataService,
     public previousRouteService: PreviousRouteService,
 
     private toasterService: HotToastService
@@ -792,6 +456,10 @@ export class AllProductsComponent implements OnInit {
     this.loading = false;
     this.cartProducts = this.lstore.getCartData() || [];
     console.log(this.cartProducts);
+    this.searchTerm = this.table.getProdSearchTerm();
+    if (this.searchTerm) {
+      this.searchResult(this.searchTerm, { key: 'Enter' });
+    }
   }
 
   pageChanged(event) {
@@ -820,8 +488,8 @@ export class AllProductsComponent implements OnInit {
   }
 
   searchProduct(event) {
-    console.log(event);
     this.searchTerm = event.target.value;
+    this.table.setProdSearchTerm(this.searchTerm);
     this.searchResult(this.searchTerm, event);
   }
 
@@ -872,7 +540,7 @@ export class AllProductsComponent implements OnInit {
         isPresent = true;
       }
     });
-
+    
     return isPresent;
   }
 }

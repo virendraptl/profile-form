@@ -4,6 +4,7 @@ import { HeaderTitleService } from 'src/app/services/header-title/header-title.s
 import { LocalStorageService } from 'src/app/services/local-storage/local-storage.service';
 import { TableDataService } from 'src/app/services/table-data/table-data.service';
 import { PreviousRouteService } from 'src/app/services/previous-route/previous-route.service';
+import { MatMenuTrigger } from '@angular/material/menu';
 
 @Component({
   selector: 'app-header',
@@ -18,6 +19,7 @@ export class HeaderComponent implements OnInit {
   loginUrl: string = '/seller/auth/login';
 
   hideAvatar: boolean = true;
+  menuOpen = false;
 
   public count = 0;
 
@@ -103,25 +105,31 @@ export class HeaderComponent implements OnInit {
     let currentUrl = this.previousRouteService.getCurrentUrl();
     if (this.backUrl != currentUrl && this.backUrl) {
       this.router.navigate([this.backUrl]);
-    }
-    else {
-        this.router.navigate([this.previousRouteService.getDefPrevUrl()]);
+    } else {
+      this.router.navigate([this.previousRouteService.getDefPrevUrl()]);
     }
   }
 
-
-
-
-
-
-
-  goToHome() {
+  goHome() {
+    console.log('home clicked!!');
     if (this.router.url.includes('seller')) {
       this.router.navigate(['/seller/user/my-profile']);
-    } else this.router.navigate(['/']);
+    } else {
+      this.table.setProdSearchTerm('');
+      this.router.navigate(['/']);
+    }
   }
 
   goToCart() {
     this.router.navigate(['/cart']);
+  }
+
+  closeMenu(menuTrigger) {
+    this.menuOpen = false;
+    setTimeout(() => {
+      if (!this.menuOpen) {
+        menuTrigger.closeMenu();
+      }
+    }, 1000);
   }
 }

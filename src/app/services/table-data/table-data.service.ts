@@ -9,6 +9,7 @@ export class TableDataService {
   loggedUser = '';
   searchTerm = '';
   rxjsData = new BehaviorSubject({ page: 1, limit: 10 });
+  prodSearchTerm: string = '';
 
   constructor() {}
 
@@ -31,5 +32,13 @@ export class TableDataService {
 
   setRxjs(data) {
     this.rxjsData.next({ page: data.page, limit: data.limit });
+  }
+
+  setProdSearchTerm(term) {
+    this.prodSearchTerm = term;
+  }
+
+  getProdSearchTerm(){
+    return this.prodSearchTerm;
   }
 }

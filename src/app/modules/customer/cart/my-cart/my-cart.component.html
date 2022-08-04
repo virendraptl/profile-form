@@ -2,7 +2,10 @@
   <ng-container *ngIf="loading">
     <mat-progress-bar mode="indeterminate"></mat-progress-bar>
   </ng-container>
+<div class="page">
 
+  
+  
   <div *ngIf="!loading" class="card main-card">
     <ng-container *ngFor="let product of cartProducts; let i = index">
       <div style="display: flex; flex-direction: row; margin-bottom: 20px">
@@ -10,7 +13,14 @@
           (mouseenter)="autoHover[i] = true"
           (mouseleave)="autoHover[i] = false"
           class="card"
-          style="width: 192px; height: 140px"
+          style="
+            width: 192px;
+            height: 140px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: none;
+          "
         >
           <carousel
             [arrows]="autoHover[i]"
@@ -32,10 +42,8 @@
           <div class="card-body">
             <h5 class="card-title">
               <a class="prod-title" [routerLink]="['/details', product._id]">
-                {{
-                product.name
-              }}
-            </a>
+                {{ product.name }}
+              </a>
             </h5>
             <p class="card-text">
               {{ product.description | shorten: 140:"..." }}
@@ -52,47 +60,55 @@
         >
           <p>Quantity</p>
           <div
-            class="btn-group"
-            role="group"
-            aria-label="Basic outlined example"
+          class="btn-group"
+          role="group"
+          aria-label="Basic outlined example"
           >
             <button
-              [disabled]="product.cartCount == 1"
-              (click)="product.cartCount = product.cartCount - 1; setCart()"
-              type="button"
-              class="btn btn-primary"
+            [disabled]="product.cartCount == 1"
+            (click)="product.cartCount = product.cartCount - 1; setCart()"
+            type="button"
+            class="btn btn-primary"
             >
-              -
-            </button>
-            <button type="button" class="btn btn-outline-primary">
+            -
+          </button>
+            <button disabled type="button" class="btn btn-outline-primary">
               {{ product.cartCount }}
             </button>
             <button
-              (click)="product.cartCount = product.cartCount + 1; setCart()"
-              type="button"
-              class="btn btn-primary"
+            (click)="product.cartCount = product.cartCount + 1; setCart()"
+            type="button"
+            class="btn btn-primary"
             >
-              +
-            </button>
-          </div>
-          <button (click)="sweetDelete(i)" type="button" class="btn btn-link">
-            Remove
+            +
           </button>
+        </div>
+        <button (click)="sweetDelete(i)" type="button" class="btn btn-link">
+          Remove
+        </button>
         </div>
       </div>
     </ng-container>
     <ng-container *ngIf="!cartProducts || cartProducts.length == 0">
-      <div style="width: 100%; display: flex; flex-direction: column; align-items: center;">
+      <div
+      style="
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        "
+      >
         <p class="empty-block">No Products To Show...</p>
         <button
-          (click)="toHome()"
-          type="button"
-          style="width: 200px"
-          class="btn btn-primary"
+        (click)="toHome()"
+        type="button"
+        style="width: 200px; color: chucknorris;"
+        class="btn btn-primary"
         >
           See All Products
         </button>
       </div>
     </ng-container>
   </div>
+</div>
 </div>

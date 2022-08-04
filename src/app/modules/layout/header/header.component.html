@@ -7,7 +7,7 @@
     </div>
     <img
       title="Home"
-      (click)="goToHome()"
+      (click)="goHome()"
       class="logo"
       src="../../../assets/images/logo/am-logo.png"
       alt="am-logo"
@@ -20,6 +20,7 @@
       >Hello, {{ profileData?.name.split(" ")[0] }}</mat-card-content
     >
     <div class="initials">
+
       <div
         #hover
         style="cursor: pointer"
@@ -66,7 +67,11 @@
         <!-- <mat-card-content class="menu-title" mat-menu-item
           >Hello, {{ profileData?.name.split(" ")[0] }}</mat-card-content
         > -->
-        <div *ngFor="let btn of btns">
+        <div
+          (mouseenter)="menuTrigger.openMenu(); menuOpen = true"
+          (mouseleave)="closeMenu(menuTrigger)"
+          *ngFor="let btn of btns"
+        >
           <button
             *ngIf="btn == 'back-profile'"
             (click)="toProfile()"
