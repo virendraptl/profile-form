@@ -20,7 +20,6 @@
       >Hello, {{ profileData?.name.split(" ")[0] }}</mat-card-content
     >
     <div class="initials">
-
       <div
         #hover
         style="cursor: pointer"
@@ -119,7 +118,17 @@
       </mat-menu>
     </div>
   </div>
+
   <div title="Cart" *ngIf="!showAvatar" class="cart-block">
+    <button
+    *ngIf="!customerName"
+      type="button"
+      class="btn btn-light"
+      style="color: #02002e; margin-right: 20px"
+    >
+      Login
+    </button>
+
     <button
       (click)="goToCart()"
       type="button"

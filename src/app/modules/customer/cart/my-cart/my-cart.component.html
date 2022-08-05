@@ -2,113 +2,114 @@
   <ng-container *ngIf="loading">
     <mat-progress-bar mode="indeterminate"></mat-progress-bar>
   </ng-container>
-<div class="page">
-
-  
-  
-  <div *ngIf="!loading" class="card main-card">
-    <ng-container *ngFor="let product of cartProducts; let i = index">
-      <div style="display: flex; flex-direction: row; margin-bottom: 20px">
-        <div
-          (mouseenter)="autoHover[i] = true"
-          (mouseleave)="autoHover[i] = false"
-          class="card"
-          style="
-            width: 192px;
-            height: 140px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border: none;
-          "
-        >
-          <carousel
-            [arrows]="autoHover[i]"
-            class="carousel-block"
-            objectFit="cover"
-            [width]="191"
-            [height]="130"
-            [margin]="15"
-            [cellWidth]="191"
+  <div *ngIf="!loading && cartProducts.length != 0" class="page">
+    <div class="card main-card">
+      <ng-container *ngFor="let product of cartProducts; let i = index">
+        <div style="display: flex; flex-direction: row; margin-bottom: 20px">
+          <div
+            (mouseenter)="autoHover[i] = true"
+            (mouseleave)="autoHover[i] = false"
+            class="card"
+            style="
+              width: 192px;
+              height: 140px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              border: none;
+            "
           >
-            <ng-container *ngFor="let img of product['images']">
-              <div class="carousel-cell previewimg">
-                <img [src]="img.url" />
-              </div>
-            </ng-container>
-          </carousel>
-        </div>
-        <div style="width: 50%">
-          <div class="card-body">
-            <h5 class="card-title">
-              <a class="prod-title" [routerLink]="['/details', product._id]">
-                {{ product.name }}
-              </a>
-            </h5>
-            <p class="card-text">
-              {{ product.description | shorten: 140:"..." }}
-            </p>
+            <carousel
+              [arrows]="autoHover[i]"
+              class="carousel-block"
+              objectFit="cover"
+              [width]="191"
+              [height]="130"
+              [margin]="15"
+              [cellWidth]="191"
+            >
+              <ng-container *ngFor="let img of product['images']">
+                <div class="carousel-cell previewimg">
+                  <img [src]="img.url" />
+                </div>
+              </ng-container>
+            </carousel>
+          </div>
+          <div style="width: 50%">
+            <div class="card-body">
+              <h5 class="card-title">
+                <a class="prod-title" [routerLink]="['/details', product._id]">
+                  {{ product.name }}
+                </a>
+              </h5>
+              <p class="card-text">
+                {{ product.description | shorten: 140:"..." }}
+              </p>
+            </div>
+          </div>
+          <div
+            style="
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+            "
+          >
+            <p>Quantity</p>
+            <div
+              class="btn-group"
+              role="group"
+              aria-label="Basic outlined example"
+            >
+              <button
+                [disabled]="product.cartCount == 1"
+                (click)="product.cartCount = product.cartCount - 1; setCart()"
+                type="button"
+                class="btn btn-primary"
+              >
+                -
+              </button>
+              <button disabled type="button" class="btn btn-outline-primary">
+                {{ product.cartCount }}
+              </button>
+              <button
+                (click)="product.cartCount = product.cartCount + 1; setCart()"
+                type="button"
+                class="btn btn-primary"
+              >
+                +
+              </button>
+            </div>
+            <button (click)="sweetDelete(i)" type="button" class="btn btn-link">
+              Remove
+            </button>
           </div>
         </div>
-        <div
-          style="
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-          "
-        >
-          <p>Quantity</p>
-          <div
-          class="btn-group"
-          role="group"
-          aria-label="Basic outlined example"
-          >
-            <button
-            [disabled]="product.cartCount == 1"
-            (click)="product.cartCount = product.cartCount - 1; setCart()"
-            type="button"
-            class="btn btn-primary"
-            >
-            -
-          </button>
-            <button disabled type="button" class="btn btn-outline-primary">
-              {{ product.cartCount }}
-            </button>
-            <button
-            (click)="product.cartCount = product.cartCount + 1; setCart()"
-            type="button"
-            class="btn btn-primary"
-            >
-            +
-          </button>
-        </div>
-        <button (click)="sweetDelete(i)" type="button" class="btn btn-link">
-          Remove
-        </button>
-        </div>
-      </div>
-    </ng-container>
-    <ng-container *ngIf="!cartProducts || cartProducts.length == 0">
-      <div
+      </ng-container>
+    </div>
+    <div class="card total-block">
+      <p>Subtotal:</p>
+      <button type="button" class="btn btn-primary">Proceed to buy</button>
+    </div>
+  </div>
+  <ng-container *ngIf="!cartProducts || cartProducts.length == 0">
+    <div
       style="
-          width: 100%;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-        "
-      >
-        <p class="empty-block">No Products To Show...</p>
-        <button
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      "
+    >
+      <p class="empty-block">No Products To Show...</p>
+      <button
         (click)="toHome()"
         type="button"
-        style="width: 200px; color: chucknorris;"
+        style="width: 200px; color: chucknorris"
         class="btn btn-primary"
-        >
-          See All Products
-        </button>
-      </div>
-    </ng-container>
-  </div>
-</div>
+      >
+        See All Products
+      </button>
+    </div>
+  </ng-container>
 </div>

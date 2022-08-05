@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./my-cart.component.css'],
 })
 export class MyCartComponent implements OnInit {
-  loading: boolean;
+  loading: boolean = true;
   cartProducts = [];
   autoHover = [];
 
@@ -30,6 +30,9 @@ export class MyCartComponent implements OnInit {
 
   ngOnInit(): void {
     this.previousRouteService.setDefPrevUrl('/');
+    setTimeout(() => {
+      this.loading = false;
+    }, 250);
   }
 
   setCart() {

@@ -119,6 +119,7 @@ img {
 }
 
 .card-text {
+  font-size: 15px;
   margin: 0 10px 10px 0;
   cursor: default;
 }
@@ -131,4 +132,9 @@ img {
 .dropdown-menu {
   padding: 0;
   border: none;
+}
+
+.card-title{
+  font-size: 18px;
+  font-weight: bold;
 }

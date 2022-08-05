@@ -4,6 +4,6 @@
   [btns]="btns"
   *ngIf="showHeader"
 ></app-header>
-<div style="margin-top: 70px; height: 100% - 70px;">
+<div [ngClass]="showHeader ? 'comp-style' : ''">
   <router-outlet (activate)="setHeaderBtns()"></router-outlet>
 </div>

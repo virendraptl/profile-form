@@ -9,6 +9,7 @@ import { LocalStorageService } from '../local-storage/local-storage.service';
 export class HeaderTitleService {
   title = new BehaviorSubject('');
   userName = new BehaviorSubject('');
+  customerName = new BehaviorSubject('');
 
   constructor(private storage: LocalStorageService, private http: HttpService) {
     let token = storage.getToken();

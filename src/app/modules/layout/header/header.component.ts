@@ -20,6 +20,7 @@ export class HeaderComponent implements OnInit {
 
   hideAvatar: boolean = true;
   menuOpen = false;
+  customerName:string;
 
   public count = 0;
 
@@ -83,6 +84,9 @@ export class HeaderComponent implements OnInit {
     this.headerTitleService.userName.subscribe((userName) => {
       this.profileData.name = userName;
     });
+    this.headerTitleService.customerName.subscribe((name)=> {
+      this.customerName = name;
+    })
 
     this.lstore.cartCount.subscribe((count) => {
       this.cartCount = count;

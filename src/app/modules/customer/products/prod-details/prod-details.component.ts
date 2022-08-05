@@ -49,7 +49,7 @@ export class ProdDetailsComponent implements OnInit {
     this.previousRouteService.setDefPrevUrl('/');
 
     this.productId = this.activatedRoute.snapshot.paramMap.get('id');
-    this.http.get(`products/${this.productId}`).subscribe({
+    this.http.get(`shop/products/${this.productId}`).subscribe({
       next: (data) => {
         this.loading = false;
         this.productData = data;
