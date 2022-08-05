@@ -24,39 +24,47 @@
         data-bs-parent="#accordionExample"
       >
         <div class="accordion-body">
-          <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label"
-              >User Name</label
+          <form [formGroup]="registerForm">
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label"
+                >User Name</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="exampleFormControlInput1"
+                placeholder="Mark Spector"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label"
+                >Email address</label
+              >
+              <input
+                type="email"
+                class="form-control"
+                id="exampleFormControlInput1"
+                placeholder="name@example.com"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label"
+                >Password</label
+              >
+              <input
+                type="password"
+                class="form-control"
+                id="exampleFormControlInput1"
+              />
+            </div>
+            <button
+              type="button"
+              class="btn btn-primary"
+              style="background-color: #0b0872"
             >
-            <input
-              type="text"
-              class="form-control"
-              id="exampleFormControlInput1"
-              placeholder="Mark Spector"
-            />
-          </div>
-          <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label"
-              >Email address</label
-            >
-            <input
-              type="email"
-              class="form-control"
-              id="exampleFormControlInput1"
-              placeholder="name@example.com"
-            />
-          </div>
-          <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label"
-              >Password</label
-            >
-            <input
-              type="password"
-              class="form-control"
-              id="exampleFormControlInput1"
-            />
-          </div>
-          <button type="button" class="btn btn-primary">Register</button>
+              Register
+            </button>
+          </form>
         </div>
       </div>
     </div>
@@ -80,28 +88,36 @@
         data-bs-parent="#accordionExample"
       >
         <div class="accordion-body">
-          <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label"
-              >Email address</label
+          <form [formGroup]="loginForm">
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label"
+                >Email address</label
+              >
+              <input
+                type="email"
+                class="form-control"
+                id="exampleFormControlInput1"
+                placeholder="name@example.com"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label"
+                >Password</label
+              >
+              <input
+                type="password"
+                class="form-control"
+                id="exampleFormControlInput1"
+              />
+            </div>
+            <button
+              type="button"
+              class="btn btn-primary"
+              style="background-color: #0b0872"
             >
-            <input
-              type="email"
-              class="form-control"
-              id="exampleFormControlInput1"
-              placeholder="name@example.com"
-            />
-          </div>
-          <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label"
-              >Password</label
-            >
-            <input
-              type="password"
-              class="form-control"
-              id="exampleFormControlInput1"
-            />
-          </div>
-          <button type="button" class="btn btn-primary">Login</button>
+              Login
+            </button>
+          </form>
         </div>
       </div>
     </div>
