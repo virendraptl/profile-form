@@ -140,4 +140,10 @@ export class HeaderComponent implements OnInit {
   toCustomerLogin(){
     this.router.navigate(['/auth'])
   }
+
+  toCustomerProfile(){
+    // console.log('goint to customer profile');
+        this.router.navigate(['/profile']);
+
+  }
 }

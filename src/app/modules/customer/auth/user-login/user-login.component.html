@@ -2,72 +2,8 @@
   <div
     class="accordion"
     id="accordionExample"
-    style="width: 600px; margin-top: 50px"
+    style="width: 600px; margin-top: 20px"
   >
-    <div class="accordion-item">
-      <h2 class="accordion-header" id="headingOne">
-        <button
-          class="accordion-button"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#collapseOne"
-          aria-expanded="true"
-          aria-controls="collapseOne"
-        >
-          Register
-        </button>
-      </h2>
-      <div
-        id="collapseOne"
-        class="accordion-collapse collapse show"
-        aria-labelledby="headingOne"
-        data-bs-parent="#accordionExample"
-      >
-        <div class="accordion-body">
-          <form [formGroup]="registerForm">
-            <div class="mb-3">
-              <label for="exampleFormControlInput1" class="form-label"
-                >User Name</label
-              >
-              <input
-                type="text"
-                class="form-control"
-                id="exampleFormControlInput1"
-                placeholder="Mark Spector"
-              />
-            </div>
-            <div class="mb-3">
-              <label for="exampleFormControlInput1" class="form-label"
-                >Email address</label
-              >
-              <input
-                type="email"
-                class="form-control"
-                id="exampleFormControlInput1"
-                placeholder="name@example.com"
-              />
-            </div>
-            <div class="mb-3">
-              <label for="exampleFormControlInput1" class="form-label"
-                >Password</label
-              >
-              <input
-                type="password"
-                class="form-control"
-                id="exampleFormControlInput1"
-              />
-            </div>
-            <button
-              type="button"
-              class="btn btn-primary"
-              style="background-color: #0b0872"
-            >
-              Register
-            </button>
-          </form>
-        </div>
-      </div>
-    </div>
     <div class="accordion-item">
       <h2 class="accordion-header" id="headingTwo">
         <button
@@ -78,45 +14,301 @@
           aria-expanded="false"
           aria-controls="collapseTwo"
         >
-          Login
+          Already Have An Account? Login Here
         </button>
       </h2>
       <div
         id="collapseTwo"
-        class="accordion-collapse collapse"
+        class="accordion-collapse collapse show"
         aria-labelledby="headingTwo"
         data-bs-parent="#accordionExample"
       >
         <div class="accordion-body">
-          <form [formGroup]="loginForm">
-            <div class="mb-3">
-              <label for="exampleFormControlInput1" class="form-label"
-                >Email address</label
-              >
-              <input
-                type="email"
-                class="form-control"
-                id="exampleFormControlInput1"
-                placeholder="name@example.com"
-              />
-            </div>
-            <div class="mb-3">
-              <label for="exampleFormControlInput1" class="form-label"
-                >Password</label
-              >
-              <input
-                type="password"
-                class="form-control"
-                id="exampleFormControlInput1"
-              />
-            </div>
-            <button
-              type="button"
-              class="btn btn-primary"
-              style="background-color: #0b0872"
+          <form [formGroup]="loginForm" (ngSubmit)="submitLoginForm()">
+            <div
+              style="
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+              "
             >
-              Login
-            </button>
+              <div class="mb-3" style="height: 80px">
+                <label for="exampleFormControlInput1" class="form-label med-ip"
+                  >Email address</label
+                >
+                <input
+                  formControlName="email"
+                  type="email"
+                  class="form-control med-ip"
+                  [ngClass]="
+                    logEmail.invalid && logEmail.touched ? 'red-border' : ''
+                  "
+                  placeholder="name@example.com"
+                />
+                <small *ngIf="logEmail.invalid && logEmail.touched"
+                  >Enter valid email</small
+                >
+              </div>
+              <div class="mb-3 med-ip" style="height: 80px">
+                <label for="exampleFormControlInput1" class="form-label"
+                  >Password</label
+                >
+                <input
+                  formControlName="password"
+                  type="password"
+                  class="form-control"
+                  [ngClass]="
+                    logPass.invalid && logPass.touched ? 'red-border' : ''
+                  "
+                />
+                <div *ngIf="logPass.invalid">
+                  <small *ngIf="logPass.hasError('required') && logPass.touched"
+                    >Password is required</small
+                  >
+                  <small
+                    *ngIf="logPass.hasError('minlength') && logPass.touched"
+                    >Password is too short</small
+                  >
+                  <small
+                    *ngIf="
+                      logPass.hasError('pattern') &&
+                      !logPass.hasError('minlength') &&
+                      logPass.touched
+                    "
+                    >Password must have at least 1 number & 1 character</small
+                  >
+                </div>
+              </div>
+            </div>
+            <div
+              style="display: flex; flex-direction: row; align-items: center"
+            >
+              <button
+                [disabled]="loginForm.invalid"
+                class="btn btn-primary"
+                style="background-color: #0b0872"
+              >
+                Login
+              </button>
+              <small *ngIf="loginForm.pristine" style="margin-left: 30px">{{
+                loginErrMsg
+              }}</small>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingOne">
+        <button
+          class="accordion-button"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#collapseOne"
+          aria-expanded="true"
+          aria-controls="collapseOne"
+        >
+          New user? Register Here
+        </button>
+      </h2>
+      <div
+        id="collapseOne"
+        class="accordion-collapse collapse"
+        aria-labelledby="headingOne"
+        data-bs-parent="#accordionExample"
+      >
+        <div class="accordion-body">
+          <form [formGroup]="registerForm" (ngSubmit)="submitRegisterForm()">
+            <div class="mb-3" style="height: 80px">
+              <label for="exampleFormControlInput1" class="form-label"
+                >User Name</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                [ngClass]="
+                  regName.invalid && regName.touched ? 'red-border' : ''
+                "
+                placeholder="Mark Spector"
+                formControlName="name"
+              />
+              <!-- {{getEmailErrorMessage()}} -->
+              <small *ngIf="regName.invalid && regName.touched"
+                >User name is required</small
+              >
+            </div>
+            <label for="exampleFormControlInput1" class="form-label"
+              >Address</label
+            >
+            <div formGroupName="addresses">
+              <div class="mb-3" style="height: 50px">
+                <!-- <label for="exampleFormControlInput1" class="form-label"
+                >Line #1</label
+              > -->
+                <input
+                  formControlName="street"
+                  type="text"
+                  class="form-control"
+                  [ngClass]="
+                    regAdStreet.invalid && regAdStreet.touched
+                      ? 'red-border'
+                      : ''
+                  "
+                  placeholder="Line #1"
+                />
+                <small *ngIf="regAdStreet.invalid && regAdStreet.touched"
+                  >Field can not be empty</small
+                >
+              </div>
+              <div class="mb-3" style="height: 50px">
+                <!-- <label for="exampleFormControlInput1" class="form-label"
+                >Line #2</label
+              > -->
+                <input
+                  formControlName="addressLine2"
+                  type="text"
+                  class="form-control"
+                  [ngClass]="
+                    regAdLine2.invalid && regAdLine2.touched ? 'red-border' : ''
+                  "
+                  placeholder="Line #2"
+                />
+                <small *ngIf="regAdLine2.invalid && regAdLine2.touched"
+                  >Field can not be empty</small
+                >
+              </div>
+              <div
+                style="
+                  display: flex;
+                  flex-direction: row;
+                  justify-content: space-between;
+                "
+              >
+                <div class="mb-3" style="height: 50px">
+                  <!-- <label for="exampleFormControlInput1" class="form-label"
+                >City</label
+              > -->
+                  <input
+                    formControlName="city"
+                    type="text"
+                    class="form-control small-ip"
+                    [ngClass]="
+                      regAdCity.invalid && regAdCity.touched ? 'red-border' : ''
+                    "
+                    placeholder="City"
+                  />
+                  <small *ngIf="regAdCity.invalid && regAdCity.touched"
+                    >Field can not be empty</small
+                  >
+                </div>
+                <div class="mb-3" style="height: 50px">
+                  <!-- <label for="exampleFormControlInput1" class="form-label"
+                >State</label
+              > -->
+                  <input
+                    formControlName="state"
+                    type="text"
+                    class="form-control small-ip"
+                    [ngClass]="
+                      regAdState.invalid && regAdState.touched
+                        ? 'red-border'
+                        : ''
+                    "
+                    placeholder="State"
+                  />
+                  <small *ngIf="regAdState.invalid && regAdState.touched"
+                    >Field can not be empty</small
+                  >
+                </div>
+                <div class="mb-3" style="height: 50px">
+                  <!-- <label for="exampleFormControlInput1" class="form-label"
+                >Pin Code</label
+              > -->
+                  <input
+                    formControlName="pin"
+                    type="text"
+                    class="form-control small-ip"
+                    [ngClass]="
+                      regAdPin.invalid && regAdPin.touched ? 'red-border' : ''
+                    "
+                    placeholder="Pin Code"
+                  />
+                  <small *ngIf="regAdPin.invalid && regAdPin.touched"
+                    >Field can not be empty</small
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div
+              style="
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+              "
+            >
+              <div class="mb-3" style="height: 80px">
+                <label for="exampleFormControlInput1" class="form-label med-ip"
+                  >Email address</label
+                >
+                <input
+                  formControlName="email"
+                  type="email"
+                  class="form-control med-ip"
+                  [ngClass]="
+                    regEmail.invalid && regEmail.touched ? 'red-border' : ''
+                  "
+                  placeholder="name@example.com"
+                />
+                <small *ngIf="regEmail.invalid && regEmail.touched"
+                  >Enter valid email</small
+                >
+              </div>
+              <div class="mb-3" style="height: 80px">
+                <label for="exampleFormControlInput1" class="form-label med-ip"
+                  >Password</label
+                >
+                <input
+                  formControlName="password"
+                  type="password"
+                  class="form-control med-ip"
+                  [ngClass]="
+                    regPass.invalid && regPass.touched ? 'red-border' : ''
+                  "
+                />
+                <div *ngIf="regPass.invalid">
+                  <small *ngIf="regPass.hasError('required') && regPass.touched"
+                    >Password is required</small
+                  >
+                  <small
+                    *ngIf="regPass.hasError('minlength') && regPass.touched"
+                    >Password is too short</small
+                  >
+                  <small
+                    *ngIf="
+                      regPass.hasError('pattern') &&
+                      !regPass.hasError('minlength') &&
+                      regPass.touched
+                    "
+                    >Password must have at least 1 number & 1 character</small
+                  >
+                </div>
+              </div>
+            </div>
+            <div
+              style="display: flex; flex-direction: row; align-items: center"
+            >
+              <button
+                [disabled]="registerForm.invalid"
+                class="btn btn-primary"
+                style="background-color: #0b0872"
+              >
+                Register
+              </button>
+              <small *ngIf="registerForm.pristine" style="margin-left: 30px">{{
+                regErrMsg
+              }}</small>
+            </div>
           </form>
         </div>
       </div>

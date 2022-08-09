@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CartModule } from './cart/cart.module';
-CartModule;
 
 const routes: Routes = [
   {
@@ -20,6 +18,11 @@ const routes: Routes = [
     path: 'auth',
     loadChildren: () =>
       import('../customer/auth/auth.module').then((m) => m.AuthModule),
+  },
+  {
+    path: 'profile',
+    loadChildren: () =>
+      import('../customer/profile/profile.module').then((m) => m.ProfileModule),
   },
 ];
 

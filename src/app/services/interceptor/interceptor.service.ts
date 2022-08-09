@@ -16,6 +16,7 @@ export class InterceptorService implements HttpInterceptor {
   // created an array containing URL keywords specific to logged-in state, to direct the intercept to add locally stored token as header and applying forced logout if token is expired or invalid
   allowLogout: string[] = ['self', 'users', 'products'];
   passIntercept: boolean = false;
+  passCustomerIntercept: boolean = false;
 
   constructor(
     private lstore: LocalStorageService,
@@ -28,7 +29,15 @@ export class InterceptorService implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     this.allowLogout.forEach((api) => {
       if (request.url.includes(api)) {
-        this.passIntercept = true;
+        if (
+          !request.url.includes('shop') &&
+          !request.url.includes('customers')
+        ) {
+          this.passIntercept = true;
+          console.log('added header for', request.url);
+        } else {
+          this.passIntercept = false;
+        }
       }
     });
 

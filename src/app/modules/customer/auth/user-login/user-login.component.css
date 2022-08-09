@@ -3,3 +3,26 @@
     background-color: #0b0872;
     font-weight: bold;
 }
+
+/* .mb-3{
+    height: 80px;
+} */
+
+.small-ip{
+    width: 170px;
+    /* margin-right: 30px; */
+}
+
+.med-ip{
+    width: 270px;
+    max-width: 270px;
+    /* margin-right: 30px; */
+}
+
+small{
+    color: red;
+}
+
+.red-border{
+    border-color: red;
+}

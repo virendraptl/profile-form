@@ -24,7 +24,7 @@ export class MyCartComponent implements OnInit {
   ) {
     this.headerTitleService.setTitle('My Cart');
 
-    this.cartProducts = lstore.getCartData();
+    this.cartProducts = lstore.getCartData() || [];
     console.table(this.cartProducts);
   }
 

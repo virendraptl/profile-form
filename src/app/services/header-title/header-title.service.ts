@@ -20,6 +20,17 @@ export class HeaderTitleService {
         },
       });
     }
+    let customerToken = storage.getCustomerToken();
+    console.log('customer token: ', customerToken);
+    if (customerToken) {
+      console.log('getting customer data in header title service');
+      this.http.getSecured('shop/auth/self', customerToken).subscribe({
+        next: (res: any) => {
+          console.log('customer name: ', res['name']);
+          this.customerName.next(res['name']);
+        },
+      });
+    }
   }
 
   setTitle(title: string) {

@@ -32,6 +32,14 @@ export class LocalStorageService {
     localStorage.setItem('token', token);
   }
 
+  setCustomerToken(token: string) {
+    localStorage.setItem('customer-token', token);
+  }
+
+  getCustomerToken() {
+    return localStorage.getItem('customer-token');
+  }
+
   getToken() {
     return localStorage.getItem('token');
   }
@@ -70,7 +78,7 @@ export class LocalStorageService {
       .finally(() => {
         this.deletetoken();
         this.table.setData(1, 10);
-        localStorage.clear();
+        localStorage.removeItem('token');
         const headerTitleService = this.injector.get(HeaderTitleService);
         headerTitleService.userName.next('');
         this.router.navigate(['seller/auth/login']);
