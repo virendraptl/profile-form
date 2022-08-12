@@ -14,6 +14,7 @@ export class MyCartComponent implements OnInit {
   loading: boolean = true;
   cartProducts = [];
   autoHover = [];
+  subTotal:number;
 
   constructor(
     private lstore: LocalStorageService,
@@ -26,6 +27,14 @@ export class MyCartComponent implements OnInit {
 
     this.cartProducts = lstore.getCartData() || [];
     console.table(this.cartProducts);
+    this.calcTotal();
+  }
+
+  calcTotal(){
+    this.subTotal = 0;
+    this.cartProducts.forEach(product => {
+      this.subTotal += product.price * product.cartCount;
+    })
   }
 
   ngOnInit(): void {
@@ -56,6 +65,7 @@ export class MyCartComponent implements OnInit {
       if (result.isConfirmed) {
         this.cartProducts.splice(i, 1);
         this.setCart();
+        this.calcTotal();
         // Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
       }
     });

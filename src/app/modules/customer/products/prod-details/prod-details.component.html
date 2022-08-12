@@ -53,12 +53,43 @@
             >
               Last Updated: {{ updateDate | timeAgo }}
             </h6>
-            <p class="card-text">
-              {{ productData.description }}
-            </p>
+            <div class="btn-block">
+              <h6 class="card-subtitle mb-2" style="font-weight: bold; color: #090979;">
+                Price: Rs.{{ productData.price | number: "1.2-2" }}
+              </h6>
+              <div
+                class="btn-group"
+                role="group"
+                aria-label="Basic mixed styles example"
+              >
+                <button type="button" class="btn btn-outline-primary">
+                  Buy Now
+                </button>
+                <button
+                  (click)="addToCart()"
+                  type="button"
+                  class="btn"
+                  [ngClass]="
+                    cartCount == 0 ? 'btn-outline-primary' : 'btn-primary'
+                  "
+                >
+                  {{ cartText }}
+                </button>
+              </div>
+            </div>
+
+            <span>
+              Description:
+              <p class="card-text">
+                {{ productData.description }}
+              </p>
+            </span>
           </div>
         </div>
-        <div class="btn-block">
+        <!-- <div class="btn-block">
+          <h6 class="card-subtitle mb-2">
+              Price: Rs.{{ productData.price | number : '1.2-2' }}
+            </h6>
           <div
             class="btn-group"
             role="group"
@@ -76,7 +107,7 @@
               {{ cartText }}
             </button>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
     <ng-template #postSubmit>

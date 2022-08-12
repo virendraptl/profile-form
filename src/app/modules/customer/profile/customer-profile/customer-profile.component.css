@@ -9,7 +9,6 @@
 }
 
 .main-card {
-
   width: 700px;
   min-width: 700px;
   height: auto;
@@ -46,7 +45,7 @@ a:visited {
   text-decoration: none;
 }
 
-.empty-block{
+.empty-block {
   width: 100%;
   display: flex;
   justify-content: center;
@@ -55,8 +54,7 @@ a:visited {
   opacity: 0.5;
 }
 
-.info-block{
-
+.info-block {
   position: sticky;
   top: 100px;
   width: 250px;
@@ -72,4 +70,113 @@ a:visited {
   -webkit-box-shadow: 0px 3px 24px -5px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 0px 3px 24px -5px rgba(0, 0, 0, 0.75);
   box-shadow: 0px 3px 24px -5px rgba(0, 0, 0, 0.75);
+}
+
+.avatar-block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+h3 {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.address-text {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+span {
+  font-weight: 550;
+}
+
+.addresses {
+  display: flex;
+  flex-direction: row;
+}
+
+.address-blocks {
+  margin: 10px 10px 0 10px;
+  color: #090979;
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  grid-template-rows: repeat(2, auto);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+}
+
+.address-count {
+  font-size: 30px;
+  color: rgb(184, 184, 184);
+}
+
+.address-details {
+  grid-area: 1 / 1 / 2 / 2;
+  width: 540px;
+}
+
+.hidden {
+  opacity: 0;
+}
+
+.edit-btn {
+  grid-area: 1 / 2 / 2 / 3;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  border-radius: 20px;
+  background-color: #090979;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.edit-profile-btn {
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  border-radius: 20px;
+  background-color: #090979;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  transform: translate(90px, -40px);
+}
+
+.edit-pic-btn {
+  cursor: pointer;
+  width: auto;
+  height: 30px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  transform: translate(80px, -40px);
+}
+
+.address-seperator {
+  grid-area: 2 / 1 / 3 / 3;
+}
+
+small {
+  color: red;
+}
+
+.red-border {
+  border-color: red;
+}
+
+.file-input {
+  display: none;
+}
+
+.top-zindex {
+  z-index: 99000 !important;
 }

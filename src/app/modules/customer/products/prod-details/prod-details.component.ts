@@ -133,9 +133,30 @@ export class ProdDetailsComponent implements OnInit {
     this.cartText = 'Added to Cart';
 
     this.lstore.setCartData(this.cartProducts);
+    // console.log(
+    //   this.disemvowel(
+    //     "No offense but,\nYour writing is among the worst I've ever read"
+    //   )
+    // );
   }
 
   goToCart() {
     this.router.navigate(['/cart']);
   }
+
+  // disemvowel(str) {
+  //   let test = 'aeiouAEIOU';
+  //   str = str.replace(/(\r\n|\n|\r)/gm, '');
+  //   console.log(str);
+  //   let result = str.split('');
+  //   console.log(result);
+  //   for (let i = 0; i < result.length; i++) {
+  //     if (test.includes(result[i])) {
+  //       console.log(result[i]);
+  //       result.splice(i, 1);
+  //     }
+  //   }
+  //   str = result.join('');
+  //   return str;
+  // }
 }

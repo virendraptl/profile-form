@@ -33,6 +33,7 @@
     "ng-image-fullscreen-view": "^3.0.3",
     "ng-recaptcha": "^10.0.0",
     "ngx-avatar": "^4.1.0",
+    "ngx-image-cropper": "^6.2.2",
     "ngx-infinite-scroll": "^14.0.0",
     "ngx-light-carousel": "^1.1.16",
     "ngx-pagination": "^6.0.2",

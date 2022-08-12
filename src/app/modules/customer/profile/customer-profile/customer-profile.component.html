@@ -4,16 +4,603 @@
   </ng-container>
   <div *ngIf="!loading" class="page">
     <div class="card info-block">
-      <p>Address Info:</p>
+      <div class="avatar-block">
+        <!-- <ngx-avatar [name]="currentData?.name" size="100"></ngx-avatar> -->
+        <ngx-avatar [src]="currentData.picture" size="100"></ngx-avatar>
+        <div
+          class="edit-profile-btn"
+          title="Edit"
+          data-bs-toggle="modal"
+          data-bs-target="#profileModal"
+          data-bs-whatever="@getbootstrap"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-pencil-fill"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"
+            />
+          </svg>
+        </div>
+      </div>
+      <h3>
+        Name:-
+        <span>
+          {{ currentData?.name }}
+        </span>
+      </h3>
+      <h3>
+        Email:-
+        <span>
+          {{ currentData?.email }}
+        </span>
+      </h3>
     </div>
     <div class="card main-card">
-      <ng-container >
-        <div style="display: flex; flex-direction: row; margin-bottom: 20px">
-          
-        </div>
-      </ng-container>
-    </div>
-    
-  </div>
+      <!-- <ng-container>
+        <div
+          style="display: flex; flex-direction: row; margin-bottom: 20px"
+        ></div>
+      </ng-container> -->
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link active"
+            id="address-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#address"
+            type="button"
+            role="tab"
+            aria-controls="address"
+            aria-selected="true"
+          >
+            Address List
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link"
+            id="history-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#history"
+            type="button"
+            role="tab"
+            aria-controls="history"
+            aria-selected="false"
+          >
+            Order History
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link"
+            id="wishlist-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#wishlist"
+            type="button"
+            role="tab"
+            aria-controls="wishlist"
+            aria-selected="false"
+          >
+            Wishlist
+          </button>
+        </li>
+      </ul>
+      <div class="tab-content" id="myTabContent">
+        <div
+          class="tab-pane fade show active"
+          id="address"
+          role="tabpanel"
+          aria-labelledby="address-tab"
+          style="margin-top: 5px"
+        >
+          <div class="addresses" *ngFor="let add of addressList; let i = index">
+            <div class="address-count">#{{ i + 1 }}</div>
+            <div class="address-blocks">
+              <div class="address-details">
+                <h3 class="address-text">
+                  Line 1:-
+                  <span>
+                    {{ add.street }}
+                  </span>
+                </h3>
+                <h3 class="address-text">
+                  Line 2:-
+                  <span>
+                    {{ add.addressLine2 }}
+                  </span>
+                </h3>
+                <h3 class="address-text">
+                  City:-
+                  <span>
+                    {{ add.city }}
+                  </span>
+                </h3>
+                <h3 class="address-text">
+                  State:-
+                  <span>
+                    {{ add.state }}
+                  </span>
+                </h3>
+                <h3 class="address-text">
+                  Pincode:-
+                  <span>
+                    {{ add.pin }}
+                  </span>
+                </h3>
+              </div>
+              <div>
+                <!-- <div
+                  class="edit-btn"
+                  title="Edit"
+                  (click)="editAddress(i, add._id)"
+                  data-bs-toggle="modal"
+                  data-bs-target="#addressModal"
+                  data-bs-whatever="@getbootstrap"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-pencil-fill"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"
+                    />
+                  </svg>
+                </div> -->
+                <div
+                  class="btn-group"
+                  role="group"
+                  aria-label="Basic mixed styles example"
+                >
+                  <button
+                    type="button"
+                    class="btn btn-outline-primary"
+                    title="Edit"
+                    (click)="editAddress(i, add._id)"
+                    data-bs-toggle="modal"
+                    data-bs-target="#addressModal"
+                    data-bs-whatever="@getbootstrap"
+                    style="
+                      border-top-left-radius: 100vw;
+                      border-bottom-left-radius: 100vw;
+                      border: 2px solid rgb(226, 226, 226);
+                    "
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="14"
+                      height="14"
+                      fill="currentColor"
+                      class="bi bi-pencil-fill"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"
+                      />
+                    </svg>
+                  </button>
+                  <button
+                    type="button"
+                    title="Delete"
+                    class="btn btn-outline-danger"
+                    (click)="sweetDelete(add._id)"
+                    style="
+                      border-top-right-radius: 100vw;
+                      border-bottom-right-radius: 100vw;
+                      border: 2px solid rgb(226, 226, 226);
+                    "
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="14"
+                      height="14"
+                      fill="currentColor"
+                      class="bi bi-x-lg"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <div class="address-seperator">
+                <hr
+                  [ngClass]="i < addressList.length - 1 ? '' : 'hidden'"
+                  style="width: 620px; margin: 6px 0"
+                />
+              </div>
+            </div>
+          </div>
+          <!-- <button
+            type="button"
+            class="btn btn-primary btn-sm"
+            style="border-radius: 100vw; margin-left: 40px; font-weight: bold"
+          >
+            Add New Address
+          </button> -->
+          <div>
+            <button
+              type="button"
+              class="btn btn-primary btn-sm"
+              style="border-radius: 100vw; margin-left: 40px; font-weight: bold"
+              data-bs-toggle="modal"
+              data-bs-target="#addressModal"
+              data-bs-whatever="@getbootstrap"
+              (click)="createNewAdrForm(emptyAddrForm)"
+            >
+              Add New Address
+            </button>
+          </div>
+          <div
+            class="modal fade"
+            id="addressModal"
+            tabindex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">
+                    {{ editOn ? "Update Address" : "New Address" }}
+                  </h5>
 
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <form [formGroup]="newAddressForm">
+                    <div class="mb-3" style="height: 50px">
+                      <input
+                        formControlName="street"
+                        type="text"
+                        class="form-control"
+                        [ngClass]="
+                          regAdStreet.invalid && regAdStreet.touched
+                            ? 'red-border'
+                            : ''
+                        "
+                        placeholder="Line #1"
+                      />
+                      <small *ngIf="regAdStreet.invalid && regAdStreet.touched"
+                        >Field can not be empty</small
+                      >
+                    </div>
+                    <div class="mb-3" style="height: 50px">
+                      <input
+                        formControlName="addressLine2"
+                        type="text"
+                        class="form-control"
+                        [ngClass]="
+                          regAdLine2.invalid && regAdLine2.touched
+                            ? 'red-border'
+                            : ''
+                        "
+                        placeholder="Line #2"
+                      />
+                      <small *ngIf="regAdLine2.invalid && regAdLine2.touched"
+                        >Field can not be empty</small
+                      >
+                    </div>
+                    <div
+                      style="
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: space-between;
+                      "
+                    >
+                      <div class="mb-3" style="height: 50px">
+                        <input
+                          formControlName="city"
+                          type="text"
+                          class="form-control small-ip"
+                          [ngClass]="
+                            regAdCity.invalid && regAdCity.touched
+                              ? 'red-border'
+                              : ''
+                          "
+                          placeholder="City"
+                        />
+                        <small *ngIf="regAdCity.invalid && regAdCity.touched"
+                          >Field can not be empty</small
+                        >
+                      </div>
+                      <div class="mb-3" style="height: 50px">
+                        <input
+                          formControlName="state"
+                          type="text"
+                          class="form-control small-ip"
+                          [ngClass]="
+                            regAdState.invalid && regAdState.touched
+                              ? 'red-border'
+                              : ''
+                          "
+                          placeholder="State"
+                        />
+                        <small *ngIf="regAdState.invalid && regAdState.touched"
+                          >Field can not be empty</small
+                        >
+                      </div>
+                      <div class="mb-3" style="height: 50px">
+                        <input
+                          formControlName="pin"
+                          type="text"
+                          class="form-control small-ip"
+                          [ngClass]="
+                            regAdPin.invalid && regAdPin.touched
+                              ? 'red-border'
+                              : ''
+                          "
+                          placeholder="Pin Code"
+                        />
+                        <small *ngIf="regAdPin.invalid && regAdPin.touched"
+                          >Field can not be empty</small
+                        >
+                      </div>
+                    </div>
+                    <!--  -->
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <!-- <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Close
+                  </button> -->
+                  <button
+                    [disabled]="newAddressForm.invalid"
+                    type="button"
+                    class="btn btn-primary"
+                    data-bs-dismiss="modal"
+                    (click)="submitAddrForm()"
+                  >
+                    {{ editOn ? "Update" : "Add" }}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="tab-pane fade"
+          id="history"
+          role="tabpanel"
+          aria-labelledby="history-tab"
+        >
+          ...
+        </div>
+        <div
+          class="tab-pane fade"
+          id="wishlist"
+          role="tabpanel"
+          aria-labelledby="wishlist-tab"
+        >
+          ...
+        </div>
+      </div>
+    </div>
+    <!--  -->
+
+    <div
+      class="modal fade"
+      id="profileModal"
+      tabindex="-1"
+      data-bs-backdrop="static"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Profile Update</h5>
+            <button
+              (click)="createProfileForm()"
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="avatar-block">
+              <div *ngIf="!isCropperOn">
+                <ngx-avatar [src]="avatarUrl" size="100"></ngx-avatar>
+              </div>
+              <!-- <div class="edit-pic-btn" title="Edit">
+
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-pencil-fill"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"
+                  />
+                </svg>
+              </div> -->
+              <div
+                class="btn-group edit-pic-btn"
+                role="group"
+                aria-label="Basic mixed styles example"
+              >
+                <button
+                  type="button"
+                  (click)="fileUpload.click()"
+                  class="btn btn-outline-primary"
+                  title="Update"
+                  style="
+                    border-top-left-radius: 100vw;
+                    border-bottom-left-radius: 100vw;
+                    border: 2px solid rgb(226, 226, 226);
+                  "
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="14"
+                    height="14"
+                    fill="currentColor"
+                    class="bi bi-pencil-fill"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"
+                    />
+                  </svg>
+                </button>
+                <input
+                  type="file"
+                  class="file-input"
+                  multiple
+                  (change)="onFileSelected($event)"
+                  #fileUpload
+                />
+                <button
+                  type="button"
+                  title="Remove"
+                  class="btn btn-outline-danger"
+                  style="
+                    border-top-right-radius: 100vw;
+                    border-bottom-right-radius: 100vw;
+                    border: 2px solid rgb(226, 226, 226);
+                  "
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="14"
+                    height="14"
+                    fill="currentColor"
+                    class="bi bi-x-lg"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"
+                    />
+                  </svg>
+                </button>
+              </div>
+              <div
+                *ngIf="isCropperOn"
+                style="
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: center;
+                "
+              >
+                <image-cropper
+                  [imageChangedEvent]="imageChangedEvent"
+                  [maintainAspectRatio]="true"
+                  [aspectRatio]="1 / 1"
+                  format="png"
+                  (imageCropped)="imageCropped($event)"
+                  (imageLoaded)="imageLoaded()"
+                  (cropperReady)="cropperReady()"
+                  (loadImageFailed)="loadImageFailed()"
+                ></image-cropper>
+                <div style="display: flex; justify-content: center">
+                  <button
+                    type="button"
+                    class="btn btn-primary btn-sm"
+                    style="width: 80px; margin: 10px"
+                    (click)="isCropped()"
+                  >
+                    Crop
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-light btn-sm"
+                    style="width: 80px; margin: 10px"
+                    (click)="cropCancelled()"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- <img [src]="croppedImage" /> -->
+            <div *ngIf="updateFormCreated">
+              <form [formGroup]="profileForm">
+                <!-- <div class="mb-3">
+                  <label for="user-name" class="col-form-label"
+                    >User Name:</label
+                  >
+                  <input type="text" formControlName="name" />
+                  <small *ngIf="profName.invalid && profName.touched"
+                    >User name is required</small
+                  >
+                </div> -->
+                <div class="mb-3" style="height: 80px">
+                  <label for="exampleFormControlInput1" class="form-label"
+                    >User Name</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    [ngClass]="
+                      profName.invalid && profName.touched ? 'red-border' : ''
+                    "
+                    placeholder="Mark Spector"
+                    formControlName="name"
+                  />
+                  <!-- {{getEmailErrorMessage()}} -->
+                  <small *ngIf="profName.invalid && profName.touched"
+                    >User name is required</small
+                  >
+                </div>
+                <!-- <div class="mb-3">
+                  <label for="user-email" class="col-form-label">Email:</label>
+                  <input type="text" formControlName="email" />
+                  <small *ngIf="profEmail.invalid && profEmail.touched"
+                    >Enter valid email</small
+                  >
+                </div> -->
+                <div class="mb-3" style="height: 80px">
+                  <label
+                    for="exampleFormControlInput1"
+                    class="form-label med-ip"
+                    >Email address</label
+                  >
+                  <input
+                    formControlName="email"
+                    type="email"
+                    class="form-control med-ip"
+                    [ngClass]="
+                      profEmail.invalid && profEmail.touched ? 'red-border' : ''
+                    "
+                    placeholder="name@example.com"
+                  />
+                  <small *ngIf="profEmail.invalid && profEmail.touched"
+                    >Enter valid email</small
+                  >
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button [disabled]="profileForm.invalid" type="button" class="btn btn-primary">Update</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

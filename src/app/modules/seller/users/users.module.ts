@@ -7,6 +7,8 @@ import { DetailsComponent } from './details/details.component';
 import { CreateComponent } from './create/create.component';
 import { UpdateComponent } from './update/update.component';
 import { SharedModule } from '../../shared/shared.module';
+import { MatStepperModule } from '@angular/material/stepper';
+
 
 @NgModule({
   declarations: [
@@ -15,6 +17,6 @@ import { SharedModule } from '../../shared/shared.module';
     CreateComponent,
     UpdateComponent,
   ],
-  imports: [CommonModule, UsersRoutingModule, SharedModule],
+  imports: [CommonModule, UsersRoutingModule, MatStepperModule, SharedModule],
 })
 export class UsersModule {}
