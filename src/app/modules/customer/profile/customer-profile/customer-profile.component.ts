@@ -7,6 +7,7 @@ import { LocalStorageService } from 'src/app/services/local-storage/local-storag
 import { PreviousRouteService } from 'src/app/services/previous-route/previous-route.service';
 import Swal from 'sweetalert2';
 import { ImageCroppedEvent, LoadedImage } from 'ngx-image-cropper';
+import { base64ToFile } from 'ngx-image-cropper';
 
 @Component({
   selector: 'app-customer-profile',
@@ -21,6 +22,8 @@ export class CustomerProfileComponent implements OnInit {
   newAddressForm: FormGroup;
   profileForm: FormGroup;
   editOn: boolean = false;
+  avatarRemoved: boolean = false;
+  avatarEdited: boolean = false;
   editFormNo: number;
   editAddId: string;
   emptyAddrForm = {
@@ -60,6 +63,7 @@ export class CustomerProfileComponent implements OnInit {
   }
 
   getProfileDetails() {
+    this.loading = true;
     this.http.getSecured('shop/auth/self', this.userToken).subscribe({
       next: (data) => {
         this.currentData = data;
@@ -68,6 +72,7 @@ export class CustomerProfileComponent implements OnInit {
         console.log(this.currentData);
         this.loading = false;
         this.createProfileForm();
+        this.headerTitleService.getCustomerData();
       },
       error: (error) => {
         console.log(error);
@@ -77,6 +82,7 @@ export class CustomerProfileComponent implements OnInit {
   }
 
   createProfileForm() {
+    this.avatarUrl = this.originalImageUrl;
     this.profileForm = this.fb.group({
       name: [this.currentData.name, Validators.required],
       email: [
@@ -107,6 +113,11 @@ export class CustomerProfileComponent implements OnInit {
     this.editAddId = id;
     this.editOn = true;
     this.createNewAdrForm(this.addressList[i]);
+  }
+
+  emptyAddress() {
+    this.editOn = false;
+    this.createNewAdrForm(this.emptyAddrForm);
   }
 
   createNewAdrForm(address) {
@@ -179,7 +190,7 @@ export class CustomerProfileComponent implements OnInit {
       });
   }
 
-  sweetDelete(id) {
+  sweetDeleteAddress(id) {
     Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
@@ -196,21 +207,40 @@ export class CustomerProfileComponent implements OnInit {
     });
   }
 
+  sweetDeleteAvatar() {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'This will remove your profile picture!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Remove',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.avatarUrl = 'https://i.imgur.com/CR1iy7U.png';
+        this.avatarRemoved = true;
+        this.avatarEdited = false;
+        // Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
+      }
+    });
+  }
+
   onFileSelected(event) {
     this.imageChangedEvent = event;
 
     const file: File = event.target.files[0];
 
-    if (file) {
-      // this.newPhotos.push(file);
-      // this.fileName = file.name;
-      let reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = (event) => {
-        // this.photosArr.push(event.target.result);
-        // this.imgFlag[1].push(false);
-      };
-    }
+    // if (file) {
+    //   this.newPhotos.push(file);
+    //   this.fileName = file.name;
+    //   let reader = new FileReader();
+    //   reader.readAsDataURL(file);
+    //   reader.onload = (event) => {
+    //     this.photosArr.push(event.target.result);
+    //     this.imgFlag[1].push(false);
+    //   };
+    // }
     this.isCropperOn = true;
 
     // console.log('New photos:', this.newPhotos);
@@ -235,10 +265,103 @@ export class CustomerProfileComponent implements OnInit {
   isCropped() {
     this.avatarUrl = this.croppedImage;
     this.isCropperOn = false;
+    this.avatarRemoved = false;
+    this.avatarEdited = true;
   }
 
   cropCancelled() {
     this.isCropperOn = false;
+  }
+
+  updateAvatar() {
+    if (this.avatarRemoved) {
+      this.http
+        .deleteSecured('customers/profile-picture', this.userToken)
+        .subscribe((data) => {
+          console.log('Profile pic removed!');
+          this.getProfileDetails();
+        });
+    } else if (this.avatarEdited) {
+      const formData = new FormData();
+      formData.append('picture', base64ToFile(this.avatarUrl));
+      this.http
+        .postSecured('customers/profile-picture', formData, this.userToken)
+        .subscribe((data) => {
+          console.log('Profile pic updated!');
+          this.getProfileDetails();
+        });
+    } else {
+      console.log('Profile updated!');
+      this.getProfileDetails();
+    }
+    this.avatarEdited = false;
+    this.avatarRemoved = false;
+  }
+
+  updateProfile() {
+    this.http
+      .patchSecured(
+        'customers/update-profile',
+        this.profileForm.value,
+        this.userToken
+      )
+      .subscribe({
+        next: (data) => {
+          console.log('Profile updated!');
+          this.updateAvatar();
+          // this.getProfileDetails();
+        },
+        error: (err) => {
+          console.log('Error in update:', err);
+          // this.toasterService.error('Error:', err.message);
+        },
+      });
+  }
+
+  logOut() {
+    this.lstore.customerLogOut();
+  }
+
+  deleteAcc() {
+    this.http
+      .deleteSecured('customers/account', this.userToken)
+      .subscribe((data) => {
+        this.logOut();
+      });
+  }
+
+  sweetLogout() {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: '',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Log Out',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.logOut();
+        // Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
+      }
+    });
+  }
+
+  sweetDeleteAccount() {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Delete this account',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.deleteAcc();
+        // Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
+      }
+    });
   }
 
   get regAdStreet() {

@@ -16,7 +16,6 @@ export class LocalStorageService {
     private table: TableDataService,
     private injector: Injector,
     private authService: SocialAuthService, // private authService: SocialAuthService
-    private stateService: SocialStateService
   ) {
     let cartData = JSON.parse(localStorage.getItem('cart-data'));
     let count = 0;
@@ -46,6 +45,10 @@ export class LocalStorageService {
 
   deletetoken() {
     localStorage.removeItem('token');
+  }
+
+  deleteCustomerToken() {
+    localStorage.removeItem('customer-token');
   }
 
   setData(name: string, data: any) {
@@ -84,6 +87,14 @@ export class LocalStorageService {
         this.router.navigate(['seller/auth/login']);
       });
     console.log('clicked logout');
+  }
+
+  customerLogOut() {
+    this.deleteCustomerToken();
+    const headerTitleService = this.injector.get(HeaderTitleService);
+    headerTitleService.customerName.next('');
+    // this.headerTitleService.customerName.next('');
+            this.router.navigate(['/']);
   }
 
   setCartData(data) {

@@ -90,6 +90,20 @@
             Wishlist
           </button>
         </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link"
+            id="account-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#account"
+            type="button"
+            role="tab"
+            aria-controls="account"
+            aria-selected="false"
+          >
+            Account
+          </button>
+        </li>
       </ul>
       <div class="tab-content" id="myTabContent">
         <div
@@ -192,7 +206,7 @@
                     type="button"
                     title="Delete"
                     class="btn btn-outline-danger"
-                    (click)="sweetDelete(add._id)"
+                    (click)="sweetDeleteAddress(add._id)"
                     style="
                       border-top-right-radius: 100vw;
                       border-bottom-right-radius: 100vw;
@@ -237,7 +251,7 @@
               data-bs-toggle="modal"
               data-bs-target="#addressModal"
               data-bs-whatever="@getbootstrap"
-              (click)="createNewAdrForm(emptyAddrForm)"
+              (click)="emptyAddress()"
             >
               Add New Address
             </button>
@@ -394,6 +408,41 @@
         >
           ...
         </div>
+        <div
+          class="tab-pane fade"
+          id="account"
+          role="tabpanel"
+          aria-labelledby="account-tab"
+        >
+          <div style="display: flex; flex-direction: column">
+            <button
+              type="button"
+              class="btn btn-danger btn-sm"
+              style="
+                border-radius: 100vw;
+                margin-top: 40px;
+                font-weight: bold;
+                width: 200px;
+              "
+              (click)="sweetLogout()"
+            >
+              Log Out
+            </button>
+            <button
+              type="button"
+              class="btn btn-dark btn-sm"
+              (click)="sweetDeleteAccount()"
+              style="
+                border-radius: 100vw;
+                margin-top: 40px;
+                font-weight: bold;
+                width: 200px;
+              "
+            >
+              Delete the account
+            </button>
+          </div>
+        </div>
       </div>
     </div>
     <!--  -->
@@ -478,6 +527,7 @@
                   type="button"
                   title="Remove"
                   class="btn btn-outline-danger"
+                  (click)="sweetDeleteAvatar()"
                   style="
                     border-top-right-radius: 100vw;
                     border-bottom-right-radius: 100vw;
@@ -597,7 +647,15 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button [disabled]="profileForm.invalid" type="button" class="btn btn-primary">Update</button>
+            <button
+              [disabled]="profileForm.invalid"
+              type="button"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+              (click)="updateProfile()"
+            >
+              Update
+            </button>
           </div>
         </div>
       </div>

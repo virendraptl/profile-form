@@ -56,6 +56,7 @@ export class ProductCreateComponent implements OnInit {
         this.fileName = file.name;
         let reader = new FileReader();
         reader.readAsDataURL(file);
+        // reader.readAsBinaryString()
         reader.onload = (event) => {
           this.photosArr.push(event.target.result);
         };

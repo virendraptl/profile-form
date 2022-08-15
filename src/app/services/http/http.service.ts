@@ -70,8 +70,8 @@ export class HttpService {
    * @returns A new HttpHeaders object with the content type and authorization headers.
    */
   setHeaders(token) {
+    // 'Content-Type': 'application/json',
     return new HttpHeaders({
-      'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     });
   }
