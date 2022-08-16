@@ -8,6 +8,7 @@ import { PreviousRouteService } from 'src/app/services/previous-route/previous-r
 import Swal from 'sweetalert2';
 import { ImageCroppedEvent, LoadedImage } from 'ngx-image-cropper';
 import { base64ToFile } from 'ngx-image-cropper';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-customer-profile',
@@ -48,6 +49,7 @@ export class CustomerProfileComponent implements OnInit {
     private previousRouteService: PreviousRouteService,
     private lstore: LocalStorageService,
     private fb: FormBuilder,
+    private router: Router,
     private headerTitleService: HeaderTitleService,
     private toasterService: HotToastService
   ) {
@@ -320,6 +322,7 @@ export class CustomerProfileComponent implements OnInit {
 
   logOut() {
     this.lstore.customerLogOut();
+    this.router.navigate(['/']);
   }
 
   deleteAcc() {

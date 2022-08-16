@@ -1,0 +1,269 @@
+<div class="banner">
+  <!-- <ng-container>
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </ng-container> -->
+  <!-- *ngIf="!loading" -->
+  <div class="page">
+    <div class="card main-card">
+      <div id="stepper1" class="bs-stepper vertical">
+        <div class="bs-stepper-header">
+          <div class="step" data-target="#test-l-1">
+            <button class="step-trigger">
+              <span class="bs-stepper-circle">1</span>
+              <span class="bs-stepper-label">Account Details</span>
+            </button>
+          </div>
+          <div class="line"></div>
+          <div class="step" data-target="#test-l-2">
+            <button class="step-trigger">
+              <span class="bs-stepper-circle">2</span>
+              <span class="bs-stepper-label">Shipping Details</span>
+            </button>
+          </div>
+          <div class="line"></div>
+          <div class="step" data-target="#test-l-3">
+            <button class="step-trigger">
+              <span class="bs-stepper-circle">3</span>
+              <span class="bs-stepper-label">Order Summary</span>
+            </button>
+          </div>
+          <div class="line"></div>
+          <div class="step" data-target="#test-l-4">
+            <button class="step-trigger">
+              <span class="bs-stepper-circle">4</span>
+              <span class="bs-stepper-label">Payment</span>
+            </button>
+          </div>
+        </div>
+        <div class="bs-stepper-content">
+          <div [ngClass]="stepCount == 1 ? '' : 'hidden'">
+            <div id="test-l-1" class="content">
+              <!-- (click)="next()" -->
+              <div *ngIf="isLoading1" class="d-flex align-items-center">
+                <strong>Loading...</strong>
+                <div
+                  class="spinner-border ms-auto"
+                  role="status"
+                  aria-hidden="true"
+                ></div>
+              </div>
+              <button
+                (click)="next()"
+                *ngIf="isLoggedIn && !isLoading1"
+                class="btn btn-primary"
+              >
+                Continue as {{ currentData.name }}
+              </button>
+              <button
+                *ngIf="isLoggedIn && !isLoading1"
+                class="btn btn-dark"
+                style="margin-left: 30px"
+                (click)="toLoginPage()"
+              >
+                Login as another user
+              </button>
+              <button
+                *ngIf="!isLoggedIn && !isLoading1"
+                class="btn btn-primary"
+                (click)="toLoginPage()"
+              >
+                Register/Login
+              </button>
+            </div>
+          </div>
+
+          <div [ngClass]="stepCount == 2 ? '' : 'hidden'">
+            <div id="test-l-2" class="content" style="width: 600px">
+              <div
+                style="width: auto"
+                *ngFor="let address of addressList; let i = index"
+              >
+                <div
+                  style="
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                  "
+                >
+                  <div
+                    class="form-check"
+                    style="
+                      display: flex;
+                      flex-direction: row;
+                      align-items: flex-start;
+                    "
+                  >
+                    <!-- [checked]="i == 0" -->
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      [value]="address"
+                      [(ngModel)]="finalAddress"
+                      name="flexRadioDefault"
+                      id="flexRadioDefault1"
+                    />
+                    <div style="width: auto; height: auto">
+                      <!--  -->
+                      <div class="address-blocks">
+                        <div class="address-details">
+                          <span>
+                            {{ address.street }}, {{ address.addressLine2 }},{{
+                              address.city
+                            }},{{ address.state }}, {{ address.pin }}
+                          </span>
+                        </div>
+
+                        <div class="address-seperator">
+                          <hr
+                            [ngClass]="
+                              i < addressList.length - 2 ? '' : 'hidden'
+                            "
+                            style="width: 220px; margin: 6px 0"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <button
+                      type="button"
+                      class="btn btn-outline-primary"
+                      title="Edit"
+                      data-bs-toggle="modal"
+                      data-bs-target="#addressModal"
+                      data-bs-whatever="@getbootstrap"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="14"
+                        height="14"
+                        fill="currentColor"
+                        class="bi bi-pencil-fill"
+                        viewBox="0 0 16 16"
+                      >
+                        <path
+                          d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <button
+                  type="button"
+                  class="btn btn-primary btn-sm"
+                  style="
+                    border-radius: 100vw;
+                    margin: 10px 0 10px 20px;
+                    font-weight: bold;
+                  "
+                  data-bs-toggle="modal"
+                  data-bs-target="#addressModal"
+                  data-bs-whatever="@getbootstrap"
+                >
+                  Add New Address
+                </button>
+              </div>
+
+              <!-- (click)="next()" -->
+              <div style="margin-top: 50px">
+                <button
+                  style="margin: 10px 20px"
+                  (click)="previous()"
+                  class="btn btn-primary"
+                >
+                  Previous
+                </button>
+                <button
+                  [disabled]="!finalAddress"
+                  (click)="next(); radioOp()"
+                  class="btn btn-primary"
+                >
+                  Next
+                </button>
+              </div>
+            </div>
+          </div>
+          <div [ngClass]="stepCount == 3 ? '' : 'hidden'">
+            <div id="test-l-3" class="content text-center">
+              <!-- <button type="submit" class="btn btn-primary mt-5">Submit</button> -->
+              <div class="card" style="border: none">
+                <div class="card-body flex-column-start">
+                  <p class="summary-text">
+                    <u> Customer Name </u>:-
+                    <span>{{ currentData?.name }}</span>
+                  </p>
+                  <p class="summary-text">
+                    <u>Deliver To</u>:-
+                    <span>
+                      {{ finalAddress?.street }},
+                      {{ finalAddress?.addressLine2 }},{{
+                        finalAddress?.city
+                      }},{{ finalAddress?.state }}, {{ finalAddress?.pin }}
+                    </span>
+                  </p>
+
+                  <p class="summary-text"><u>Products Details</u>:-</p>
+                  <table class="table">
+                    <tbody>
+                      <tr
+                        class="prod-text"
+                        *ngFor="let product of cartProducts"
+                      >
+                        <!-- <th scope="row">1</th> -->
+                        <td colspan="4" style="text-align: left">
+                          {{ product.name }}
+                        </td>
+                        <td style="text-align: left">
+                          X {{ product.cartCount }}
+                        </td>
+                        <td>
+                          = Rs.
+                          {{
+                            product.price * product.cartCount | number: "1.2-2"
+                          }}
+                        </td>
+                      </tr>
+                      <tr class="summary-text">
+                        <td colspan="5" style="text-align: left">Total:-</td>
+                        <td style="text-align: center">= Rs.{{ subTotal | number: "1.2-2" }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="flex-row-start" style="margin-top: 20px;">
+                <button
+                  style="margin: 10px 20px"
+                  (click)="previous()"
+                  class="btn btn-primary"
+                >
+                  Previous
+                </button>
+                <button style="margin: 10px 0" (click)="next()" class="btn btn-primary">Next</button>
+              </div>
+            </div>
+          </div>
+          <div [ngClass]="stepCount == 4 ? '' : 'hidden'">
+            <div id="test-l-4" class="content">
+              
+              <!-- (click)="next()" -->
+              <!-- <button (click)="next()" class="btn btn-primary">Next</button> -->
+              <div class="flex-row-start" style="margin-top: 20px;">
+                <button
+                  style="margin: 10px 20px"
+                  (click)="previous()"
+                  class="btn btn-primary"
+                >
+                  Previous
+                </button>
+                <button style="margin: 10px 0" (click)="next()" class="btn btn-primary">Pay</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

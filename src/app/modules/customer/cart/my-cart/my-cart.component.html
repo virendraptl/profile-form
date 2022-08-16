@@ -159,7 +159,7 @@
          </div>
         </div>
       </div>
-      <button type="button" class="btn btn-primary">Proceed to buy</button>
+      <button type="button" class="btn btn-primary" (click)="toCheckout()">Proceed to buy</button>
     </div>
   </div>
   <ng-container *ngIf="!cartProducts || cartProducts.length == 0">

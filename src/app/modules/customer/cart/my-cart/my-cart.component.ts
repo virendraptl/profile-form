@@ -14,7 +14,7 @@ export class MyCartComponent implements OnInit {
   loading: boolean = true;
   cartProducts = [];
   autoHover = [];
-  subTotal:number;
+  subTotal: number;
 
   constructor(
     private lstore: LocalStorageService,
@@ -30,11 +30,11 @@ export class MyCartComponent implements OnInit {
     this.calcTotal();
   }
 
-  calcTotal(){
+  calcTotal() {
     this.subTotal = 0;
-    this.cartProducts.forEach(product => {
+    this.cartProducts.forEach((product) => {
       this.subTotal += product.price * product.cartCount;
-    })
+    });
   }
 
   ngOnInit(): void {
@@ -50,6 +50,10 @@ export class MyCartComponent implements OnInit {
 
   toHome() {
     this.router.navigate(['/']);
+  }
+
+  toCheckout() {
+    this.router.navigate(['/cart/checkout']);
   }
 
   sweetDelete(i) {

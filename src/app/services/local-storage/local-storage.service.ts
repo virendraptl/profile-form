@@ -94,7 +94,6 @@ export class LocalStorageService {
     const headerTitleService = this.injector.get(HeaderTitleService);
     headerTitleService.customerName.next('');
     // this.headerTitleService.customerName.next('');
-            this.router.navigate(['/']);
   }
 
   setCartData(data) {
