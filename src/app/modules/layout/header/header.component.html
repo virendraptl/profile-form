@@ -183,7 +183,7 @@
       <span
         *ngIf="cartCount > 0"
         class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle count"
-        >{{ cartCount }}
+        >{{ cartCount < 10 ? cartCount : '9+' }}
       </span>
     </button>
   </div>

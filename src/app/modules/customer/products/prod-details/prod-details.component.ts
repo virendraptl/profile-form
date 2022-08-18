@@ -101,6 +101,7 @@ export class ProdDetailsComponent implements OnInit {
 
   buyNow() {
     this.lstore.buyNowOn();
+    this.productData.cartCount = 1;
     this.lstore.setBuyNowProduct(this.productData);
     this.router.navigate(['/cart/checkout']);
   }
