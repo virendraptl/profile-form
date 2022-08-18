@@ -10,7 +10,6 @@
         class="card"
         style="width: 192px; height: 240px"
       >
-
         <carousel
           [arrows]="autoHover[i]"
           class="carousel-block"
@@ -34,7 +33,6 @@
           >
             <div class="carousel-cell previewimg">
               <img src="{{ img.url }}" />
-
             </div>
           </ng-container>
         </carousel>
@@ -47,15 +45,15 @@
             >
           </h5>
           <p class="card-text">
-            {{ product.description | shorten: 40:"..." }}
+            {{ product.description | shorten: 20:"..." }}
+            Rs.{{ product.price }}
           </p>
         </div>
         <a
           title="Delete"
           class="remove-image"
           (click)="
-            sweetDelete(product.name, product._id, i);
-            $event.stopPropagation()
+            sweetDelete(product.name, product._id, i); $event.stopPropagation()
           "
           style="display: inline"
           >&#215;</a
@@ -65,7 +63,6 @@
   </div>
   <div class="pagination-block" *ngIf="!loading && !empty">
     <div>
-
       <pagination-controls
         id="my-pg"
         (pageChange)="pageChanged($event)"

@@ -18,6 +18,19 @@
       <small *ngIf="prodDesc.invalid && prodDesc.touched"
         >Description field can not be empty</small
       >
+      <div style="display: flex; flex-direction: row">
+        <h5 class="card-title" style="margin-right: 10px">Product Price:</h5>
+        <h5 class="card-title" style="margin-right: 5px">Rs.</h5>
+
+        <input
+          formControlName="price"
+          style="width: 30%; height: 30px; margin: 16px 0 8px 0"
+          type="number"
+        />
+      </div>
+      <small *ngIf="price.invalid && price.touched"
+        >Price field can not be empty</small
+      >
       <h5 class="card-title">Product Photos:</h5>
       <input
         type="file"
@@ -91,17 +104,19 @@
     <div class="post-body">
       <h1 *ngIf="!created && !failed">Uploading all info for the product...</h1>
       <mat-progress-bar
-      class="progress-bar"
+        class="progress-bar"
         *ngIf="!created && !failed"
         mode="indeterminate"
       ></mat-progress-bar>
       <h1 *ngIf="failed">There is an error: {{ errMessage }}</h1>
       <h1 *ngIf="created">Product successfully uploaded!!</h1>
       <h4 *ngIf="created">
-        <a [routerLink]="['/seller/products/details', newProdId]">Click here</a> to see new
-        product details
+        <a [routerLink]="['/seller/products/details', newProdId]">Click here</a>
+        to see new product details
       </h4>
-      <h4><a routerLink="/seller/products">Click here</a> to see all products</h4>
+      <h4>
+        <a routerLink="/seller/products">Click here</a> to see all products
+      </h4>
     </div>
   </ng-template>
 </div>

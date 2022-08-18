@@ -53,12 +53,49 @@
             >
               Last Updated: {{ updateDate | timeAgo }}
             </h6>
-            <p class="card-text">
-              {{ productData.description }}
-            </p>
+            <div class="btn-block">
+              <h6
+                class="card-subtitle mb-2"
+                style="font-weight: bold; color: #090979"
+              >
+                Price: Rs.{{ productData.price | number: "1.2-2" }}
+              </h6>
+              <div
+                class="btn-group"
+                role="group"
+                aria-label="Basic mixed styles example"
+              >
+                <button
+                  [routerLink]="['/seller/products/update', productId]"
+                  type="button"
+                  class="btn btn-primary"
+                >
+                  Update
+                </button>
+                <button
+                  (click)="sweetDelete(productData.name, productData._id)"
+                  type="button"
+                  class="btn btn-danger"
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+            <span>
+              Description:
+              <p class="card-text">
+                {{ productData.description }}
+              </p>
+            </span>
           </div>
         </div>
-        <div class="btn-block">
+        <!-- <div class="btn-block">
+          <h6
+            class="card-subtitle mb-2"
+            style="font-weight: bold; color: #090979"
+          >
+            Price: Rs.{{ productData.price | number: "1.2-2" }}
+          </h6>
           <div
             class="btn-group"
             role="group"
@@ -79,10 +116,9 @@
               Delete
             </button>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
-
   </div>
 </div>
 

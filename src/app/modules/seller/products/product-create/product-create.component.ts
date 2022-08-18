@@ -36,6 +36,7 @@ export class ProductCreateComponent implements OnInit {
     this.productForm = this.fb.group({
       prodName: ['', Validators.required],
       prodDesc: ['', Validators.required],
+      price: ['', Validators.required],
     });
   }
 
@@ -45,6 +46,10 @@ export class ProductCreateComponent implements OnInit {
 
   get prodDesc() {
     return this.productForm.get('prodDesc');
+  }
+
+  get price() {
+    return this.productForm.get('price');
   }
 
   onFileSelected(event) {
@@ -76,6 +81,7 @@ export class ProductCreateComponent implements OnInit {
     const formData = new FormData();
     formData.append('name', this.productForm.value.prodName);
     formData.append('description', this.productForm.value.prodDesc);
+    formData.append('price', this.productForm.value.price);
     for (let i = 0; i < this.totalPhotos.length; i++) {
       formData.append('images', this.totalPhotos[i]);
     }

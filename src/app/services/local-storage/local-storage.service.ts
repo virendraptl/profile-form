@@ -10,12 +10,13 @@ import { TableDataService } from '../table-data/table-data.service';
 })
 export class LocalStorageService {
   cartCount = new BehaviorSubject(0);
+  buyNow: boolean = false;
 
   constructor(
     private router: Router,
     private table: TableDataService,
     private injector: Injector,
-    private authService: SocialAuthService, // private authService: SocialAuthService
+    private authService: SocialAuthService // private authService: SocialAuthService
   ) {
     let cartData = JSON.parse(localStorage.getItem('cart-data'));
     let count = 0;
@@ -107,5 +108,21 @@ export class LocalStorageService {
 
   getCartData() {
     return JSON.parse(localStorage.getItem('cart-data'));
+  }
+
+  setBuyNowProduct(data) {
+    localStorage.setItem('buyNow-data', JSON.stringify(data));
+  }
+
+  getBuyNowProduct() {
+    return JSON.parse(localStorage.getItem('buyNow-data'));
+  }
+
+  buyNowOn() {
+    this.buyNow = true;
+  }
+
+  buyNowOff() {
+    this.buyNow = false;
   }
 }

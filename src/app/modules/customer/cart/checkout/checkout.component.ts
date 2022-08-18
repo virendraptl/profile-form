@@ -47,7 +47,12 @@ export class CheckoutComponent implements OnInit {
     private http: HttpService
   ) {
     this.headerTitleService.setTitle('Checkout');
-    this.cartProducts = lstore.getCartData();
+    let buyNow = lstore.buyNow;
+    if(buyNow){
+      this.cartProducts = [lstore.getBuyNowProduct()];
+    }else{
+      this.cartProducts = lstore.getCartData();
+    }
     console.log(this.cartProducts);
     this.calcTotal();
   }

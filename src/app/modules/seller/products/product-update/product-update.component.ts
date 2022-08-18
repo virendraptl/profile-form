@@ -67,6 +67,7 @@ export class ProductUpdateComponent implements OnInit {
     this.updateForm = this.fb.group({
       name: [this.currentData.name, Validators.required],
       description: [this.currentData.description, Validators.required],
+      price: [this.currentData.price, Validators.required],
     });
   }
 
@@ -82,6 +83,10 @@ export class ProductUpdateComponent implements OnInit {
   }
   get description() {
     return this.updateForm.get('description');
+  }
+
+  get price() {
+    return this.updateForm.get('price');
   }
 
   onFileSelected(event) {

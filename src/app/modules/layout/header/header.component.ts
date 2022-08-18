@@ -125,6 +125,7 @@ export class HeaderComponent implements OnInit {
   }
 
   goToCart() {
+    this.lstore.buyNowOff();
     this.router.navigate(['/cart']);
   }
 

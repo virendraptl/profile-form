@@ -29,6 +29,19 @@
             <small *ngIf="description.invalid && description.touched"
               >Description field can not be empty</small
             >
+
+            <div style="display: flex; flex-direction: row">
+              <h5 class="card-title" style="margin-right: 10px">
+                Product Price:
+              </h5>
+              <h5 class="card-title" style="margin-right: 5px">Rs.</h5>
+
+              <input
+                formControlName="price"
+                style="width: 30%; height: 30px; margin: 16px 0 8px 0"
+                type="number"
+              />
+            </div>
           </form>
         </div>
         <div class="seperator-block"></div>

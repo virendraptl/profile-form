@@ -99,20 +99,11 @@ export class ProdDetailsComponent implements OnInit {
     this.selectedImageIndex = -1;
   }
 
-  // addToCart() {
-  //   // product.cartCount ? product.cartCount++ : product.cartCount = 1;
-  //   // this.cartProducts.push(product);
-  //   // console.log('cart data:',this.cartProducts);
-  //   if (this.cartCount > 0) {
-  //     this.productData.cartCount++;
-  //   } else {
-  //     this.productData.cartCount = 1;
-  //     this.cartProducts.push(this.productData);
-  //   }
-  //   this.cartCount++;
-  //   this.cartText = 'Added to Cart';
-  //   this.lstore.setCartData(this.cartProducts);
-  // }
+  buyNow() {
+    this.lstore.buyNowOn();
+    this.lstore.setBuyNowProduct(this.productData);
+    this.router.navigate(['/cart/checkout']);
+  }
 
   addToCart() {
     this.cartProducts = this.lstore.getCartData() || [];
@@ -133,30 +124,9 @@ export class ProdDetailsComponent implements OnInit {
     this.cartText = 'Added to Cart';
 
     this.lstore.setCartData(this.cartProducts);
-    // console.log(
-    //   this.disemvowel(
-    //     "No offense but,\nYour writing is among the worst I've ever read"
-    //   )
-    // );
   }
 
   goToCart() {
     this.router.navigate(['/cart']);
   }
-
-  // disemvowel(str) {
-  //   let test = 'aeiouAEIOU';
-  //   str = str.replace(/(\r\n|\n|\r)/gm, '');
-  //   console.log(str);
-  //   let result = str.split('');
-  //   console.log(result);
-  //   for (let i = 0; i < result.length; i++) {
-  //     if (test.includes(result[i])) {
-  //       console.log(result[i]);
-  //       result.splice(i, 1);
-  //     }
-  //   }
-  //   str = result.join('');
-  //   return str;
-  // }
 }
