@@ -5,28 +5,48 @@ import { BehaviorSubject } from 'rxjs';
 import { HeaderTitleService } from '../header-title/header-title.service';
 import { SocialStateService } from '../social-state-service/social-state.service';
 import { TableDataService } from '../table-data/table-data.service';
+import { Store } from '@ngrx/store';
+import { getCartData } from 'src/app/modules/customer/state/customer.selector';
+import { updateCart } from 'src/app/modules/customer/state/customer.actions';
+import { customerState } from 'src/app/modules/customer/state/customer.state';
+
 @Injectable({
   providedIn: 'root',
 })
 export class LocalStorageService {
   cartCount = new BehaviorSubject(0);
   buyNow: boolean = false;
+  cartProducts;
 
   constructor(
     private router: Router,
     private table: TableDataService,
     private injector: Injector,
+    private store: Store<customerState>,
     private authService: SocialAuthService // private authService: SocialAuthService
   ) {
-    let cartData = JSON.parse(localStorage.getItem('cart-data'));
-    let count = 0;
-    if (cartData) {
-      cartData.forEach((product) => {
-        count += product.cartCount;
-      });
-      this.cartCount.next(count);
-    }
+    this.store.select(getCartData).subscribe((data) => {
+      // this.cartProducts = data ? [...data] : [];
+      let temp = JSON.parse(JSON.stringify(data));
+      this.cartProducts = data ? [...temp] : [];
+      // let cartData = JSON.parse(localStorage.getItem('cart-data'));
+      let count = 0;
+      if (this.cartProducts) {
+        this.cartProducts.forEach((product) => {
+          count += product.cartCount;
+        });
+        this.cartCount.next(count);
+      }
+    });
   }
+
+  // getCartData() {
+  //   this.store.select(getCartData).subscribe((data) => {
+  //     // this.cartProducts = data ? [...data] : [];
+  //     let temp = JSON.parse(JSON.stringify(data));
+  //     this.cartProducts = data ? [...temp] : [];
+  //   });
+  // }
 
   setToken(token: string) {
     localStorage.setItem('token', token);

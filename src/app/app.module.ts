@@ -18,6 +18,10 @@ import {
   SocialLoginModule,
 } from '@abacritt/angularx-social-login';
 import { RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module } from 'ng-recaptcha';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from 'src/environments/environment';
+import { customerReducer } from './modules/customer/state/customer.reducer';
 
 
 @NgModule({
@@ -29,6 +33,8 @@ import { RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module } from 'ng-recaptcha';
     LayoutModule,
     ToastrModule.forRoot(),
     SharedModule,
+    StoreModule.forRoot({ customer: customerReducer }),
+    StoreDevtoolsModule.instrument({ logOnly: environment.production }),
     // RecaptchaV3Module,
   ],
   providers: [

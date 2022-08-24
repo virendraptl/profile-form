@@ -369,9 +369,25 @@
                         </td>
                       </tr>
                       <tr class="summary-text">
-                        <td colspan="5" style="text-align: left">Total:-</td>
+                        <td colspan="5" style="text-align: left">Subtotal:-</td>
                         <td style="text-align: center">
                           = Rs.{{ subTotal | number: "1.2-2" }}
+                        </td>
+                      </tr>
+                      <tr class="summary-text">
+                        <td colspan="5" style="text-align: left">
+                          Delivery Charges:-
+                        </td>
+                        <td style="text-align: center">
+                          = Rs.{{ deliveryFee | number: "1.2-2" }}
+                        </td>
+                      </tr>
+                      <tr class="summary-text">
+                        <td colspan="5" style="text-align: left">
+                          Final Amount:-
+                        </td>
+                        <td style="text-align: center">
+                          = Rs.{{ totalAmount | number: "1.2-2" }}
                         </td>
                       </tr>
                     </tbody>
@@ -388,33 +404,110 @@
                 </button>
                 <button
                   style="margin: 10px 0"
-                  (click)="next()"
+                  (click)="generateOrder()"
                   class="btn btn-primary"
                 >
-                  Next
+                  Proceed to Payment
                 </button>
               </div>
             </div>
           </div>
           <div [ngClass]="stepCount == 4 ? '' : 'hidden'">
-            <div id="test-l-4" class="content">
+            <div
+              id="test-l-4"
+              class="content"
+              style="width: 600px; display: flex; justify-content: center"
+            >
+              <div class="card" style="width: 500px">
+                <div class="card-body">
+                  <form [formGroup]="paymentForm" (ngSubmit)="finalPayment()">
+                    <div class="mb-3">
+                      <label for="exampleFormControlInput1" class="form-label"
+                        >Name on Card</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Bruce Banner"
+                        formControlName="nameOnCard"
+                      />
+                      <small class="card-subtitle mb-2 text-muted"
+                        >Full name as displayed on card</small
+                      >
+                    </div>
+                    <div class="mb-3">
+                      <label for="exampleFormControlInput1" class="form-label"
+                        >Card Number</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="1111222233334444"
+                        maxlength="16"
+                        formControlName="cardNumber"
+                      />
+                    </div>
+                    <div
+                      style="
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: space-between;
+                      "
+                    >
+                      <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label"
+                          >Expiry Date</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="mm/yyyy"
+                          style="width: 200px; margin-right: 20px"
+                          maxlength="7"
+                          formControlName="expiry"
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label"
+                          >CVV</label
+                        >
+                        <input
+                          type="password"
+                          class="form-control"
+                          style="width: 200px"
+                          maxlength="3"
+                          formControlName="cvv"
+                        />
+                      </div>
+                    </div>
+                    <!-- {{paymentForm?.value | json}} -->
+                    <!-- (click)="finalPayment()" -->
+                    <button
+                      style="margin: 0; width: 100%"
+                      class="btn btn-primary"
+                    >
+                      Pay Rs.{{ totalAmount | number: "1.2-2" }}
+                    </button>
+                  </form>
+                </div>
+              </div>
               <!-- (click)="next()" -->
               <!-- <button (click)="next()" class="btn btn-primary">Next</button> -->
               <div class="flex-row-start" style="margin-top: 20px">
-                <button
+                <!-- <button
                   style="margin: 10px 20px"
                   (click)="previous()"
                   class="btn btn-primary"
                 >
                   Previous
-                </button>
-                <button
+                </button> -->
+                <!-- <button
                   style="margin: 10px 0"
                   (click)="next()"
                   class="btn btn-primary"
                 >
                   Pay
-                </button>
+                </button> -->
               </div>
             </div>
           </div>

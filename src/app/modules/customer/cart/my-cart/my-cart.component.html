@@ -103,7 +103,9 @@
     </div>
     <div class="card total-block">
       <p style="display: flex; justify-content: center; align-items: center">
-        Subtotal: Rs.{{ subTotal | number: "1.2-2" }}
+        Subtotal: Rs.{{
+          subTotal + (subTotal > 999 ? 0 : 100) | number: "1.2-2"
+        }}
         <button
           class="btn btn-light"
           type="button"
@@ -141,25 +143,40 @@
       </p>
       <div class="collapse" id="collapseExample">
         <div class="card card-body">
-         <div *ngFor="let prod of cartProducts; let i = index">
-          <h6
+          <div *ngFor="let prod of cartProducts; let i = index">
+            <h6
               class="card-subtitle mb-2"
               style="font-weight: 400; color: #090979; margin-bottom: 10px"
             >
-              {{prod.name}}:
+              {{ prod.name }}:
             </h6>
             <h6
               class="card-subtitle mb-2 text-muted"
               style="font-weight: 400; color: #090979; margin-bottom: 10px"
             >
-              Price Rs.{{ prod.price * prod.cartCount| number: "1.2-2" }}
+              Price Rs.{{ prod.price * prod.cartCount | number: "1.2-2" }}
             </h6>
-            <hr *ngIf="i<cartProducts.length-1">
-
-         </div>
+            <hr />
+            <!-- <hr *ngIf="i < cartProducts.length - 1" /> -->
+          </div>
+          <h6
+           class="card-subtitle mb-2"
+           style="font-weight: 400; color: #090979; margin-bottom: 10px"
+         >
+           <!-- {{ prod.name }}: -->
+           Delivery Charges:
+         </h6>
+         <h6
+           class="card-subtitle mb-2 text-muted"
+           style="font-weight: 400; color: #090979; margin-bottom: 10px"
+         >
+            Rs.{{ subTotal > 999 ? 0 : 100 | number: "1.2-2" }}
+         </h6>
         </div>
       </div>
-      <button type="button" class="btn btn-primary" (click)="toCheckout()">Proceed to buy</button>
+      <button type="button" class="btn btn-primary" (click)="toCheckout()">
+        Proceed to buy
+      </button>
     </div>
   </div>
   <ng-container *ngIf="!cartProducts || cartProducts.length == 0">

@@ -62,6 +62,18 @@ export class CustomerProfileComponent implements OnInit {
     this.getProfileDetails();
     this.getAddresses();
     this.createNewAdrForm(this.emptyAddrForm);
+    this.getOrderHistory();
+  }
+
+  getOrderHistory(){
+    this.http.getSecured('shop/orders?limit=20', this.userToken).subscribe({
+      next:(data)=>{
+        console.log('Order history', data);
+      },
+      error:(err)=>{
+        console.log('Error', err);
+      }
+    })
   }
 
   getProfileDetails() {

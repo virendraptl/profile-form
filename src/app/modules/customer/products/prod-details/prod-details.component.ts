@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
+import { Store } from '@ngrx/store';
 import { HeaderTitleService } from 'src/app/services/header-title/header-title.service';
 import { HttpService } from 'src/app/services/http/http.service';
 import { LocalStorageService } from 'src/app/services/local-storage/local-storage.service';
 import { PreviousRouteService } from 'src/app/services/previous-route/previous-route.service';
+import { getCartData } from '../../state/customer.selector';
+import { customerState } from '../../state/customer.state';
+import { setBuyNowProduct, updateCart } from '../../state/customer.actions';
 
 @Component({
   selector: 'app-prod-details',
@@ -39,7 +43,8 @@ export class ProdDetailsComponent implements OnInit {
     private headerTitleService: HeaderTitleService,
     public previousRouteService: PreviousRouteService,
 
-    private router: Router
+    private router: Router,
+    private store: Store<customerState>
   ) {
     this.headerTitleService.setTitle('Products Details');
   }
@@ -63,6 +68,7 @@ export class ProdDetailsComponent implements OnInit {
         console.log('Product details:', this.productData);
         console.log('Product images:', this.productImages);
         this.checkCartCount(this.productData._id);
+        this.getCartData();
       },
       error: (err) => {
         console.log('Error: ', err);
@@ -70,8 +76,16 @@ export class ProdDetailsComponent implements OnInit {
     });
   }
 
+  getCartData() {
+    this.store.select(getCartData).subscribe((data) => {
+      // this.cartProducts = data ? [...data] : [];
+      let temp = JSON.parse(JSON.stringify(data));
+      this.cartProducts = data ? [...temp] : [];
+    });
+  }
+
   checkCartCount(id) {
-    this.cartProducts = this.lstore.getCartData();
+    // this.cartProducts = this.lstore.getCartData();
     if (this.cartProducts) {
       this.cartProducts.forEach((product) => {
         if (product._id == id) {
@@ -102,12 +116,15 @@ export class ProdDetailsComponent implements OnInit {
   buyNow() {
     this.lstore.buyNowOn();
     this.productData.cartCount = 1;
-    this.lstore.setBuyNowProduct(this.productData);
+    // this.lstore.setBuyNowProduct(this.productData);
+    this.store.dispatch(setBuyNowProduct({ value: this.productData }));
+
     this.router.navigate(['/cart/checkout']);
   }
 
   addToCart() {
-    this.cartProducts = this.lstore.getCartData() || [];
+    console.log('Cart data before adding:', this.cartProducts);
+    // this.cartProducts = this.lstore.getCartData() || [];
     let isPresent = false;
 
     this.cartProducts.forEach((prod) => {
@@ -124,7 +141,8 @@ export class ProdDetailsComponent implements OnInit {
     this.cartCount++;
     this.cartText = 'Added to Cart';
 
-    this.lstore.setCartData(this.cartProducts);
+    // this.lstore.setCartData(this.cartProducts);
+    this.store.dispatch(updateCart({ value: this.cartProducts }));
   }
 
   goToCart() {

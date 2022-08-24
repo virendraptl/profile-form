@@ -7,6 +7,10 @@ import { LocalStorageService } from 'src/app/services/local-storage/local-storag
 import { PreviousRouteService } from 'src/app/services/previous-route/previous-route.service';
 import { TableDataService } from 'src/app/services/table-data/table-data.service';
 import Swal from 'sweetalert2';
+import { Store } from '@ngrx/store';
+import { getCartData } from '../../state/customer.selector';
+import { customerState } from '../../state/customer.state';
+import { updateCart } from '../../state/customer.actions';
 
 @Component({
   selector: 'app-all-products',
@@ -43,10 +47,9 @@ export class AllProductsComponent implements OnInit {
     private router: Router,
     private table: TableDataService,
     private http: HttpService,
-
     public previousRouteService: PreviousRouteService,
-
-    private toasterService: HotToastService
+    private toasterService: HotToastService,
+    private store: Store<customerState>
   ) {
     this.headerTitleService.setTitle('All Products');
   }
@@ -65,6 +68,15 @@ export class AllProductsComponent implements OnInit {
     if (this.searchTerm) {
       this.searchResult(this.searchTerm, { key: 'Enter' });
     }
+    this.getCartData();
+  }
+
+  getCartData() {
+    this.store.select(getCartData).subscribe((data) => {
+      // this.cartProducts = data ? [...data] : [];
+      let temp = JSON.parse(JSON.stringify(data));
+      this.cartProducts = data ? [...temp] : [];
+    });
   }
 
   renderProducts(page, limit) {
@@ -117,7 +129,7 @@ export class AllProductsComponent implements OnInit {
   }
 
   addToCart(product) {
-    this.cartProducts = this.lstore.getCartData() || [];
+    // this.cartProducts = this.lstore.getCartData() || [];
     let isPresent = false;
 
     this.cartProducts.forEach((prod) => {
@@ -132,7 +144,9 @@ export class AllProductsComponent implements OnInit {
       this.cartProducts.push(product);
     }
 
-    this.lstore.setCartData(this.cartProducts);
+    // this.lstore.setCartData(this.cartProducts);
+    this.store.dispatch(updateCart({ value: this.cartProducts }));
+
     this.toasterService.success(`"${product.name}" added to the cart!`);
   }
 
