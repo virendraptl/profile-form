@@ -214,6 +214,8 @@ export class CheckoutComponent implements OnInit {
   }
 
   generateOrder() {
+    this.store.dispatch(updateCart({ value: [] }));
+
     // this.createPaymentForm();
     let shortProductsArr = this.cartProducts.map((product) => {
       let shortProd = {
@@ -271,17 +273,23 @@ export class CheckoutComponent implements OnInit {
 
   finalPayment() {
     console.log(this.paymentForm.value);
-    this.http.putSecured(`shop/orders/confirm/${this.orderGenerated._id}`, this.paymentForm.value, this.userToken).subscribe({
-      next: (data)=>{
-        this.toasterService.success('Order Placed!');
-        console.log(data);
-        this.router.navigate(['/'])
-      },
-      error: (error)=>{
-        this.toasterService.error(error.message);
-        console.log('error after payment:', error.message);
-      }
-    })
+    this.http
+      .putSecured(
+        `shop/orders/confirm/${this.orderGenerated._id}`,
+        this.paymentForm.value,
+        this.userToken
+      )
+      .subscribe({
+        next: (data) => {
+          this.toasterService.success('Order Placed!');
+          console.log(data);
+          this.router.navigate(['/']);
+        },
+        error: (error) => {
+          this.toasterService.error(error.message);
+          console.log('error after payment:', error.message);
+        },
+      });
   }
 
   next() {

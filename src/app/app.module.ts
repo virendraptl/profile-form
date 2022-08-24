@@ -18,11 +18,29 @@ import {
   SocialLoginModule,
 } from '@abacritt/angularx-social-login';
 import { RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module } from 'ng-recaptcha';
-import { StoreModule } from '@ngrx/store';
+import {
+  StoreModule,
+  ActionReducerMap,
+  ActionReducer,
+  MetaReducer,
+} from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
 import { customerReducer } from './modules/customer/state/customer.reducer';
+import { localStorageSync } from 'ngrx-store-localstorage';
+import { customerState } from './modules/customer/state/customer.state';
 
+// const reducers: ActionReducerMap<customerState> = {
+//   cartData: undefined,
+//   buyNowData: undefined,
+// };
+
+export function localStorageSyncReducer(
+  reducer: ActionReducer<any>
+): ActionReducer<any> {
+  return localStorageSync({ keys: ['cartData'] })(reducer);
+}
+const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
 
 @NgModule({
   declarations: [AppComponent],
@@ -34,6 +52,7 @@ import { customerReducer } from './modules/customer/state/customer.reducer';
     ToastrModule.forRoot(),
     SharedModule,
     StoreModule.forRoot({ customer: customerReducer }),
+    // StoreModule.forRoot({ customer: customerReducer }, { metaReducers }),
     StoreDevtoolsModule.instrument({ logOnly: environment.production }),
     // RecaptchaV3Module,
   ],
