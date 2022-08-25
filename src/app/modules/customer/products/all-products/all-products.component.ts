@@ -12,6 +12,10 @@ import { getCartData } from '../../state/customer.selector';
 import { customerState } from '../../state/customer.state';
 import { updateCart } from '../../state/customer.actions';
 
+//  function showrandom() {
+//    console.log('hiiiiiiii');
+//  }
+
 @Component({
   selector: 'app-all-products',
   templateUrl: './all-products.component.html',
@@ -54,7 +58,10 @@ export class AllProductsComponent implements OnInit {
     this.headerTitleService.setTitle('All Products');
   }
 
+ 
+
   ngOnInit(): void {
+    // showrandom();
     this.loading = true;
 
     this.previousRouteService.setDefPrevUrl('/');
