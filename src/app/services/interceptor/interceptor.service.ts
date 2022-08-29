@@ -8,6 +8,7 @@ import { Injectable } from '@angular/core';
 import { catchError, Observable, of, throwError } from 'rxjs';
 import { LocalStorageService } from '../local-storage/local-storage.service';
 import { HotToastService } from '@ngneat/hot-toast';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +21,8 @@ export class InterceptorService implements HttpInterceptor {
 
   constructor(
     private lstore: LocalStorageService,
-    private toasterService: HotToastService
+    private toasterService: HotToastService,
+    private router: Router
   ) {}
 
   intercept(
@@ -67,8 +69,18 @@ export class InterceptorService implements HttpInterceptor {
 
     return next.handle(request).pipe(
       catchError((err) => {
-        const error = err.error.message || err.statusText;
-        this.toasterService.error(error);
+        let error;
+        if (err.status === 401 && !this.passIntercept) {
+          console.log(
+            'Forced logout because customer token is expired or invalid!!!'
+          );
+          this.lstore.customerLogOut();
+          this.toasterService.error('Forced Logout: User Authentication Error');
+          this.router.navigate(['/']);
+        } else {
+          error = err.error.message || err.statusText;
+          this.toasterService.error(error);
+        }
         return throwError(() => new Error(error));
       })
     );

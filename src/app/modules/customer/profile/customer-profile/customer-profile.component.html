@@ -113,6 +113,7 @@
           aria-labelledby="address-tab"
           style="margin-top: 5px"
         >
+          <!-- <div class="overflow-scroll"> -->
           <div class="addresses" *ngFor="let add of addressList; let i = index">
             <div class="address-count">#{{ i + 1 }}</div>
             <div class="address-blocks">
@@ -236,6 +237,8 @@
               </div>
             </div>
           </div>
+          <!-- </div> -->
+
           <!-- <button
             type="button"
             class="btn btn-primary btn-sm"
@@ -398,7 +401,114 @@
           role="tabpanel"
           aria-labelledby="history-tab"
         >
-          ...
+          <div
+            *ngFor="let order of ordersData?.results; let i = index"
+            style="margin-top: 10px"
+          >
+            <div class="orders-block">
+              <div>
+                <h3 class="order-text">{{ getOrderName(order.items) }}</h3>
+                <h6
+                  style="color: #0d6efd; text-decoration: underline solid"
+                  data-bs-toggle="collapse"
+                  attr.data-bs-target="#detail{{ i }}"
+                  aria-expanded="false"
+                  aria-controls="collapseExample"
+                >
+                  Details
+                </h6>
+              </div>
+              <h5
+                [ngClass]="
+                  order.status == 'Pending' ? 'status-red' : 'status-green'
+                "
+              >
+                {{ order.status }}
+              </h5>
+            </div>
+            <div class="collapse" id="detail{{ i }}">
+              <div class="summary-text">
+                <p>
+                  <u>Ordered on</u>:-
+                  <span>
+                    {{ order.createdAt | date }}
+                  </span>
+                </p>
+                <div style="display: flex; justify-content: space-between">
+                  <p>
+                    <u>Payment Status</u>:-
+                    <span>
+                      {{ order.paymentStatus }}
+                    </span>
+                  </p>
+                  <button
+                    [routerLink]="['/cart/payment',order._id]"
+                    *ngIf="order.status == 'Pending'"
+                    class="btn btn-small btn-dark"
+                  >
+                   {{ order.paymentStatus == 'Pending' ? 'Pay' : 'Retry Payment'}}
+                  </button>
+                </div>
+                <p>
+                  <u>Deliver To</u>:-
+                  <span>
+                    {{ order.address?.street }},
+                    {{ order.address?.addressLine2 }},{{
+                      order.address?.city
+                    }},{{ order.address?.state }}, {{ order.address?.pin }}
+                  </span>
+                </p>
+
+                <p class="summary-text"><u>Products Details</u>:-</p>
+                <table class="table">
+                  <tbody>
+                    <tr class="prod-text" *ngFor="let product of order.items">
+                      <!-- <th scope="row">1</th> -->
+                      <td colspan="4" style="text-align: left">
+                        {{ product.name }}
+                      </td>
+                      <td style="text-align: left">X {{ product.qty }}</td>
+                      <td style="text-align: center">
+                        = Rs.
+                        {{ product.price * product.qty | number: "1.2-2" }}
+                      </td>
+                    </tr>
+                    <tr class="summary-text">
+                      <td colspan="5" style="text-align: left">Subtotal:-</td>
+                      <td style="text-align: center">
+                        = Rs.{{
+                          order.total - order.deliveryFee | number: "1.2-2"
+                        }}
+                      </td>
+                    </tr>
+                    <tr class="summary-text">
+                      <td colspan="5" style="text-align: left">
+                        Delivery Charges:-
+                      </td>
+                      <td style="text-align: center">
+                        = Rs.{{ order.deliveryFee | number: "1.2-2" }}
+                      </td>
+                    </tr>
+                    <tr class="summary-text">
+                      <td colspan="5" style="text-align: left">
+                        Final Amount:-
+                      </td>
+                      <td style="text-align: center">
+                        = Rs.{{ order.total | number: "1.2-2" }}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <hr
+              [ngClass]="i < ordersData.results.length - 1 ? '' : 'hidden'"
+              style="width: 100%; margin: 6px 0"
+            />
+          </div>
+          <div *ngIf="limit <= ordersData?.totalResults">
+            <button class="btn btn-primary" (click)="showMore()">Show More</button>
+          </div>
         </div>
         <div
           class="tab-pane fade"

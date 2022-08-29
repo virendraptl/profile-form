@@ -214,7 +214,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   generateOrder() {
-    this.store.dispatch(updateCart({ value: [] }));
+    // this.store.dispatch(updateCart({ value: [] }));
 
     // this.createPaymentForm();
     let shortProductsArr = this.cartProducts.map((product) => {
@@ -251,13 +251,16 @@ export class CheckoutComponent implements OnInit {
         this.orderGenerated = data['order'];
 
         console.log('generated Order:', this.orderGenerated);
-        this.stepCount += 1;
-        this.stepper.next();
+        // this.stepCount += 1;
+        // this.stepper.next();
+        this.router.navigate(['/cart/payment', this.orderGenerated._id]);
+        this.store.dispatch(updateCart({ value: [] }));
+
         // this.toasterService.success(`"Addr`);
       },
       error: (error) => {
-        this.toasterService.error('Error in generating order:', error.message);
-        console.error('Error in fetching address list:', error.message);
+        // this.toasterService.error('Error in generating order:', error.message);
+        console.error('Error in generating an order:', error.message);
       },
     });
   }

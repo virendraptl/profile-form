@@ -89,6 +89,24 @@ h3 {
   font-weight: bold;
 }
 
+.order-text {
+  font-size: 20px;
+  font-weight: bold;
+  color: #090979;
+}
+
+.summary-text {
+  font-size: 15px;
+  font-weight: bold;
+  color: #090979;
+}
+
+.prod-text{
+  font-size: 15px;
+  font-weight: 400;
+  color: #090979;
+}
+
 span {
   font-weight: 550;
 }
@@ -96,6 +114,12 @@ span {
 .addresses {
   display: flex;
   flex-direction: row;
+  height: auto;
+}
+
+.vertical-scroll{
+    overflow-y: scroll;
+
 }
 
 .address-blocks {
@@ -179,4 +203,20 @@ small {
 
 .top-zindex {
   z-index: 99000 !important;
+}
+
+.orders-block{
+
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.status-red{
+  color: red;
+}
+
+.status-green{
+  color: green;
 }

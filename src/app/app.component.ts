@@ -9,9 +9,10 @@ import { first, take } from 'rxjs';
 })
 export class AppComponent implements OnInit {
   showHeader: boolean = false;
-  showAvatar:boolean = true;
+  showAvatar: boolean = true;
   url: string;
   btns: string[];
+  title = 'auth-practice';
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
 
@@ -25,7 +26,6 @@ export class AppComponent implements OnInit {
     //       this.activatedRoute.firstChild.snapshot.data['header'] !== false;
     //   }
     // });
-
     // this.activatedRoute.data.pipe(take(1)).subscribe((data)=>{
     //   console.log('data from acti route: ', data);
     // })
@@ -63,13 +63,13 @@ export class AppComponent implements OnInit {
       this.url.includes('/seller/verify-email')
     ) {
       this.showHeader = false;
-    }else{
+    } else {
       this.showHeader = true;
     }
 
-    if(this.url.includes('seller')){
+    if (this.url.includes('seller')) {
       this.showAvatar = true;
-    }else{
+    } else {
       this.showAvatar = false;
     }
   }

@@ -27,13 +27,13 @@
               <span class="bs-stepper-label">Order Summary</span>
             </button>
           </div>
-          <div class="line"></div>
+          <!-- <div class="line"></div>
           <div class="step" data-target="#test-l-4">
             <button class="step-trigger">
               <span class="bs-stepper-circle">4</span>
               <span class="bs-stepper-label">Payment</span>
             </button>
-          </div>
+          </div> -->
         </div>
         <div class="bs-stepper-content">
           <div [ngClass]="stepCount == 1 ? '' : 'hidden'">
@@ -101,17 +101,17 @@
                       [value]="address"
                       [(ngModel)]="finalAddress"
                       name="flexRadioDefault"
-                      id="flexRadioDefault1"
+                      id="flexRadio{{ i }}"
                     />
                     <div style="width: auto; height: auto">
                       <!--  -->
                       <div class="address-blocks">
                         <div class="address-details">
-                          <span>
+                          <label for="flexRadio{{ i }}">
                             {{ address.street }}, {{ address.addressLine2 }},{{
                               address.city
                             }},{{ address.state }}, {{ address.pin }}
-                          </span>
+                          </label>
                         </div>
 
                         <!-- <div class="address-seperator">

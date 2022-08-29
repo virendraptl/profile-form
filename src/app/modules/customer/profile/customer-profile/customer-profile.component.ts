@@ -20,6 +20,7 @@ export class CustomerProfileComponent implements OnInit {
   loading: boolean = true;
   userToken: string;
   addressList: any;
+  limit: number = 5;
   newAddressForm: FormGroup;
   profileForm: FormGroup;
   editOn: boolean = false;
@@ -35,6 +36,8 @@ export class CustomerProfileComponent implements OnInit {
     pin: '',
   };
 
+  ordersData;
+
   updateFormCreated: boolean = false;
 
   imageChangedEvent: any = '';
@@ -48,9 +51,9 @@ export class CustomerProfileComponent implements OnInit {
     private http: HttpService,
     private previousRouteService: PreviousRouteService,
     private lstore: LocalStorageService,
+    private headerTitleService: HeaderTitleService,
     private fb: FormBuilder,
     private router: Router,
-    private headerTitleService: HeaderTitleService,
     private toasterService: HotToastService
   ) {
     this.headerTitleService.setTitle('Account Details');
@@ -65,15 +68,23 @@ export class CustomerProfileComponent implements OnInit {
     this.getOrderHistory();
   }
 
-  getOrderHistory(){
-    this.http.getSecured('shop/orders?limit=20', this.userToken).subscribe({
-      next:(data)=>{
-        console.log('Order history', data);
-      },
-      error:(err)=>{
-        console.log('Error', err);
-      }
-    })
+  getOrderHistory() {
+    this.http
+      .getSecured('shop/orders?limit=' + this.limit, this.userToken)
+      .subscribe({
+        next: (data) => {
+          this.ordersData = data;
+          console.log('Order history', data);
+        },
+        error: (err) => {
+          console.log('Error', err);
+        },
+      });
+  }
+
+  showMore(){
+    this.limit+=5;
+    this.getOrderHistory()
   }
 
   getProfileDetails() {
@@ -377,6 +388,38 @@ export class CustomerProfileComponent implements OnInit {
         // Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
       }
     });
+  }
+
+  getOrderName(items) {
+    let s1, s2;
+
+    switch (items.length) {
+      case 0:
+        s1 = 'Empty Cart';
+        break;
+
+      case 1:
+        s1 = items[0].name;
+        break;
+
+      case 2:
+        s1 = items[0].name + ' and ' + items[1].name;
+        break;
+
+      default:
+        s1 =
+          items[0].name +
+          ', ' +
+          items[1].name +
+          ' and ' +
+          (items.length > 3 ? items.length - 2 + ' others' : items[2].name);
+    }
+
+    return s1;
+  }
+
+  getTotal(product) {
+    return product.price * product.cartCount;
   }
 
   get regAdStreet() {
