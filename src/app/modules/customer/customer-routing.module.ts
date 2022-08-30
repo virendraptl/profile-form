@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CustomerGuard } from 'src/app/customer.guard';
 
 const routes: Routes = [
   {
@@ -23,6 +24,7 @@ const routes: Routes = [
     path: 'profile',
     loadChildren: () =>
       import('../customer/profile/profile.module').then((m) => m.ProfileModule),
+    canActivate: [CustomerGuard],
   },
 ];
 

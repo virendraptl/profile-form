@@ -1,12 +1,24 @@
-.page{
-    padding: 20px;
-    display: flex;
-    justify-content: center;
+.page {
+  padding: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
-.main-card {
+.card-main {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 700px;
+
+  -webkit-box-shadow: 0px 3px 24px -5px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 3px 24px -5px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 3px 24px -5px rgba(0, 0, 0, 0.75);
+}
+
+.form-card {
   width: 500px;
-  min-width: 500px;
+  /* min-width: 500px; */
   height: auto;
   padding: 20px;
   margin: 10px 5px 10px 20px;
@@ -14,8 +26,22 @@
 
   border-radius: 5px;
   flex-direction: column;
+}
 
-  -webkit-box-shadow: 0px 3px 24px -5px rgba(0, 0, 0, 0.75);
-  -moz-box-shadow: 0px 3px 24px -5px rgba(0, 0, 0, 0.75);
-  box-shadow: 0px 3px 24px -5px rgba(0, 0, 0, 0.75);
+.order-summary{
+  color: white;
+  margin: 10px 0 0 10px;
+}
+
+.order-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 200px;
+  background-color: #090979;
+}
+
+.text-color {
+  color: #090979;
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
+import { first } from 'rxjs';
 import { HeaderTitleService } from 'src/app/services/header-title/header-title.service';
 import { HttpService } from 'src/app/services/http/http.service';
 import { LocalStorageService } from 'src/app/services/local-storage/local-storage.service';
@@ -16,6 +17,8 @@ export class PaymentComponent implements OnInit {
   userToken: string;
   paymentForm: FormGroup;
   productId: string;
+  loading:boolean = true;
+  orderInfo:any;
 
   constructor(
     private http: HttpService,
@@ -37,7 +40,24 @@ export class PaymentComponent implements OnInit {
 
     this.previousRouteService.setDefPrevUrl('/');
     this.userToken = this.lstore.getCustomerToken();
+    this.getOrderInfo();
     this.createPaymentForm();
+    
+  }
+
+  getOrderInfo(){
+     this.http
+       .getSecured('shop/orders/' + this.productId, this.userToken)
+       .subscribe({
+         next: (data) => {
+           this.orderInfo = data[0];
+           console.log('Order Info', this.orderInfo);
+           this.loading = false;
+         },
+         error: (err) => {
+           console.log('Error', err);
+         },
+       });
   }
 
   createPaymentForm() {

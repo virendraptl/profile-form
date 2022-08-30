@@ -29,6 +29,10 @@ export class InterceptorService implements HttpInterceptor {
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
+   /* This is checking if the request url contains any of the keywords in the allowLogout array. If it
+   does, it will check if the request url contains the keywords 'shop' or 'customers'. If it does
+   not, it will set the passIntercept variable to true. If it does, it will set the passIntercept
+   variable to false. */
     this.allowLogout.forEach((api) => {
       if (request.url.includes(api)) {
         if (
@@ -43,6 +47,10 @@ export class InterceptorService implements HttpInterceptor {
       }
     });
 
+   /* This is checking if the request url contains any of the keywords in the allowLogout array. If it
+   does, it will check if the request url contains the keywords 'shop' or 'customers'. If it does
+   not, it will set the passIntercept variable to true. If it does, it will set the passIntercept
+   variable to false. */
     let token = this.lstore.getToken();
     if (token && this.passIntercept) {
       let clonedReq = request.clone({

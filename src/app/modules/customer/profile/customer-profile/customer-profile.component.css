@@ -101,7 +101,7 @@ h3 {
   color: #090979;
 }
 
-.prod-text{
+.prod-text {
   font-size: 15px;
   font-weight: 400;
   color: #090979;
@@ -117,9 +117,8 @@ span {
   height: auto;
 }
 
-.vertical-scroll{
-    overflow-y: scroll;
-
+.vertical-scroll {
+  overflow-y: scroll;
 }
 
 .address-blocks {
@@ -160,6 +159,8 @@ span {
 }
 
 .edit-profile-btn {
+  /* position: sticky; */
+
   cursor: pointer;
   width: 30px;
   height: 30px;
@@ -205,18 +206,17 @@ small {
   z-index: 99000 !important;
 }
 
-.orders-block{
-
+.orders-block {
   height: auto;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
-.status-red{
+.status-red {
   color: red;
 }
 
-.status-green{
+.status-green {
   color: green;
 }

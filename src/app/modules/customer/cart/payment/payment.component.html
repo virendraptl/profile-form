@@ -1,74 +1,90 @@
+<ng-container *ngIf="loading">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</ng-container>
 <div class="page">
-  <div class="main-card">
-      <div class="card-body">
-        <form [formGroup]="paymentForm" (ngSubmit)="finalPayment()">
-        <!-- <form> -->
-          <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label"
-              >Name on Card</label
-            >
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Bruce Banner"
-              formControlName="nameOnCard"
-            />
-            <small class="card-subtitle mb-2 text-muted"
-              >Full name as displayed on card</small
-            >
-          </div>
-          <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label"
-              >Card Number</label
-            >
-            <input
-              type="text"
-              class="form-control"
-              placeholder="1111222233334444"
-              maxlength="16"
-              formControlName="cardNumber"
-            />
-          </div>
-          <div
-            style="
-              display: flex;
-              flex-direction: row;
-              justify-content: space-between;
-            "
-          >
-            <div class="mb-3">
-              <label for="exampleFormControlInput1" class="form-label"
-                >Expiry Date</label
-              >
-              <input
-                type="text"
-                class="form-control"
-                placeholder="mm/yyyy"
-                style="width: 200px; margin-right: 20px"
-                maxlength="7"
-                formControlName="expiry"
-              />
-            </div>
-            <div class="mb-3">
-              <label for="exampleFormControlInput1" class="form-label"
-                >CVV</label
-              >
-              <input
-                type="password"
-                class="form-control"
-                style="width: 200px"
-                maxlength="3"
-                formControlName="cvv"
-              />
-            </div>
-          </div>
-          <!-- {{paymentForm?.value | json}} -->
-          <!-- (click)="finalPayment()" -->
-          <button style="margin: 0; width: 100%" class="btn btn-primary">
-            Pay
-            <!-- Pay Rs.{{ totalAmount | number: "1.2-2" }} -->
-          </button>
-        </form>
+  <div *ngIf="!loading" class="card-main">
+    <div class="order-info">
+      <!-- <div class="order-summary">
+        <h4 >Products:- </h4>
+      </div> -->
+      <div style="width: 100%;">
+
+        <img width="100%"
+        src="../../../../../assets/images/cart/seasonal-sale-discounts-presents-purchase-visiting-boutiques-luxury-shopping-price-reduction-promotional-coupons-special-holiday-offers-vector-isolated-concept-metaphor-illustration_335657-2766-remove.png"
+        alt=""
+        />
       </div>
+    </div>
+    <div class="form-card text-color">
+      <form [formGroup]="paymentForm" (ngSubmit)="finalPayment()">
+        <!-- <form> -->
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label"
+            >Name on Card</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Bruce Banner"
+            formControlName="nameOnCard"
+          />
+          <small class="card-subtitle mb-2 text-muted"
+            >Full name as displayed on card</small
+          >
+        </div>
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label"
+            >Card Number</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            placeholder="1111222233334444"
+            maxlength="16"
+            formControlName="cardNumber"
+          />
+        </div>
+        <div
+          style="
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+          "
+        >
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label"
+              >Expiry Date</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              placeholder="mm/yyyy"
+              style="width: 200px; margin-right: 20px"
+              maxlength="7"
+              formControlName="expiry"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">CVV</label>
+            <input
+              type="password"
+              class="form-control"
+              style="width: 200px"
+              maxlength="3"
+              formControlName="cvv"
+            />
+          </div>
+        </div>
+        <!-- {{paymentForm?.value | json}} -->
+        <!-- (click)="finalPayment()" -->
+        <button
+          style="margin: 0; width: 100%; background-color: #090979"
+          class="btn btn-primary"
+        >
+          Pay Rs. {{ orderInfo.total | number: "1.2-2" }}
+          <!-- Pay Rs.{{ totalAmount | number: "1.2-2" }} -->
+        </button>
+      </form>
+    </div>
   </div>
 </div>

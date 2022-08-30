@@ -58,19 +58,14 @@ export class CheckoutComponent implements OnInit {
     this.headerTitleService.setTitle('Checkout');
     let buyNow = lstore.buyNow;
     if (buyNow) {
-      // this.cartProducts = [lstore.getBuyNowProduct()];
-
       store.select(getBuyNowData).subscribe((data) => {
-        // this.cartProducts = data ? [...data] : [];
         let temp = JSON.parse(JSON.stringify(data));
         this.cartProducts.push(temp);
         console.log(this.cartProducts);
         this.calcTotal();
       });
     } else {
-      // this.cartProducts = lstore.getCartData();
       this.store.select(getCartData).subscribe((data) => {
-        // this.cartProducts = data ? [...data] : [];
         let temp = JSON.parse(JSON.stringify(data));
         this.cartProducts = data ? [...temp] : [];
         console.log(this.cartProducts);
@@ -90,7 +85,6 @@ export class CheckoutComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.getCartData();
     this.createPaymentForm();
 
     this.previousRouteService.setDefPrevUrl('/cart');
@@ -214,9 +208,6 @@ export class CheckoutComponent implements OnInit {
   }
 
   generateOrder() {
-    // this.store.dispatch(updateCart({ value: [] }));
-
-    // this.createPaymentForm();
     let shortProductsArr = this.cartProducts.map((product) => {
       let shortProd = {
         productId: product._id,
@@ -228,7 +219,6 @@ export class CheckoutComponent implements OnInit {
       return shortProd;
     });
 
-    // console.log('prods in brief: ', shortProductsArr);
     let shortAddress = {
       street: this.finalAddress.street,
       addressLine2: this.finalAddress.addressLine2,
@@ -242,8 +232,6 @@ export class CheckoutComponent implements OnInit {
       deliveryFee: this.deliveryFee,
       total: this.totalAmount,
       address: shortAddress,
-      // paymentStatus: 'Pending',
-      // status: 'Pending',
     };
 
     this.http.postSecured('shop/orders', order, this.userToken).subscribe({
@@ -251,8 +239,6 @@ export class CheckoutComponent implements OnInit {
         this.orderGenerated = data['order'];
 
         console.log('generated Order:', this.orderGenerated);
-        // this.stepCount += 1;
-        // this.stepper.next();
         this.router.navigate(['/cart/payment', this.orderGenerated._id]);
         this.store.dispatch(updateCart({ value: [] }));
 
@@ -274,6 +260,9 @@ export class CheckoutComponent implements OnInit {
     });
   }
 
+  /**
+   * It takes the payment form values and sends a PUT request to the backend to confirm the order
+   */
   finalPayment() {
     console.log(this.paymentForm.value);
     this.http
@@ -295,10 +284,13 @@ export class CheckoutComponent implements OnInit {
       });
   }
 
+ /**
+  * The next() function increments the stepCount variable by 1, then calls the next() function on the
+  * stepper object, which is a reference to the stepper component
+  */
   next() {
     this.stepCount += 1;
     this.stepper.next();
-    // this.generateOrder();
   }
 
   previous() {

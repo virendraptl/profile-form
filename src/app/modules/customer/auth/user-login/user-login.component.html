@@ -251,14 +251,21 @@
                 <label for="exampleFormControlInput1" class="form-label med-ip"
                   >Email address</label
                 >
+                <!-- [ngClass]="
+                    regEmail.invalid && regEmail.touched ? 'red-border' : ''
+                  " -->
                 <input
                   formControlName="email"
                   type="email"
                   class="form-control med-ip"
-                  [ngClass]="
-                    regEmail.invalid && regEmail.touched ? 'red-border' : ''
-                  "
+                  
                   placeholder="name@example.com"
+                  [ngClass]="
+                    regEmail.invalid && regEmail.touched ? 'is-invalid' : ''
+                  "
+                  [ngClass]="
+                    regEmail.valid && regEmail.touched ? 'is-valid' : ''
+                  "
                 />
                 <small *ngIf="regEmail.invalid && regEmail.touched"
                   >Enter valid email</small

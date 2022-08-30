@@ -200,6 +200,13 @@ export class CustomerProfileComponent implements OnInit {
     }
   }
 
+  /**
+   * The function takes in an id, and then uses the http service to make a delete request to the
+   * backend, and then subscribes to the response. If the response is successful, it displays a success
+   * message and then calls the getAddresses() function to update the list of addresses. If the
+   * response is unsuccessful, it displays an error message
+   * @param id - The id of the address to be deleted.
+   */
   deleteAddress(id) {
     this.http
       .deleteSecured(`customers/address/${this.editAddId}`, this.userToken)
