@@ -55,7 +55,7 @@
       [infiniteScrollDistance]="scrollDistance"
       [infiniteScrollUpDistance]="scrollUpDistance"
       [infiniteScrollThrottle]="throttle"
-      (scrolled)="onScrollDown($event)"
+      (scrolled)="searchTerm == '' ? onScrollDown($event) : ''"
       style="
         display: flex;
         flex-direction: row;
@@ -108,7 +108,7 @@
               </h5>
               <p class="card-text">
                 <!-- {{ product.description | shorten: 38:"..." }} -->
-                Rs.{{product.price}}
+                Rs.{{ product.price }}
               </p>
             </a>
           </div>
@@ -152,7 +152,7 @@
     </div>
   </div>
 
-  <div class="pagination-block" *ngIf="!loading && !full">
+  <div class="pagination-block" *ngIf="!loading && !full && searchTerm == ''">
     <!-- <div>
       <pagination-controls
         id="my-pg"

@@ -16,5 +16,6 @@ import { SharedModule } from '../shared/shared.module';
     ToastrModule.forRoot(),
     SharedModule,
   ],
+  providers: []
 })
 export class SellerModule {}

@@ -15,12 +15,12 @@ header {
   /* background-color: white; */
 }
 
-.btn {
+/* .btn {
   color: white;
   font-weight: bolder;
   height: 40px;
   border-radius: 100vmax;
-}
+} */
 
 .profile-block {
   margin: 20px;
@@ -97,4 +97,12 @@ h2 {
 
 span {
   font-weight: 550;
+}
+
+.mail-btn{
+  margin-left: 20px;
+}
+
+small{
+  color: red;
 }

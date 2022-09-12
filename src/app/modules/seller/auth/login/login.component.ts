@@ -17,6 +17,8 @@ import { PreviousRouteService } from 'src/app/services/previous-route/previous-r
 import { HotToastService } from '@ngneat/hot-toast';
 import { SocialStateService } from 'src/app/services/social-state-service/social-state.service';
 import { ReCaptchaV3Service } from 'ng-recaptcha';
+import Swal from 'sweetalert2';
+import { CdkStepperNext } from '@angular/cdk/stepper';
 
 @Component({
   selector: 'app-login',
@@ -193,6 +195,31 @@ export class LoginComponent implements OnInit {
     return this.password.hasError('minlength')
       ? 'Password must have at least 8 characters'
       : '';
+  }
+
+  async forgotPassword() {
+    const { value: email } = await Swal.fire({
+      title: 'Input email address',
+      input: 'email',
+      inputLabel: 'Your email address',
+      inputPlaceholder: 'Enter your email address',
+    });
+
+    if (email) {
+      let data = {
+        email: email,
+        captcha: this.captchaToken,
+      };
+      this.http.post('auth/forgot-password', data).subscribe({
+        next: (data) => {
+          console.log('mail sent');
+          Swal.fire(`Password reset email sent to ${email}`);
+        },
+        error: (err) => {
+          console.log('error sending mail:', err);
+        },
+      });
+    }
   }
 
   get email() {

@@ -29,7 +29,7 @@ export class InterceptorService implements HttpInterceptor {
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-   /* This is checking if the request url contains any of the keywords in the allowLogout array. If it
+    /* This is checking if the request url contains any of the keywords in the allowLogout array. If it
    does, it will check if the request url contains the keywords 'shop' or 'customers'. If it does
    not, it will set the passIntercept variable to true. If it does, it will set the passIntercept
    variable to false. */
@@ -47,7 +47,7 @@ export class InterceptorService implements HttpInterceptor {
       }
     });
 
-   /* This is checking if the request url contains any of the keywords in the allowLogout array. If it
+    /* This is checking if the request url contains any of the keywords in the allowLogout array. If it
    does, it will check if the request url contains the keywords 'shop' or 'customers'. If it does
    not, it will set the passIntercept variable to true. If it does, it will set the passIntercept
    variable to false. */
@@ -67,6 +67,11 @@ export class InterceptorService implements HttpInterceptor {
             this.toasterService.error(
               'Forced Logout: User Authentication Error'
             );
+          } else {
+            let error;
+
+            error = err.error.message || err.statusText;
+            this.toasterService.error(error);
           }
           console.log(err);
           const error = err.error.message || err.statusText;

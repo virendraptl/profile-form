@@ -45,7 +45,7 @@ import { NgImageFullscreenViewModule } from 'ng-image-fullscreen-view';
     MatDialogModule,
     HttpClientModule,
     ToastrModule,
-    CoolSocialLoginButtonsModule,
+    // CoolSocialLoginButtonsModule,
     IvyCarouselModule,
     NgPipesModule,
     NgxPaginationModule,

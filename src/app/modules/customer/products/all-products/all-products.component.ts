@@ -33,6 +33,7 @@ export class AllProductsComponent implements OnInit {
   full: boolean = false;
   autoHover = [];
   searchTerm: string = '';
+  totalCount:number;
 
   cartProducts = [];
   searchCopy = [];
@@ -58,8 +59,6 @@ export class AllProductsComponent implements OnInit {
     this.headerTitleService.setTitle('All Products');
   }
 
- 
-
   ngOnInit(): void {
     // showrandom();
     this.loading = true;
@@ -67,14 +66,14 @@ export class AllProductsComponent implements OnInit {
     this.previousRouteService.setDefPrevUrl('/');
     this.renderProducts(1, 15);
 
-    this.dataCopy = [...this.productsArr];
+    // this.dataCopy = [...this.productsArr];
 
     this.cartProducts = this.lstore.getCartData() || [];
     console.log(this.cartProducts);
-    this.searchTerm = this.table.getProdSearchTerm();
-    if (this.searchTerm) {
-      this.searchResult(this.searchTerm, { key: 'Enter' });
-    }
+    // this.searchTerm = this.table.getProdSearchTerm();
+    // if (this.searchTerm) {
+    //   this.searchResult(this.searchTerm, { key: 'Enter' });
+    // }
     this.getCartData();
   }
 
@@ -92,7 +91,14 @@ export class AllProductsComponent implements OnInit {
       .subscribe((data) => {
         this.productsData = data;
         this.allProducts = [...data['results']];
+        this.totalCount = data['totalResults'];
+        this.createSearchData(this.totalCount)
+        console.log('total products: ', this.totalCount);
         this.addItems(this.allProdCount - 15, this.allProdCount);
+        // this.dataCopy = [...this.productsArr];
+        // 
+        
+        // 
 
         if (this.productsArr.length == 0) {
           console.log('no products to show;');
@@ -100,6 +106,20 @@ export class AllProductsComponent implements OnInit {
         }
         // console.log('ProductsArr data:', this.productsArr);
         this.loading = false;
+      });
+  }
+
+  createSearchData(count:number){
+    this.http
+      .get('shop/products', { page: 1, limit: count })
+      .subscribe((data) => {
+        this.productsData = data;
+        this.dataCopy = [...data['results']];
+        console.log('searchcopy generated!!!!!!!!!!');
+        this.searchTerm = this.table.getProdSearchTerm();
+        if (this.searchTerm) {
+          this.searchResult(this.searchTerm, { key: 'Enter' });
+        }
       });
   }
 
@@ -117,6 +137,8 @@ export class AllProductsComponent implements OnInit {
       this.loadAnimation = false;
     }, 1000);
   }
+
+ 
 
   onScrollDown(ev) {
     this.loadAnimation = true;
@@ -159,12 +181,13 @@ export class AllProductsComponent implements OnInit {
 
   searchProduct(event) {
     this.searchTerm = event.target.value;
+    console.log('searchTerm: ', this.searchTerm);
     this.table.setProdSearchTerm(this.searchTerm);
     this.searchResult(this.searchTerm, event);
   }
 
   searchResult(term: string, event) {
-    // this.productsArr = [...this.dataCopy];
+    this.productsArr = [...this.dataCopy];
     if (term && term !== '') {
       this.filterReset();
       this.dataCopy.forEach((user, index) => {

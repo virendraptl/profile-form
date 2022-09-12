@@ -34,6 +34,7 @@ export class ProdDetailsComponent implements OnInit {
 
   isSubmitted: boolean = false;
   isUpdated: boolean = false;
+  isPresent: boolean = false;
 
   constructor(
     private http: HttpService,
@@ -69,6 +70,7 @@ export class ProdDetailsComponent implements OnInit {
         console.log('Product images:', this.productImages);
         this.checkCartCount(this.productData._id);
         this.getCartData();
+        this.checkCartStatus();
       },
       error: (err) => {
         console.log('Error: ', err);
@@ -122,24 +124,36 @@ export class ProdDetailsComponent implements OnInit {
     this.router.navigate(['/cart/checkout']);
   }
 
-  addToCart() {
-    console.log('Cart data before adding:', this.cartProducts);
-    // this.cartProducts = this.lstore.getCartData() || [];
-    let isPresent = false;
-
+  checkCartStatus() {
     this.cartProducts.forEach((prod) => {
       if (prod._id == this.productData._id) {
-        isPresent = true;
-        prod.cartCount++;
+        this.isPresent = true;
+        // prod.cartCount++;
       }
     });
 
-    if (!isPresent) {
-      this.productData.cartCount = 1;
-      this.cartProducts.push(this.productData);
-    }
-    this.cartCount++;
-    this.cartText = 'Added to Cart';
+    return this.isPresent;
+  }
+
+  addToCart() {
+    console.log('Cart data before adding:', this.cartProducts);
+    // this.cartProducts = this.lstore.getCartData() || [];
+    // let isPresent = false;
+
+    // this.cartProducts.forEach((prod) => {
+    //   if (prod._id == this.productData._id) {
+    //     isPresent = true;
+    //     prod.cartCount++;
+    //   }
+    // });
+
+    // if (!this.isPresent) {
+    //   this.productData.cartCount = 1;
+    //   this.cartProducts.push(this.productData);
+    // }
+    // this.cartCount++;
+    // this.cartText = 'Added to Cart';
+    // this.checkCartStatus() ? 
 
     // this.lstore.setCartData(this.cartProducts);
     this.store.dispatch(updateCart({ value: this.cartProducts }));

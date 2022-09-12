@@ -60,6 +60,7 @@ export class AppComponent implements OnInit {
     if (
       this.url.includes('/seller/auth/login') ||
       this.url.includes('/seller/auth/register') ||
+      this.url.includes('/seller/auth/reset-password') ||
       this.url.includes('/seller/verify-email')
     ) {
       this.showHeader = false;

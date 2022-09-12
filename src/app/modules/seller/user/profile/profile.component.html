@@ -23,9 +23,16 @@
     </h2>
     <h2>
       Email verification Status:-
+      <!-- <span style="display: flex; flex-direction: row"> -->
       <span>
         {{ profileData?.isEmailVerified }}
       </span>
+      <span class="mail-btn" *ngIf="profileData.isEmailVerified == false">
+        <button class="btn btn-primary" (click)="sendMail()">
+          Send Verification Mail
+        </button>
+      </span>
+      <!-- </span> -->
     </h2>
     <h2>
       Company Name:-
@@ -33,6 +40,80 @@
         {{ profileData?._org.name }}
       </span>
     </h2>
+    <button
+      type="button"
+      class="btn btn-outline-primary"
+      data-bs-toggle="modal"
+      data-bs-target="#change-password-modal"
+    >
+      Change Password
+    </button>
+    <div
+      class="modal fade"
+      id="change-password-modal"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="staticBackdropLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Change Password</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="passwordForm">
+              <div class="form-floating" style="margin-bottom: 20px">
+                <input
+                  type="password"
+                  class="form-control"
+                  id="floatingPassword"
+                  placeholder="Password"
+                  formControlName="old_password"
+                />
+                <label for="floatingPassword">Enter Old Password</label>
+                <small>{{ showOldPwError() }}</small>
+              </div>
+              <div class="form-floating">
+                <input
+                  type="password"
+                  class="form-control"
+                  id="floatingPassword"
+                  placeholder="Password"
+                  formControlName="new_password"
+                />
+                <label for="floatingPassword">Enter New Password</label>
+                <small>{{ showNewPwError() }}</small>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <!-- <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button> -->
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+              (click)="changePassword()"
+            >
+              Confirm
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
   <div *ngIf="errorMsg" class="error-block">
     <h1>Page could not load: {{ errorMsg }}</h1>

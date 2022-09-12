@@ -26,6 +26,9 @@ export class DirectAccessGuard implements CanActivate {
     if(this.router.url == '/cart' && route.routeConfig.path == 'checkout'){
       return true;
     }
+    if(this.router.url.includes('/details') && route.routeConfig.path == 'checkout'){
+      return true;
+    }
     if(this.router.url == '/cart/checkout' && route.routeConfig.path == 'payment/:id'){
       return true;
     }

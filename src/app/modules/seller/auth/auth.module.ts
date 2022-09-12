@@ -11,9 +11,10 @@ import {
   SocialLoginModule,
 } from '@abacritt/angularx-social-login';
 import { RecaptchaV3Module } from 'ng-recaptcha';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 @NgModule({
-  declarations: [LoginComponent, RegisterComponent, VerifyEmailComponent],
+  declarations: [LoginComponent, RegisterComponent, VerifyEmailComponent, ResetPasswordComponent],
   imports: [
     CommonModule,
     AuthRoutingModule,
