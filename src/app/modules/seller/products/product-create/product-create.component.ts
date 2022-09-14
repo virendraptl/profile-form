@@ -19,6 +19,14 @@ export class ProductCreateComponent implements OnInit {
   photosArr = [];
   totalPhotos: File[] = [];
   productForm: FormGroup;
+  files: any[];
+  newPhotos = [];
+  uploadFileType: string;
+  uploadFileContent: any;
+  imgFlag: any;
+  code = '';
+  // code =
+  //   '<ol><li><em>this is the test description for </em>…e need to check how it can be rendered.</li></ol>';
 
   constructor(
     private headerTitleService: HeaderTitleService,
@@ -35,7 +43,7 @@ export class ProductCreateComponent implements OnInit {
 
     this.productForm = this.fb.group({
       prodName: ['', Validators.required],
-      prodDesc: ['', Validators.required],
+      prodDesc: [this.code, Validators.required],
       price: ['', Validators.required],
     });
   }
@@ -69,6 +77,25 @@ export class ProductCreateComponent implements OnInit {
     }
   }
 
+  async fromDropper(data: File[]) {
+    this.files = Object.keys(data).map((key) => data[key]);
+    this.files.forEach((newFile) => {
+      this.totalPhotos.push(newFile);
+      this.fileName = newFile.name;
+      if (this.uploadFileType == 'text/plain') {
+        this.uploadFileContent = newFile.text();
+      }
+      let reader = new FileReader();
+
+      reader.readAsDataURL(newFile);
+      reader.onload = (event) => {
+        this.photosArr.push(event.target.result);
+      };
+    });
+
+    console.log('New photos:', this.newPhotos);
+  }
+
   deletePhoto(i) {
     console.log('index: ', i);
     this.photosArr.splice(i, 1);
@@ -98,3 +125,9 @@ export class ProductCreateComponent implements OnInit {
     });
   }
 }
+
+// rich text quill editor
+// https://www.freakyjolly.com/angular-rich-text-editor-using-ngx-quill-tutorial/
+// instead of modifying angular.json, update index.html with following:
+// <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+// <link href="https://cdn.quilljs.com/1.3.6/quill.bubble.css" rel="stylesheet">

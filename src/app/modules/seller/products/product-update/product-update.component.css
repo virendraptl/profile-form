@@ -149,3 +149,17 @@ h5{
   color: #090979;
   font-weight: bold;
 }
+
+.drop-block{
+    background-color: floralwhite;
+    height: 100px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+.drop-block:hover{
+  cursor: pointer;
+}

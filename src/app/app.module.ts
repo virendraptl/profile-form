@@ -26,6 +26,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
 import { customerReducer } from './modules/customer/state/customer.reducer';
 import { hydrationMetaReducer } from './storage.metareducer';
+import { QuillModule } from 'ngx-quill';
 
 export const metaReducers: MetaReducer[] = [hydrationMetaReducer];
 
@@ -38,6 +39,7 @@ export const metaReducers: MetaReducer[] = [hydrationMetaReducer];
     LayoutModule,
     ToastrModule.forRoot(),
     SharedModule,
+    QuillModule.forRoot(),
     StoreModule.forRoot({ customer: customerReducer }, { metaReducers }),
     StoreDevtoolsModule.instrument({ logOnly: environment.production }),
     // RecaptchaV3Module,

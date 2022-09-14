@@ -28,6 +28,12 @@ export class ProductUpdateComponent implements OnInit {
 
   isSubmitted: boolean = false;
   isUpdated: boolean = false;
+  public files: any[] = [];
+  public newFile: any;
+  uploadFileName: any;
+  uploadFileType: any;
+  uploadFileContent: any;
+  url = [];
 
   constructor(
     private fb: FormBuilder,
@@ -99,11 +105,32 @@ export class ProductUpdateComponent implements OnInit {
         let reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = (event) => {
+          // console.log('from file input');
           this.photosArr.push(event.target.result);
           this.imgFlag[1].push(false);
         };
       }
     }
+    console.log('New photos:', this.newPhotos);
+  }
+
+  async fromDropper(data: File[]) {
+    this.files = Object.keys(data).map((key) => data[key]);
+    this.files.forEach((newFile) => {
+      this.newPhotos.push(newFile);
+      this.fileName = newFile.name;
+      if (this.uploadFileType == 'text/plain') {
+        this.uploadFileContent = newFile.text();
+      }
+      let reader = new FileReader();
+
+      reader.readAsDataURL(newFile);
+      reader.onload = (event) => {
+        this.photosArr.push(event.target.result);
+        this.imgFlag[1].push(false);
+      };
+    });
+
     console.log('New photos:', this.newPhotos);
   }
 
@@ -144,6 +171,9 @@ export class ProductUpdateComponent implements OnInit {
   }
 
   productUpdate() {
+
+    console.log('description:', this.updateForm.value.description);
+
     this.imgFlag[0].forEach((flag) => {
       if (flag == true) {
         this.finalCount++;

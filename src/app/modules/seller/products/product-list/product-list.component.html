@@ -41,11 +41,14 @@
             <a
               class="prod-title"
               [routerLink]="['/seller/products/details', product._id]"
-              >{{ product.name }}</a
+              >{{ product.name | shorten: 15:"..." }}</a
             >
           </h5>
-          <p class="card-text">
-            {{ product.description | shorten: 20:"..." }}
+          <div class="desc">
+            <p [innerHtml]="product.description"  class="card-text">
+            </p>
+          </div>
+          <p  class="card-text">
             Rs.{{ product.price }}
           </p>
         </div>

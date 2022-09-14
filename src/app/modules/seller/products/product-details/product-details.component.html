@@ -82,10 +82,10 @@
               </div>
             </div>
             <span>
-              Description:
-              <p class="card-text">
-                {{ productData.description }}
-              </p>
+              <u> Description: </u>
+
+                <p [innerHTML]="productData.description | dompurify" class="card-text"></p>
+              <!-- {{ productData.description }} -->
             </span>
           </div>
         </div>
